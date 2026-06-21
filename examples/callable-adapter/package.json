@@ -1,0 +1,16 @@
+{
+  "name": "callable-adapter",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun src/index.ts"
+  },
+  "dependencies": {
+    "@ignitionai/adapter-callable": "workspace:*",
+    "@ignitionai/core": "workspace:*",
+    "@ignitionai/evals": "workspace:*",
+    "@ignitionai/experiments": "workspace:*",
+    "@ignitionai/trainer": "workspace:*"
+  }
+}

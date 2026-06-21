@@ -21,6 +21,17 @@
         "@ignitionai/trainer": "workspace:*",
       },
     },
+    "examples/callable-adapter": {
+      "name": "callable-adapter",
+      "version": "0.0.0",
+      "dependencies": {
+        "@ignitionai/adapter-callable": "workspace:*",
+        "@ignitionai/core": "workspace:*",
+        "@ignitionai/evals": "workspace:*",
+        "@ignitionai/experiments": "workspace:*",
+        "@ignitionai/trainer": "workspace:*",
+      },
+    },
     "examples/context-engineering": {
       "name": "context-engineering",
       "version": "0.0.0",
@@ -29,6 +40,18 @@
         "@ignitionai/evals": "workspace:*",
         "@ignitionai/experiments": "workspace:*",
         "@ignitionai/trainer": "workspace:*",
+      },
+    },
+    "packages/adapter-callable": {
+      "name": "@ignitionai/adapter-callable",
+      "version": "0.0.0",
+      "dependencies": {
+        "@ignitionai/core": "workspace:*",
+      },
+      "devDependencies": {
+        "tsup": "latest",
+        "typescript": "latest",
+        "vitest": "latest",
       },
     },
     "packages/adapter-langchain": {
@@ -266,6 +289,8 @@
 
     "@esbuild/win32-x64": ["@esbuild/win32-x64@0.27.7", "", { "os": "win32", "cpu": "x64" }, "sha512-56hiAJPhwQ1R4i+21FVF7V8kSD5zZTdHcVuRFMW0hn753vVfQN8xlx4uOPT4xoGH0Z/oVATuR82AiqSTDIpaHg=="],
 
+    "@ignitionai/adapter-callable": ["@ignitionai/adapter-callable@workspace:packages/adapter-callable"],
+
     "@ignitionai/adapter-langchain": ["@ignitionai/adapter-langchain@workspace:packages/adapter-langchain"],
 
     "@ignitionai/adapter-langgraph": ["@ignitionai/adapter-langgraph@workspace:packages/adapter-langgraph"],
@@ -417,6 +442,8 @@
     "bundle-require": ["bundle-require@5.1.0", "", { "dependencies": { "load-tsconfig": "^0.2.3" }, "peerDependencies": { "esbuild": ">=0.18" } }, "sha512-3WrrOuZiyaaZPWiEt4G3+IffISVC9HYlWueJEBWED4ZH4aIAC2PnkdnuRrR94M+w6yGWn4AglWtJtBI8YqvgoA=="],
 
     "cac": ["cac@6.7.14", "", {}, "sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ=="],
+
+    "callable-adapter": ["callable-adapter@workspace:examples/callable-adapter"],
 
     "chai": ["chai@6.2.2", "", {}, "sha512-NUPRluOfOiTKBKvWPtSD4PhFvWCqOi0BGStNWs57X9js7XGTprSmFoz5F0tWhR4WPjNeR9jXqdC7/UpSJTnlRg=="],
 
