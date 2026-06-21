@@ -19,6 +19,7 @@
       "@ignitionai/core": ["packages/core/src/index.ts"],
       "@ignitionai/evals": ["packages/evals/src/index.ts"],
       "@ignitionai/experiments": ["packages/experiments/src/index.ts"],
+      "@ignitionai/exporters": ["packages/exporters/src/index.ts"],
       "@ignitionai/trainer": ["packages/trainer/src/index.ts"],
       "@ignitionai/environment": ["packages/environment/src/index.ts"],
       "@ignitionai/rl": ["packages/rl/src/index.ts"],

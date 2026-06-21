@@ -14,7 +14,7 @@ Status values:
 
 Status:
 
-- current
+- completed
 
 Branch:
 
@@ -101,7 +101,7 @@ Next PR:
 
 Status:
 
-- planned
+- completed
 
 Branch:
 
@@ -180,7 +180,7 @@ Next PR:
 
 Status:
 
-- planned
+- current
 
 Branch:
 
