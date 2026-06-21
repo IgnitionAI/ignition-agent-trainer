@@ -1033,7 +1033,7 @@ Next PR:
 
 Status:
 
-- current
+- completed
 
 Branch:
 
@@ -1118,7 +1118,7 @@ Next PR:
 
 Status:
 
-- planned
+- current
 
 Branch:
 
