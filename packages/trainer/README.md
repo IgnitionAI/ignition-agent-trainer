@@ -49,6 +49,31 @@ Optimization primitives are deterministic and support four objectives:
 
 They use only the experiment leaderboard data already present in an `ExperimentResult`.
 
+## Evaluate User-Provided Candidates
+
+Prompt and workflow candidates are manually supplied by the developer. The trainer can convert them into experiment variants, run the existing evaluation loop and rank the result:
+
+```ts
+import { evaluateCandidates } from "@ignitionai/trainer";
+
+const result = await evaluateCandidates({
+  name: "candidate-comparison",
+  dataset,
+  rewards,
+  objective: "quality-first",
+  candidates: [
+    {
+      id: "concise-prompt",
+      kind: "prompt",
+      prompt: "Answer concisely with citations.",
+      run: ({ item }) => runMyAgent(item.input),
+    },
+  ],
+});
+```
+
+The package does not generate, mutate or synthesize candidates. It evaluates the candidates you provide.
+
 ## Why This Supports Context Engineering
 
 Ignition Agent Trainer compares prompts, tools, retrieval strategies, verification steps and workflow variants without retraining the underlying LLM.
