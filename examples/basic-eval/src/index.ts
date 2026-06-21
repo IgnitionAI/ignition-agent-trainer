@@ -1,78 +1,56 @@
-import type { AgentVariant } from "@ignitionai/core";
-import { createDataset } from "@ignitionai/core";
-import { citationPresence, containsText, costPenalty, latencyPenalty, toolCallCountPenalty } from "@ignitionai/evals";
-import { createExperiment, reportToMarkdown } from "@ignitionai/experiments";
-import { selectBestVariant } from "@ignitionai/trainer";
+import { createDataset, createMockAdapter } from "@ignitionai/core";
+import { containsAll, costPenalty, latencyPenalty } from "@ignitionai/evals";
+import { createExperiment } from "@ignitionai/experiments";
 
-const dataset = createDataset({
-  name: "contract-risk-demo",
-  description: "Tiny dataset used to prove the eval loop.",
-  items: [
-    {
-      id: "case-001",
-      input: "Find the termination clause and cite the source.",
-      expected: {
-        contains: ["termination", "notice"],
-        citations: ["contract.pdf#p12"],
-      },
+const dataset = createDataset([
+  {
+    id: "q1",
+    input: "What is IgnitionRAG?",
+    expected: {
+      contains: ["RAG", "agents", "evaluation"],
     },
-    {
-      id: "case-002",
-      input: "Find the payment delay clause and cite the source.",
-      expected: {
-        contains: ["payment", "delay"],
-        citations: ["contract.pdf#p4"],
-      },
-    },
-  ],
-});
-
-const simpleRag: AgentVariant = {
-  id: "simple-rag",
-  name: "Simple RAG",
-  async run(item) {
-    return {
-      output: item.id === "case-001" ? "The contract mentions termination." : "The contract mentions payment.",
-      trace: { steps: [{ type: "tool_call", name: "search", input: { topK: 5 } }] },
-      usage: { latencyMs: 800, costUsd: 0.001 },
-    };
   },
-};
-
-const verifiedRag: AgentVariant = {
-  id: "verified-rag",
-  name: "RAG + verify",
-  async run(item) {
-    const isTermination = item.id === "case-001";
-    return {
-      output: isTermination
-        ? "The termination clause requires 30 days notice. [contract.pdf#p12]"
-        : "The payment delay clause applies after 45 days. [contract.pdf#p4]",
-      trace: {
-        steps: [
-          { type: "tool_call", name: "search", input: { topK: 12 } },
-          { type: "tool_call", name: "rerank" },
-          { type: "tool_call", name: "verify_citations" },
-        ],
-      },
-      usage: { latencyMs: 1800, costUsd: 0.004 },
-    };
-  },
-};
+]);
 
 const experiment = createExperiment({
-  name: "contracts-rag-strategy-comparison",
+  name: "basic-agent-eval",
   dataset,
-  variants: [simpleRag, verifiedRag],
-  rewards: [
-    containsText({ weight: 0.35 }),
-    citationPresence({ weight: 0.35 }),
-    toolCallCountPenalty({ maxToolCalls: 4, weight: 0.1 }),
-    latencyPenalty({ maxLatencyMs: 3000, weight: 0.1 }),
-    costPenalty({ maxCostUsd: 0.01, weight: 0.1 }),
+  variants: [
+    {
+      name: "agent-v1",
+      adapter: createMockAdapter(() => ({
+        output: "IgnitionRAG is a RAG platform for AI applications.",
+        trace: {
+          steps: [{ type: "message", role: "assistant", content: "Answered from memory." }],
+        },
+        usage: { latencyMs: 450, costUsd: 0.001 },
+      })),
+    },
+    {
+      name: "agent-v2",
+      adapter: createMockAdapter(() => ({
+        output:
+          "IgnitionRAG combines RAG, agents and evaluation workflows so teams can improve production AI systems.",
+        trace: {
+          steps: [
+            { type: "tool_call", name: "search_docs", input: { query: "IgnitionRAG" } },
+            { type: "message", role: "assistant", content: "Answered with retrieved context." },
+          ],
+        },
+        usage: { latencyMs: 900, costUsd: 0.003 },
+      })),
+    },
   ],
+  rewards: [
+    containsAll({ weight: 0.7 }),
+    latencyPenalty({ maxLatencyMs: 1200, weight: 0.15 }),
+    costPenalty({ maxCostUsd: 0.005, weight: 0.15 }),
+  ],
+  options: {
+    concurrency: 2,
+  },
 });
 
-const report = await experiment.run();
-console.log(reportToMarkdown(report));
-console.log("Best variant:", selectBestVariant(report));
+const result = await experiment.run();
+
+console.table(result.leaderboard);
