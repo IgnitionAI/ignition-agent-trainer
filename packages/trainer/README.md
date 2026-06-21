@@ -15,10 +15,19 @@ Which alternatives are close?
 ## Current API
 
 ```ts
-import { recommendVariant, selectBestVariant } from "@ignitionai/trainer";
+import {
+  rankVariants,
+  recommendVariant,
+  selectBestByObjective,
+  selectBestVariant,
+  suggestNextExperiment,
+} from "@ignitionai/trainer";
 
 const winner = selectBestVariant(result);
 const recommendation = recommendVariant(result);
+const costWinner = selectBestByObjective(result, "cost-first");
+const ranking = rankVariants(result, "balanced");
+const next = suggestNextExperiment(result, "quality-first");
 ```
 
 `recommendVariant()` returns a structured recommendation with:
@@ -30,6 +39,15 @@ const recommendation = recommendVariant(result);
 - tradeoffs,
 - confidence,
 - alternatives.
+
+Optimization primitives are deterministic and support four objectives:
+
+- `quality-first`,
+- `cost-first`,
+- `latency-first`,
+- `balanced`.
+
+They use only the experiment leaderboard data already present in an `ExperimentResult`.
 
 ## Why This Supports Context Engineering
 
