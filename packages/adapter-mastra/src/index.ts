@@ -1,42 +1,113 @@
-import type { AgentRun, AgentVariant, DatasetItem, RunContext } from "@ignitionai/core";
+import {
+  type CallableAdapterRunInput,
+  type CallableAdapterRunResult,
+  createCallableAdapter,
+} from "@ignitionai/adapter-callable";
+import type {
+  AgentOutput,
+  AgentVariant,
+  DatasetItem,
+  MaybePromise,
+  Metadata,
+} from "@ignitionai/core";
 
 export interface MastraAgentLike {
-  generate(input: string | unknown): Promise<unknown>;
+  generate?: (input: unknown, options?: unknown) => MaybePromise<unknown>;
+  run?: (input: unknown, options?: unknown) => MaybePromise<unknown>;
 }
 
-export function mastraAdapter(options: {
-  id: string;
+export interface MastraAdapterOptions {
   name: string;
   agent: MastraAgentLike;
-  mapInput?: (item: DatasetItem) => string | unknown;
-  mapOutput?: (raw: unknown) => AgentRun;
-}): AgentVariant {
+  mapInput?: (item: DatasetItem) => unknown;
+  mapOutput?: (
+    raw: unknown,
+    input: CallableAdapterRunInput,
+  ) => MaybePromise<CallableAdapterRunResult>;
+  metadata?: Metadata;
+}
+
+export interface MastraVariantOptions extends MastraAdapterOptions {
+  id: string;
+}
+
+export function createMastraAdapter(options: MastraAdapterOptions) {
+  if (options.agent.generate === undefined && options.agent.run === undefined) {
+    throw new Error("Mastra adapter requires an agent with generate() or run().");
+  }
+
+  return createCallableAdapter({
+    name: options.name,
+    ...(options.metadata !== undefined ? { metadata: options.metadata } : {}),
+    async run(input) {
+      const raw = await invokeMastraAgent(
+        options.agent,
+        options.mapInput?.(input.item) ?? input.input,
+        input.context,
+      );
+      if (options.mapOutput !== undefined) return options.mapOutput(raw, input);
+
+      return {
+        output: toAgentOutput(raw),
+        trace: {
+          steps: [
+            {
+              type: "custom",
+              name: mastraCallName(options.agent),
+              payload: safeJson(raw),
+            },
+          ],
+        },
+        metadata: {
+          framework: "mastra",
+        },
+      };
+    },
+  });
+}
+
+export function mastraAdapter(options: MastraVariantOptions): AgentVariant {
   return {
     id: options.id,
     name: options.name,
-    async run(item: DatasetItem, _context: RunContext) {
-      const started = Date.now();
-      const raw = await options.agent.generate(options.mapInput?.(item) ?? item.input);
-      if (options.mapOutput) return options.mapOutput(raw);
-
-      const output = extractText(raw);
-      return {
-        output,
-        trace: { steps: [{ type: "custom", name: "mastra.generate", payload: safeJson(raw) }] },
-        usage: { latencyMs: Date.now() - started },
-      };
-    },
+    adapter: createMastraAdapter(options),
   };
 }
 
-function extractText(raw: unknown): string {
-  if (typeof raw === "string") return raw;
-  if (raw && typeof raw === "object" && "text" in raw)
-    return String((raw as { text: unknown }).text);
-  return JSON.stringify(raw);
+function invokeMastraAgent(
+  agent: MastraAgentLike,
+  input: unknown,
+  context: unknown,
+): MaybePromise<unknown> {
+  if (agent.generate !== undefined) return agent.generate(input, context);
+  if (agent.run !== undefined) return agent.run(input, context);
+  throw new Error("Mastra adapter requires an agent with generate() or run().");
 }
 
-function safeJson(value: unknown): any {
+function mastraCallName(agent: MastraAgentLike): "mastra.generate" | "mastra.run" {
+  return agent.generate !== undefined ? "mastra.generate" : "mastra.run";
+}
+
+function toAgentOutput(value: unknown): AgentOutput {
+  if (isRecord(value) && typeof value.text === "string") return value.text;
+  if (isRecord(value) && "output" in value && isAgentOutput(value.output)) return value.output;
+  if (value === undefined) return "";
+  if (isAgentOutput(value)) return value;
+  return String(value);
+}
+
+function isAgentOutput(value: unknown): value is AgentOutput {
+  if (value === null) return true;
+  if (["string", "number", "boolean"].includes(typeof value)) return true;
+  if (Array.isArray(value)) return true;
+  return isRecord(value);
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function safeJson(value: unknown): unknown {
   try {
     return JSON.parse(JSON.stringify(value));
   } catch {

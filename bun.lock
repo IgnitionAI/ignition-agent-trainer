@@ -97,6 +97,7 @@
       "name": "@ignitionai/adapter-mastra",
       "version": "0.0.0",
       "dependencies": {
+        "@ignitionai/adapter-callable": "workspace:*",
         "@ignitionai/core": "workspace:*",
       },
       "devDependencies": {

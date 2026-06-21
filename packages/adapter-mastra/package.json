@@ -19,6 +19,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@ignitionai/adapter-callable": "workspace:*",
     "@ignitionai/core": "workspace:*"
   },
   "devDependencies": {
