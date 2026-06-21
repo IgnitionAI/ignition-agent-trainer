@@ -52,6 +52,20 @@ Once datasets, traces and rewards are trusted, RL-style routing and policy optim
 bun run --filter './examples/context-engineering' dev
 ```
 
+Run the same typed experiment through the local CLI:
+
+```bash
+bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts
+```
+
+Write JSON and Markdown reports:
+
+```bash
+bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts \
+  --json reports/context-engineering.json \
+  --markdown reports/context-engineering.md
+```
+
 ## Typed Experiment Module
 
 The reusable experiment definition lives at:

@@ -96,6 +96,12 @@ Run the basic example:
 bun run --filter './examples/basic-eval' dev
 ```
 
+Run a typed experiment through the local CLI:
+
+```bash
+bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts
+```
+
 ---
 
 ## Minimal usage
