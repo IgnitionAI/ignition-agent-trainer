@@ -12,6 +12,8 @@ docs/IMPLEMENTATION_PLAN.md
 docs/CODEX_RUNBOOK.md
 docs/PR_PLAYBOOK.md
 docs/BACKLOG.md
+docs/POST_20_ROADMAP.md
+docs/PROJECT_AUDIT.md
 docs/DEFINITION_OF_DONE.md
 docs/MILESTONES.md
 ```
@@ -45,6 +47,14 @@ If the user asks for a broad continuation, the default interpretation is:
 ```txt
 Read the repo docs, find the next uncompleted backlog PR, and implement only that PR.
 ```
+
+## Post-#20 execution rule
+
+After PR #20, Codex must not jump directly to PPO or deep RL.
+
+It must follow the post-#20 backlog in order. If the backlog is unclear, Codex must create or update docs before implementing runtime features.
+
+The bandit from PR #20 is a prototype. It does not mean the project is ready for PPO.
 
 ## Required report format
 
@@ -106,6 +116,8 @@ First read:
 - docs/CODEX_RUNBOOK.md
 - docs/PR_PLAYBOOK.md
 - docs/BACKLOG.md
+- docs/POST_20_ROADMAP.md
+- docs/PROJECT_AUDIT.md
 - docs/DEFINITION_OF_DONE.md
 - docs/MILESTONES.md
 
@@ -115,6 +127,7 @@ Follow the exact scope, out-of-scope rules, and acceptance criteria.
 
 Do not skip PRs.
 Do not combine PRs.
+Do not jump to PPO.
 Do not implement RL unless the backlog explicitly reaches that phase.
 Do not add external LLM calls unless the PR explicitly asks for it.
 Do not change public APIs unless the PR explicitly asks for it.

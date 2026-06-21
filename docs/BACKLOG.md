@@ -1354,6 +1354,865 @@ Next PR:
 
 - Future phase - RL design refinement only after PR #20 is reviewed and the product foundation remains stable.
 
+## Post-#20 backlog
+
+### PR #21 - `docs: add post-20 roadmap and project audit`
+
+Status:
+
+- current
+
+Branch:
+
+```txt
+docs/post-20-roadmap
+```
+
+Goal:
+
+Audit current repo state and define the post-#20 roadmap.
+
+Scope:
+
+- add `docs/PROJECT_AUDIT.md`,
+- add `docs/POST_20_ROADMAP.md`,
+- update backlog, milestones, runbook and README,
+- distinguish done, partial, prototype and missing capabilities.
+
+Out of scope:
+
+- runtime code,
+- new features,
+- tooling changes,
+- RL implementation.
+
+Required APIs / files:
+
+- `docs/PROJECT_AUDIT.md`,
+- `docs/POST_20_ROADMAP.md`,
+- `docs/BACKLOG.md`,
+- `docs/MILESTONES.md`,
+- `docs/CODEX_RUNBOOK.md`,
+- `README.md`.
+
+Acceptance:
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- current packages and examples are audited from repository contents,
+- post-#20 phases are documented,
+- backlog #21 through #35 is defined,
+- runbook warns not to jump directly to PPO.
+
+Next PR:
+
+- PR #22 - `chore: prepare alpha package readiness`
+
+### PR #22 - `chore: prepare alpha package readiness`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+chore/alpha-package-readiness
+```
+
+Goal:
+
+Prepare packages for an eventual alpha release.
+
+Scope:
+
+- verify package names,
+- verify exports,
+- verify package README files,
+- verify build outputs,
+- add package metadata where missing,
+- add alpha readiness checklist.
+
+Out of scope:
+
+- publishing to npm,
+- runtime feature changes,
+- API redesign.
+
+Required APIs / files:
+
+- package manifests,
+- package README files,
+- alpha readiness checklist under `docs/`.
+
+Acceptance:
+
+```bash
+bun install
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- every package has clear readiness status,
+- missing package docs/metadata are documented or fixed in scope,
+- no runtime behavior changes are introduced.
+
+Next PR:
+
+- PR #23 - `feat: add report bundle output`
+
+### PR #23 - `feat: add report bundle output`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/report-bundle-output
+```
+
+Goal:
+
+Bundle experiment outputs into a local report artifact.
+
+Scope:
+
+- JSON report,
+- Markdown report,
+- optional metadata file,
+- timestamped local output folder,
+- use existing exporters/history if available,
+- add one example or CLI usage if the CLI is the right integration point.
+
+Out of scope:
+
+- database,
+- remote storage,
+- dashboard,
+- SaaS report UI.
+
+Required APIs / files:
+
+```ts
+writeReportBundle()
+ReportBundleOptions
+ReportBundleResult
+```
+
+Acceptance:
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- a local report bundle can be written deterministically,
+- bundle output is tested with temporary files,
+- docs explain path structure and generated files.
+
+Next PR:
+
+- PR #24 - `feat: add CI regression gate example`
+
+### PR #24 - `feat: add CI regression gate example`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/ci-regression-gate-example
+```
+
+Goal:
+
+Show how to use regression gates in GitHub Actions.
+
+Scope:
+
+- example workflow,
+- sample baseline,
+- sample experiment command,
+- docs explaining pass/fail behavior.
+
+Out of scope:
+
+- changing real project CI behavior unless explicitly isolated,
+- database,
+- remote reporting.
+
+Required APIs / files:
+
+- example GitHub Actions workflow or documented sample,
+- sample baseline fixture,
+- docs for regression gate behavior.
+
+Acceptance:
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- a developer can copy the example into CI,
+- pass and fail behavior is documented,
+- no production CI behavior is changed accidentally.
+
+Next PR:
+
+- PR #25 - `feat: add RAG evaluation presets`
+
+### PR #25 - `feat: add RAG evaluation presets`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/rag-evaluation-presets
+```
+
+Goal:
+
+Provide reusable evaluation presets for RAG and agentic RAG.
+
+Scope:
+
+- create a focused preset package if appropriate,
+- compose existing rewards/metrics,
+- document mocked RAG usage,
+- add tests for preset composition.
+
+Out of scope:
+
+- real vector DB integration,
+- real document ingestion,
+- real LLM calls,
+- IgnitionRAG runtime integration.
+
+Required APIs / files:
+
+```ts
+ragQualityPreset()
+citationQualityPreset()
+agenticRagPreset()
+```
+
+Suggested package:
+
+```txt
+packages/preset-rag
+```
+
+Acceptance:
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- presets compose existing reward functions,
+- mocked usage is documented,
+- no live RAG infrastructure is required.
+
+Next PR:
+
+- PR #26 - `feat: add strategy preset registry`
+
+### PR #26 - `feat: add strategy preset registry`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/strategy-preset-registry
+```
+
+Goal:
+
+Create a registry for reusable context/workflow strategies.
+
+Scope:
+
+- define strategy preset types,
+- implement a small registry,
+- add built-in mocked strategy definitions,
+- add tests for lookup/listing behavior.
+
+Out of scope:
+
+- real retrieval,
+- real reranking,
+- real LLM calls,
+- SaaS UI.
+
+Required APIs / files:
+
+```ts
+defineStrategyPreset()
+createStrategyRegistry()
+getStrategyPreset()
+listStrategyPresets()
+```
+
+Example strategies:
+
+- `direct-answer`,
+- `rag-basic`,
+- `rag-rerank`,
+- `rag-with-verification`.
+
+Acceptance:
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- strategy presets are deterministic and reusable,
+- registry behavior is tested,
+- docs explain how presets map to experiment variants.
+
+Next PR:
+
+- PR #27 - `feat: add IgnitionRAG adapter contract`
+
+### PR #27 - `feat: add IgnitionRAG adapter contract`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/ignitionrag-adapter-contract
+```
+
+Goal:
+
+Define the package-level contract IgnitionRAG will use to call Ignition Agent Trainer.
+
+Scope:
+
+- TypeScript interfaces only or mostly interfaces,
+- collection reference,
+- workflow reference,
+- agent reference,
+- experiment execution request,
+- report result.
+
+Out of scope:
+
+- actual IgnitionRAG repo changes,
+- database integration,
+- auth,
+- billing,
+- frontend.
+
+Required APIs / files:
+
+- suggested package: `packages/adapter-ignitionrag`,
+- IgnitionRAG collection/workflow/agent reference interfaces,
+- experiment request/result interfaces.
+
+Acceptance:
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- contract compiles without IgnitionRAG runtime code,
+- docs explain the boundary,
+- tests or type-level assertions cover the main shapes.
+
+Next PR:
+
+- PR #28 - `docs: add IgnitionRAG implementation handoff`
+
+### PR #28 - `docs: add IgnitionRAG implementation handoff`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+docs/ignitionrag-implementation-handoff
+```
+
+Goal:
+
+Turn the existing IgnitionRAG design into an implementation handoff.
+
+Scope:
+
+- packages to consume,
+- API boundary,
+- first IgnitionRAG feature: Evaluation Center,
+- second feature: Experiment Lab,
+- third feature: Context Engineering Recommendations,
+- data model suggestions,
+- rollout order.
+
+Out of scope:
+
+- runtime code,
+- SaaS implementation,
+- database migrations,
+- UI code.
+
+Required APIs / files:
+
+- implementation handoff doc under `docs/`,
+- links to existing IgnitionRAG design docs.
+
+Acceptance:
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- handoff names concrete packages and boundaries,
+- rollout order is clear,
+- no runtime source changes are included.
+
+Next PR:
+
+- PR #29 - `feat: add policy abstraction layer`
+
+### PR #29 - `feat: add policy abstraction layer`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/policy-abstraction-layer
+```
+
+Goal:
+
+Represent strategy selection as a policy without implementing deep RL.
+
+Scope:
+
+- define policy context and decision types,
+- add static policy helper,
+- add score-based policy helper,
+- add deterministic tests.
+
+Out of scope:
+
+- PPO,
+- GRPO,
+- model training,
+- neural network policy.
+
+Required APIs / files:
+
+```ts
+Policy
+PolicyContext
+PolicyDecision
+createStaticPolicy()
+createScoreBasedPolicy()
+```
+
+Acceptance:
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- policy abstractions are deterministic and tested,
+- no deep RL training loop is introduced,
+- docs distinguish policy selection from model training.
+
+Next PR:
+
+- PR #30 - `feat: add rollout and trajectory recorder`
+
+### PR #30 - `feat: add rollout and trajectory recorder`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/trajectory-recorder
+```
+
+Goal:
+
+Record agent decisions, actions, rewards and outcomes as trajectories.
+
+Scope:
+
+- define trajectory and step types,
+- implement recorder helper,
+- implement summarizer helper,
+- add deterministic tests.
+
+Out of scope:
+
+- PPO,
+- GRPO,
+- training loop,
+- external tracing service.
+
+Required APIs / files:
+
+```ts
+Trajectory
+TrajectoryStep
+recordTrajectory()
+summarizeTrajectory()
+```
+
+Acceptance:
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- trajectories can represent state/action/reward records,
+- summaries are deterministic,
+- no external tracing service is required.
+
+Next PR:
+
+- PR #31 - `feat: add contextual bandit prototype`
+
+### PR #31 - `feat: add contextual bandit prototype`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/contextual-bandit-prototype
+```
+
+Goal:
+
+Extend the simple bandit idea to use context features.
+
+Scope:
+
+- define context feature shape,
+- extend fixed strategy arm selection with context,
+- keep behavior deterministic in tests,
+- document prototype status.
+
+Out of scope:
+
+- PPO,
+- GRPO,
+- deep learning,
+- model fine-tuning.
+
+Required APIs / files:
+
+- contextual bandit prototype APIs under `@ignitionai/rl`,
+- examples of task type, citation need, cost sensitivity, latency sensitivity and risk level features.
+
+Acceptance:
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- contextual selection works over fixed features,
+- empty/tied behavior is tested,
+- docs clearly label the feature prototype.
+
+Next PR:
+
+- PR #32 - `feat: add offline policy evaluation`
+
+### PR #32 - `feat: add offline policy evaluation`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/offline-policy-evaluation
+```
+
+Goal:
+
+Evaluate a policy against recorded experiment history or trajectories.
+
+Scope:
+
+- define offline policy evaluation result shape,
+- evaluate a policy against local records,
+- support deterministic summaries,
+- add tests with mocked history or trajectories.
+
+Out of scope:
+
+- online learning,
+- live traffic routing,
+- production serving.
+
+Required APIs / files:
+
+```ts
+evaluatePolicyOffline()
+PolicyEvaluationResult
+```
+
+Acceptance:
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- offline evaluation consumes recorded data,
+- deterministic tests cover ranking/summary behavior,
+- no live traffic path exists.
+
+Next PR:
+
+- PR #33 - `feat: add GRPO-style candidate selection`
+
+### PR #33 - `feat: add GRPO-style candidate selection`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/grpo-style-candidate-selection
+```
+
+Goal:
+
+Prototype group-relative candidate selection for prompts/workflows/strategies.
+
+Scope:
+
+- rank candidate groups relative to each other,
+- select group-relative best candidates,
+- document that this is selection only,
+- add deterministic tests.
+
+Out of scope:
+
+- LLM weight updates,
+- gradient training,
+- PPO,
+- real GRPO trainer,
+- GPU training.
+
+Required APIs / files:
+
+```ts
+selectGroupRelativeBest()
+rankCandidateGroup()
+GroupRelativeSelectionResult
+```
+
+Acceptance:
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- candidate groups can be ranked deterministically,
+- docs state this is not GRPO model training,
+- no gradient or GPU training code exists.
+
+Next PR:
+
+- PR #34 - `docs: add RL architecture decision record`
+
+### PR #34 - `docs: add RL architecture decision record`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+docs/rl-architecture-decision-record
+```
+
+Goal:
+
+Document how RL concepts map to agent context engineering.
+
+Scope:
+
+- state,
+- action,
+- reward,
+- policy,
+- trajectory,
+- environment,
+- bandits,
+- GRPO-style selection,
+- PPO later.
+
+Out of scope:
+
+- runtime implementation,
+- PPO implementation,
+- GRPO implementation.
+
+Required APIs / files:
+
+- ADR under `docs/adr/` or a dedicated docs file,
+- links to existing RL concept docs.
+
+Acceptance:
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- ADR explains the design sequence,
+- PPO is explicitly deferred,
+- no runtime source changes are included.
+
+Next PR:
+
+- PR #35 - `feat: add PPO interface skeletons`
+
+### PR #35 - `feat: add PPO interface skeletons`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/ppo-interface-skeletons
+```
+
+Goal:
+
+Add type-level skeletons for PPO without implementing the algorithm.
+
+Scope:
+
+- define PPO config and batch types,
+- define trainer interface or a throwing skeleton,
+- document non-implementation status,
+- add tests that prove calls fail clearly if a concrete class is present.
+
+Out of scope:
+
+- actual PPO optimization,
+- neural network training,
+- GPU support,
+- model fine-tuning.
+
+Required APIs / files:
+
+```ts
+PPOConfig
+PPOTrainer
+PPOTrainingBatch
+PPOTrainingResult
+```
+
+Acceptance:
+
+```bash
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- PPO interfaces compile,
+- no PPO algorithm exists,
+- docs clearly state this is a skeleton only.
+
+Next PR:
+
+- Future phase - only after alpha readiness, IgnitionRAG bridge and policy foundations are reviewed.
+
 ## Future phase - RL
 
 Only after the above foundation exists.

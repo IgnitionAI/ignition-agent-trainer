@@ -139,3 +139,120 @@ Explicit constraint:
 ```txt
 RL is not a near-term dependency for product value.
 ```
+
+## Post-#20 Milestones
+
+### Milestone 6 - Alpha Readiness
+
+Goal:
+
+```txt
+Make the framework usable by a developer outside the project.
+```
+
+Included PRs:
+
+```txt
+PR #21 - docs: add post-20 roadmap and project audit
+PR #22 - chore: prepare alpha package readiness
+PR #23 - feat: add report bundle output
+PR #24 - feat: add CI regression gate example
+```
+
+Exit criteria:
+
+```txt
+A developer can install the monorepo, run an experiment, export a report, compare a baseline, and understand failures.
+```
+
+Explicit non-goals:
+
+```txt
+No SaaS UI, hosted runtime, database, real provider calls or deep RL.
+```
+
+### Milestone 7 - IgnitionRAG Bridge
+
+Goal:
+
+```txt
+Prepare the framework to be consumed by IgnitionRAG through stable package APIs.
+```
+
+Included PRs:
+
+```txt
+PR #25 - feat: add RAG evaluation presets
+PR #26 - feat: add strategy preset registry
+PR #27 - feat: add IgnitionRAG adapter contract
+PR #28 - docs: add IgnitionRAG implementation handoff
+```
+
+Exit criteria:
+
+```txt
+IgnitionRAG can call the engine through documented contracts without copying internal implementation details.
+```
+
+Explicit non-goals:
+
+```txt
+No IgnitionRAG repo changes, database migrations, auth, billing or frontend implementation.
+```
+
+### Milestone 8 - Policy Optimization Foundation
+
+Goal:
+
+```txt
+Represent strategy selection as policies and trajectories before deeper RL work.
+```
+
+Included PRs:
+
+```txt
+PR #29 - feat: add policy abstraction layer
+PR #30 - feat: add rollout and trajectory recorder
+PR #31 - feat: add contextual bandit prototype
+PR #32 - feat: add offline policy evaluation
+```
+
+Exit criteria:
+
+```txt
+The project can model state/action/reward trajectory data and evaluate simple policies offline.
+```
+
+Explicit non-goals:
+
+```txt
+No PPO, GRPO trainer, neural policies, live traffic routing or model fine-tuning.
+```
+
+### Milestone 9 - RL Exploration
+
+Goal:
+
+```txt
+Explore group-relative strategy selection and prepare PPO interfaces without implementing PPO.
+```
+
+Included PRs:
+
+```txt
+PR #33 - feat: add GRPO-style candidate selection
+PR #34 - docs: add RL architecture decision record
+PR #35 - feat: add PPO interface skeletons
+```
+
+Exit criteria:
+
+```txt
+The repo has clear RL architecture boundaries and type-level PPO skeletons only.
+```
+
+Explicit non-goals:
+
+```txt
+No PPO optimization, GPU training, model weight updates or production RL serving.
+```
