@@ -66,8 +66,11 @@ export function createExperiment(config: ExperimentConfig): Experiment {
 
 function validateExperiment(config: ExperimentConfig): void {
   if (!config.name.trim()) throw new Error("Experiment name is required.");
+  if (config.dataset === undefined) throw new Error("Experiment dataset is required.");
   if (config.dataset.items.length === 0) throw new Error("Experiment dataset is empty.");
+  if (config.variants === undefined) throw new Error("Experiment variants are required.");
   if (config.variants.length === 0) throw new Error("At least one variant is required.");
+  if (config.rewards === undefined) throw new Error("Experiment rewards are required.");
   if (config.rewards.length === 0) throw new Error("At least one reward is required.");
 
   for (const variant of config.variants) {
