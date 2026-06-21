@@ -4,7 +4,7 @@
 
 Ignition Agent Trainer is an evaluation, experimentation and optimization layer for TypeScript AI agents.
 
-It does not replace LangChain, LangGraph, Mastra or the Vercel AI SDK. It wraps agents and workflows that developers already have, normalizes their inputs and outputs, and makes their behavior measurable.
+It does not replace LangChain, LangGraph, Mastra or the Vercel AI SDK. It wraps agents and workflows that developers already have, normalizes their inputs and outputs, and makes their behavior measurable, comparable and improvable.
 
 The product helps developers:
 
@@ -43,7 +43,7 @@ Dataset
 -> Recommendation
 ```
 
-This loop is the center of the project. Every new package should either make the loop easier to run, easier to integrate, easier to report, or safer to use in CI.
+This loop is the center of the project. Every new package should either make the loop easier to run, easier to integrate, easier to report, safer to use in CI, or easier to connect to existing TypeScript agent frameworks.
 
 ## Core product thesis
 
@@ -74,7 +74,7 @@ Rewards provide the reinforcement signal, but the first versions should remain d
 - real SaaS,
 - PPO,
 - GRPO,
-- bandits,
+- bandits before PR #20,
 - real LLM API calls,
 - full LangChain or Mastra integrations before generic developer experience is stable.
 
@@ -94,4 +94,14 @@ The project should move in small PRs that compound:
 10. Prototype bandits.
 11. Defer RL until the product foundation is useful without it.
 
-Use [BACKLOG.md](./BACKLOG.md) as the stable PR sequence and [PR_PLAYBOOK.md](./PR_PLAYBOOK.md) as the required workflow for future implementation sessions.
+## Operating system for future Codex sessions
+
+Future implementation sessions should treat these files as the source of truth:
+
+- [CODEX_RUNBOOK.md](./CODEX_RUNBOOK.md) - startup protocol, continuation prompt, report format and blocker handling.
+- [PR_PLAYBOOK.md](./PR_PLAYBOOK.md) - PR workflow, scope control, public API, tests, examples and CI rules.
+- [BACKLOG.md](./BACKLOG.md) - exact PR sequence, branch names, scope, out-of-scope rules, acceptance and next PR.
+- [DEFINITION_OF_DONE.md](./DEFINITION_OF_DONE.md) - strict completion criteria for docs, runtime and tooling PRs.
+- [MILESTONES.md](./MILESTONES.md) - product milestones and exit criteria.
+
+Codex must implement only the next uncompleted PR from [BACKLOG.md](./BACKLOG.md), unless the user explicitly asks otherwise. It must not skip PRs, combine PRs, silently shrink scope, or mark completion unless every acceptance criterion is satisfied or explicitly documented as impossible.

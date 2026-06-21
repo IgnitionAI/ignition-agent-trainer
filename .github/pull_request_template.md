@@ -1,18 +1,34 @@
 ## Summary
 
-Describe the change in 2-5 bullets.
+- ...
+
+## Backlog item
+
+PR #:
+Backlog title:
 
 ## Scope
 
-What is included?
+- ...
 
 ## Out of scope
 
-What is intentionally not included?
+- ...
 
-## Changed files
+## Public API changes
 
-List important files/packages.
+- [ ] No public API changes
+- [ ] Public API changes documented below
+
+Details:
+
+## Changed files/packages
+
+- ...
+
+## Tests added/updated
+
+- ...
 
 ## Commands run
 
@@ -20,16 +36,31 @@ List important files/packages.
 - [ ] `bun run typecheck`
 - [ ] `bun run test`
 - [ ] `bun run build`
-- [ ] relevant examples
+- [ ] relevant examples:
 
-## Test results
+Details:
 
-Paste results.
+## Acceptance criteria
+
+Copy from `docs/BACKLOG.md` and check each item:
+
+- [ ] ...
+
+## Definition of Done
+
+- [ ] Scope implemented
+- [ ] Out-of-scope respected
+- [ ] Tests added or explicitly unnecessary
+- [ ] Docs updated if behavior changed
+- [ ] Required commands run
+- [ ] CI green or failures explained
+- [ ] Known limitations listed
+- [ ] Next PR identified
 
 ## Known limitations
 
-List limitations.
+- ...
 
 ## Next recommended PR
 
-State the next PR from `docs/BACKLOG.md`.
+...

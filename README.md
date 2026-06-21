@@ -168,6 +168,11 @@ See [ROADMAP.md](./ROADMAP.md) for the full implementation plan.
 ## Key docs
 
 - [Autonomous implementation plan](./docs/IMPLEMENTATION_PLAN.md)
+- [Codex runbook](./docs/CODEX_RUNBOOK.md)
+- [PR playbook](./docs/PR_PLAYBOOK.md)
+- [Backlog](./docs/BACKLOG.md)
+- [Definition of Done](./docs/DEFINITION_OF_DONE.md)
+- [Milestones](./docs/MILESTONES.md)
 - [Strategic vision in French](./docs/00-vision-fr.md)
 - [Feasibility](./docs/01-feasibility.md)
 - [Architecture](./docs/02-architecture.md)
@@ -176,6 +181,12 @@ See [ROADMAP.md](./ROADMAP.md) for the full implementation plan.
 - [MVP specification](./docs/05-mvp-spec.md)
 - [Competitive landscape](./docs/06-competitive-landscape.md)
 - [Implementation checklist](./docs/07-implementation-checklist.md)
+
+---
+
+## Autonomous implementation
+
+Future implementation sessions should start from [docs/CODEX_RUNBOOK.md](./docs/CODEX_RUNBOOK.md).
 
 ---
 
