@@ -39,6 +39,33 @@ The returned `ExperimentDefinition` includes:
 - `create()` for a fresh `Experiment`,
 - `run()` for direct execution.
 
+## Add Regression Gates
+
+Use `compareExperimentResults()` when you want an inspectable comparison, and `assertNoRegression()` when CI should fail on meaningful regressions.
+
+```ts
+import { assertNoRegression, compareExperimentResults } from "@ignitionai/experiments";
+
+const baseline = await baselineExperiment.run();
+const current = await currentExperiment.run();
+
+assertNoRegression(current, baseline, {
+  maxScoreDrop: 0.03,
+  maxLatencyIncreaseMs: 250,
+  maxCostIncreaseUsd: 0.002,
+});
+```
+
+The comparison checks the leaderboard winner plus matching variant IDs. It returns a Markdown summary that can be printed in CI logs:
+
+```ts
+const comparison = compareExperimentResults(current, baseline, {
+  maxScoreDrop: 0.03,
+});
+
+console.log(comparison.markdown);
+```
+
 ## Non-goals
 
-This package does not dynamically load files, implement a CLI, write reports to disk, call external LLMs, or store results in a database.
+This package does not dynamically load files, implement a CLI, write reports to disk, call external LLMs, store results in a database, or create hosted reporting surfaces.
