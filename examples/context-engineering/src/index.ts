@@ -8,6 +8,7 @@ import {
   latencyPenalty,
 } from "@ignitionai/evals";
 import { createExperiment } from "@ignitionai/experiments";
+import { recommendVariant } from "@ignitionai/trainer";
 
 type StrategyName = "direct-answer" | "rag-basic" | "rag-with-verification";
 
@@ -167,6 +168,8 @@ function answerWithSameBaseModel(caseId: string, strategy: StrategyName): string
 }
 
 function printExperimentSummary(): void {
+  const recommendation = recommendVariant(result);
+
   console.log(`Experiment: ${result.name}`);
   console.log(`Dataset items: ${dataset.items.length}`);
   console.log(`Variants: ${variants.map((variant) => variant.name).join(", ")}`);
@@ -176,14 +179,20 @@ function printExperimentSummary(): void {
     console.log(`${index + 1}. ${row.name} - ${row.score.toFixed(2)}`);
   });
   console.log("");
-  console.log(`Recommendation:\n${recommendWinner()}`);
-}
-
-function recommendWinner(): string {
-  const winner = result.leaderboard[0];
-  if (winner?.variantId !== "rag-with-verification") {
-    return "Inspect the reward weights before choosing a production strategy.";
+  console.log("Recommendation:");
+  if (recommendation === null) {
+    console.log("No recommendation is available for an empty leaderboard.");
+    return;
   }
 
-  return "Use rag-with-verification for high-risk knowledge tasks because it improves groundedness and citation coverage, at the cost of higher latency.";
+  console.log(recommendation.summary);
+  console.log("Reasons:");
+  for (const reason of recommendation.reasons) {
+    console.log(`- ${reason}`);
+  }
+  console.log("Tradeoffs:");
+  for (const tradeoff of recommendation.tradeoffs) {
+    console.log(`- ${tradeoff}`);
+  }
+  console.log(`Confidence: ${recommendation.confidence}`);
 }

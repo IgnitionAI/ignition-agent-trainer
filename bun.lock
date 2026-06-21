@@ -28,6 +28,7 @@
         "@ignitionai/core": "workspace:*",
         "@ignitionai/evals": "workspace:*",
         "@ignitionai/experiments": "workspace:*",
+        "@ignitionai/trainer": "workspace:*",
       },
     },
     "packages/adapter-langchain": {
