@@ -185,6 +185,18 @@
         "vitest": "latest",
       },
     },
+    "packages/exporters": {
+      "name": "@ignitionai/exporters",
+      "version": "0.0.0",
+      "dependencies": {
+        "@ignitionai/core": "workspace:*",
+      },
+      "devDependencies": {
+        "tsup": "latest",
+        "typescript": "latest",
+        "vitest": "latest",
+      },
+    },
     "packages/rl": {
       "name": "@ignitionai/rl",
       "version": "0.0.0",
@@ -308,6 +320,8 @@
     "@ignitionai/evals": ["@ignitionai/evals@workspace:packages/evals"],
 
     "@ignitionai/experiments": ["@ignitionai/experiments@workspace:packages/experiments"],
+
+    "@ignitionai/exporters": ["@ignitionai/exporters@workspace:packages/exporters"],
 
     "@ignitionai/rl": ["@ignitionai/rl@workspace:packages/rl"],
 
