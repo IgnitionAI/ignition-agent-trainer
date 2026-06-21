@@ -184,6 +184,7 @@ See [ROADMAP.md](./ROADMAP.md) for the full implementation plan.
 - [Architecture](./docs/02-architecture.md)
 - [Concepts: RL for agents](./docs/03-rl-concepts-for-agents.md)
 - [IgnitionRAG integration plan](./docs/04-ignitionrag-integration.md)
+- [IgnitionRAG integration design](./docs/10-ignitionrag-integration-design.md)
 - [MVP specification](./docs/05-mvp-spec.md)
 - [Competitive landscape](./docs/06-competitive-landscape.md)
 - [Implementation checklist](./docs/07-implementation-checklist.md)

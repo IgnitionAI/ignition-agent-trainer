@@ -1,5 +1,7 @@
 # IgnitionRAG integration plan
 
+See [IgnitionRAG Integration Design](./10-ignitionrag-integration-design.md) for the detailed product surfaces, data contracts, execution model and open questions.
+
 ## Why IgnitionRAG is the ideal host
 
 IgnitionRAG already owns the primitives that matter:
