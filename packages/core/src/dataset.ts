@@ -1,12 +1,16 @@
 import type { Dataset, DatasetItem } from "./types";
 
-export function createDataset(input: Dataset): Dataset {
-  if (!input.name.trim()) {
+export function createDataset(items: DatasetItem[]): Dataset;
+export function createDataset(input: Dataset): Dataset;
+export function createDataset(input: Dataset | DatasetItem[]): Dataset {
+  const dataset = Array.isArray(input) ? { name: "dataset", items: input } : input;
+
+  if (!dataset.name.trim()) {
     throw new Error("Dataset name is required.");
   }
 
   const seen = new Set<string>();
-  for (const item of input.items) {
+  for (const item of dataset.items) {
     assertDatasetItem(item);
     if (seen.has(item.id)) {
       throw new Error(`Duplicate dataset item id: ${item.id}`);
@@ -14,7 +18,7 @@ export function createDataset(input: Dataset): Dataset {
     seen.add(item.id);
   }
 
-  return input;
+  return dataset;
 }
 
 export function assertDatasetItem(item: DatasetItem): void {

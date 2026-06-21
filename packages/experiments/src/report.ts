@@ -8,7 +8,7 @@ export function reportToMarkdown(report: ExperimentReport): string {
   const rows = report.leaderboard
     .map(
       (row, index) =>
-        `| ${index + 1} | ${row.name} | ${row.score.toFixed(3)} | ${row.totalCases} | ${formatMs(
+        `| ${index + 1} | ${row.name} | ${row.score.toFixed(3)} | ${row.totalCases} | ${row.failedCases} | ${formatMs(
           row.averageLatencyMs,
         )} | ${formatUsd(row.totalCostUsd)} |`,
     )
@@ -19,8 +19,8 @@ export function reportToMarkdown(report: ExperimentReport): string {
 Started: ${report.startedAt}  
 Ended: ${report.endedAt}
 
-| Rank | Variant | Score | Cases | Avg latency | Total cost |
-|---:|---|---:|---:|---:|---:|
+| Rank | Variant | Score | Cases | Failed | Avg latency | Total cost |
+|---:|---|---:|---:|---:|---:|---:|
 ${rows}
 `;
 }

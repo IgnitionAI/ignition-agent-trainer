@@ -1,27 +1,29 @@
 export type Primitive = string | number | boolean | null;
 export type JsonValue = Primitive | JsonValue[] | { [key: string]: JsonValue };
 export type JsonRecord = Record<string, JsonValue>;
+export type Metadata = Record<string, unknown>;
+export type MaybePromise<T> = T | Promise<T>;
 
 export interface ExpectedOutput {
   exact?: string;
   contains?: string[];
   citations?: string[];
   json?: JsonValue;
-  metadata?: JsonRecord;
+  metadata?: Metadata;
 }
 
 export interface DatasetItem {
   id: string;
   input: string;
   expected?: ExpectedOutput;
-  metadata?: JsonRecord;
+  metadata?: Metadata;
 }
 
 export interface Dataset {
   name: string;
   description?: string;
   items: DatasetItem[];
-  metadata?: JsonRecord;
+  metadata?: Metadata;
 }
 
 export interface UsageMetrics {
@@ -32,89 +34,125 @@ export interface UsageMetrics {
   latencyMs?: number;
 }
 
+export interface AgentInput {
+  id: string;
+  input: string;
+  expected?: ExpectedOutput;
+  metadata?: Metadata;
+}
+
+export type AgentOutput = string | JsonValue | Record<string, unknown> | unknown[];
+
+export interface ToolCall {
+  name: string;
+  input?: unknown;
+  output?: unknown;
+  startedAt?: string;
+  endedAt?: string;
+  latencyMs?: number;
+  metadata?: Metadata;
+}
+
 export type TraceStep =
   | {
       type: "message";
       role: "system" | "user" | "assistant" | "tool";
       content: string;
-      metadata?: JsonRecord;
+      metadata?: Metadata;
     }
-  | {
-      type: "tool_call";
-      name: string;
-      input?: JsonValue;
-      output?: JsonValue;
-      startedAt?: string;
-      endedAt?: string;
-      latencyMs?: number;
-      metadata?: JsonRecord;
-    }
+  | ({ type: "tool_call" } & ToolCall)
   | {
       type: "decision";
       action: string;
       reason?: string;
       confidence?: number;
-      metadata?: JsonRecord;
+      metadata?: Metadata;
     }
   | {
       type: "custom";
       name: string;
-      payload?: JsonValue;
-      metadata?: JsonRecord;
+      payload?: unknown;
+      metadata?: Metadata;
     };
 
-export interface AgentTrace {
+export interface Trace {
   steps: TraceStep[];
-  metadata?: JsonRecord;
+  metadata?: Metadata;
 }
 
-export interface AgentRun {
-  output: string | JsonValue;
-  trace: AgentTrace;
+export type AgentTrace = Trace;
+
+export interface RunResult {
+  output: AgentOutput;
+  trace: Trace;
   usage?: UsageMetrics;
-  metadata?: JsonRecord;
+  metadata?: Metadata;
 }
+
+export type AgentRun = RunResult;
 
 export interface RunContext {
   experimentName?: string;
   variantId?: string;
   caseId?: string;
   signal?: AbortSignal;
-  metadata?: JsonRecord;
+  metadata?: Metadata;
+}
+
+export type AgentAdapterResult = AgentOutput | (Omit<RunResult, "trace"> & { trace?: Trace });
+
+export interface AgentAdapter {
+  name?: string;
+  run(input: AgentInput, context: RunContext): MaybePromise<AgentAdapterResult>;
 }
 
 export interface AgentVariant {
-  id: string;
+  id?: string;
   name: string;
   description?: string;
-  config?: JsonRecord;
-  run(item: DatasetItem, context: RunContext): Promise<AgentRun>;
+  config?: Metadata;
+  adapter?: AgentAdapter;
+  run?(item: DatasetItem, context: RunContext): MaybePromise<AgentAdapterResult>;
 }
 
-export interface RewardResult {
+export interface MetricResult {
   name: string;
   score: number;
-  weight: number;
   passed?: boolean;
+  weight?: number;
   reason?: string;
-  metadata?: JsonRecord;
+  metadata?: Metadata;
 }
 
-export interface RewardFunction {
-  name: string;
+export interface RewardResult extends MetricResult {
   weight: number;
-  evaluate(run: AgentRun, item: DatasetItem, context: RunContext): Promise<RewardResult>;
+}
+
+export interface Reward {
+  name: string;
+  weight?: number;
+  evaluate(run: RunResult, item: DatasetItem, context: RunContext): MaybePromise<MetricResult>;
+}
+
+export type RewardFunction = Reward;
+
+export interface RunError {
+  message: string;
+  name?: string;
+  stack?: string;
 }
 
 export interface CaseResult {
   caseId: string;
   variantId: string;
-  output: AgentRun["output"];
-  trace: AgentTrace;
+  variantName: string;
+  output: AgentOutput;
+  trace: Trace;
   usage?: UsageMetrics;
-  rewards: RewardResult[];
+  rewards: MetricResult[];
   score: number;
-  metadata?: JsonRecord;
+  error?: RunError;
+  metadata?: Metadata;
 }
 
 export interface VariantSummary {
@@ -125,13 +163,19 @@ export interface VariantSummary {
   averageLatencyMs?: number;
   totalCostUsd?: number;
   rewardAverages: Record<string, number>;
+  failedCases: number;
 }
 
-export interface ExperimentReport {
+export type Leaderboard = VariantSummary[];
+
+export interface ExperimentResult {
   name: string;
   startedAt: string;
   endedAt: string;
-  leaderboard: VariantSummary[];
+  leaderboard: Leaderboard;
   cases: CaseResult[];
-  metadata?: JsonRecord;
+  failedCases: CaseResult[];
+  metadata?: Metadata;
 }
+
+export type ExperimentReport = ExperimentResult;
