@@ -11,16 +11,22 @@
       "import": "./dist/index.js"
     }
   },
+  "bin": {
+    "ignition": "./dist/index.js"
+  },
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts",
+    "dev": "bun src/index.ts",
     "test": "vitest run"
   },
   "dependencies": {
     "@ignitionai/core": "workspace:*",
-    "@ignitionai/experiments": "workspace:*"
+    "@ignitionai/experiments": "workspace:*",
+    "@ignitionai/exporters": "workspace:*",
+    "@ignitionai/trainer": "workspace:*"
   },
   "devDependencies": {
     "tsup": "latest",
