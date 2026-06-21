@@ -51,3 +51,13 @@ Once datasets, traces and rewards are trusted, RL-style routing and policy optim
 ```bash
 bun run --filter './examples/context-engineering' dev
 ```
+
+## Typed Experiment Module
+
+The reusable experiment definition lives at:
+
+```txt
+examples/context-engineering/experiment.ts
+```
+
+It exports a default `ExperimentDefinition`, which prepares this example for the future CLI runner without adding CLI loading in this PR.
