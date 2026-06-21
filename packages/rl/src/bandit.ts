@@ -26,14 +26,16 @@ export class EpsilonGreedyBandit {
   choose(): string {
     const arms = Array.from(this.arms.values());
     if (arms.length === 0) throw new Error("Bandit has no arms.");
+    const fallbackArm = arms[0];
+    if (!fallbackArm) throw new Error("Bandit has no arms.");
 
     if (this.random() < this.epsilon) {
-      return arms[Math.floor(this.random() * arms.length)]?.id ?? arms[0]!.id;
+      return arms[Math.floor(this.random() * arms.length)]?.id ?? fallbackArm.id;
     }
 
-    return arms
-      .slice()
-      .sort((a, b) => this.averageReward(b) - this.averageReward(a))[0]!.id;
+    const bestArm = arms.slice().sort((a, b) => this.averageReward(b) - this.averageReward(a))[0];
+    if (!bestArm) throw new Error("Bandit has no arms.");
+    return bestArm.id;
   }
 
   update(armId: string, reward: number): void {

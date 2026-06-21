@@ -93,9 +93,7 @@ describe("createCallableAdapter", () => {
       },
     });
 
-    await expect(adapter.run({ id: "q1", input: "hello" }, {})).rejects.toThrow(
-      "callable failed",
-    );
+    await expect(adapter.run({ id: "q1", input: "hello" }, {})).rejects.toThrow("callable failed");
   });
 
   it("works inside createExperiment", async () => {

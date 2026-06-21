@@ -149,10 +149,7 @@ function buildReasons(
   return reasons;
 }
 
-function buildTradeoffs(
-  winner: VariantSummary,
-  runnerUp: VariantSummary | undefined,
-): string[] {
+function buildTradeoffs(winner: VariantSummary, runnerUp: VariantSummary | undefined): string[] {
   const tradeoffs = [];
 
   if (winner.failedCases > 0) {

@@ -1,2 +1,2 @@
-export * from "./select-best";
 export * from "./pareto";
+export * from "./select-best";

@@ -141,7 +141,9 @@ function defaultTrace(adapterName: string): Trace {
 function isCallableResultObject(
   result: CallableAdapterRunResult,
 ): result is Extract<CallableAdapterRunResult, { output: AgentOutput }> {
-  return result !== null && typeof result === "object" && !Array.isArray(result) && "output" in result;
+  return (
+    result !== null && typeof result === "object" && !Array.isArray(result) && "output" in result
+  );
 }
 
 function numericMetadata(metadata: Metadata, key: string): number | undefined {

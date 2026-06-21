@@ -16,7 +16,9 @@ export function langGraphAdapter(options: {
     name: options.name,
     async run(item: DatasetItem, context: RunContext) {
       const started = Date.now();
-      const input = options.mapInput?.(item) ?? { messages: [{ role: "user", content: item.input }] };
+      const input = options.mapInput?.(item) ?? {
+        messages: [{ role: "user", content: item.input }],
+      };
       const raw = await options.graph.invoke(input, context);
       if (options.mapOutput) return options.mapOutput(raw);
 
