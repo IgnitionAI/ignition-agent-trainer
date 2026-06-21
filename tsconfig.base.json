@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "baseUrl": ".",
+    "paths": {
+      "@ignitionai/core": ["packages/core/src/index.ts"],
+      "@ignitionai/evals": ["packages/evals/src/index.ts"],
+      "@ignitionai/experiments": ["packages/experiments/src/index.ts"],
+      "@ignitionai/trainer": ["packages/trainer/src/index.ts"],
+      "@ignitionai/environment": ["packages/environment/src/index.ts"],
+      "@ignitionai/rl": ["packages/rl/src/index.ts"],
+      "@ignitionai/adapter-langchain": ["packages/adapter-langchain/src/index.ts"],
+      "@ignitionai/adapter-langgraph": ["packages/adapter-langgraph/src/index.ts"],
+      "@ignitionai/adapter-mastra": ["packages/adapter-mastra/src/index.ts"],
+      "@ignitionai/adapter-vercel-ai": ["packages/adapter-vercel-ai/src/index.ts"]
+    }
+  }
+}

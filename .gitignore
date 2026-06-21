@@ -1,0 +1,12 @@
+node_modules
+.bun
+.turbo
+dist
+coverage
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+.idea
+.vscode/settings.json

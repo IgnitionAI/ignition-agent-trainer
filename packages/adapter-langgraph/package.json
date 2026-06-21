@@ -1,0 +1,37 @@
+{
+  "name": "@ignitionai/adapter-langgraph",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ignitionai/core": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "latest",
+    "typescript": "latest",
+    "vitest": "latest"
+  },
+  "peerDependencies": {
+    "@langchain/langgraph": "*"
+  },
+  "peerDependenciesMeta": {
+    "@langchain/langgraph": {
+      "optional": true
+    }
+  }
+}

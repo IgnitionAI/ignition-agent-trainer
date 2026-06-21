@@ -1,0 +1,27 @@
+{
+  "name": "ignition-agent-trainer",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Evaluation, experimentation and optimization layer for TypeScript AI agents.",
+  "type": "module",
+  "packageManager": "bun@1.2.0",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "dev": "bun run --filter './examples/basic-eval' dev",
+    "build": "bun run --filter '@ignitionai/*' build",
+    "test": "bun test",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "ci": "bun run typecheck && bun run test && bun run build"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "latest",
+    "typescript": "latest",
+    "vitest": "latest",
+    "tsup": "latest"
+  }
+}
