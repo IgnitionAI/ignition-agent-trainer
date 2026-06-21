@@ -167,6 +167,7 @@ See [ROADMAP.md](./ROADMAP.md) for the full implementation plan.
 
 ## Key docs
 
+- [Autonomous implementation plan](./docs/IMPLEMENTATION_PLAN.md)
 - [Strategic vision in French](./docs/00-vision-fr.md)
 - [Feasibility](./docs/01-feasibility.md)
 - [Architecture](./docs/02-architecture.md)
