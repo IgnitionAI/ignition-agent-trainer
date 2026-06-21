@@ -119,6 +119,12 @@ IgnitionRAG has a clear integration plan before SaaS implementation begins.
 
 Only after Milestones 1-4.
 
+Current status:
+
+```txt
+PR #20 starts RL exploration with an experimental fixed-strategy bandit prototype only.
+```
+
 Includes:
 
 ```txt
