@@ -39,7 +39,10 @@ export interface EpisodeResult {
   totalReward: number;
 }
 
-export async function runEpisode(environment: AgentEnvironment, policy: Policy): Promise<EpisodeResult> {
+export async function runEpisode(
+  environment: AgentEnvironment,
+  policy: Policy,
+): Promise<EpisodeResult> {
   let state = await environment.reset();
   const steps: EpisodeStep[] = [];
 

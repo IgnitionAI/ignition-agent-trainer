@@ -31,7 +31,8 @@ export function mastraAdapter(options: {
 
 function extractText(raw: unknown): string {
   if (typeof raw === "string") return raw;
-  if (raw && typeof raw === "object" && "text" in raw) return String((raw as { text: unknown }).text);
+  if (raw && typeof raw === "object" && "text" in raw)
+    return String((raw as { text: unknown }).text);
   return JSON.stringify(raw);
 }
 

@@ -1,6 +1,7 @@
 import type { AgentRun, AgentVariant, DatasetItem, RunContext } from "@ignitionai/core";
 
 export interface VercelAiGenerateLike {
+  // biome-ignore lint/style/useShorthandFunctionType: keep the exported interface stable for adapter consumers.
   (input: { prompt: string; [key: string]: unknown }): Promise<unknown>;
 }
 
@@ -34,7 +35,8 @@ export function vercelAiAdapter(options: {
 
 function extractText(raw: unknown): string {
   if (typeof raw === "string") return raw;
-  if (raw && typeof raw === "object" && "text" in raw) return String((raw as { text: unknown }).text);
+  if (raw && typeof raw === "object" && "text" in raw)
+    return String((raw as { text: unknown }).text);
   return JSON.stringify(raw);
 }
 

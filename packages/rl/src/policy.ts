@@ -3,9 +3,14 @@ import type { EnvironmentAction, EnvironmentState, Policy } from "@ignitionai/en
 export class RandomPolicy implements Policy {
   constructor(private readonly random: () => number = Math.random) {}
 
-  async chooseAction(_state: EnvironmentState, actions: EnvironmentAction[]): Promise<EnvironmentAction> {
+  async chooseAction(
+    _state: EnvironmentState,
+    actions: EnvironmentAction[],
+  ): Promise<EnvironmentAction> {
     if (actions.length === 0) throw new Error("No action available.");
-    return actions[Math.floor(this.random() * actions.length)] ?? actions[0]!;
+    const fallbackAction = actions[0];
+    if (!fallbackAction) throw new Error("No action available.");
+    return actions[Math.floor(this.random() * actions.length)] ?? fallbackAction;
   }
 }
 

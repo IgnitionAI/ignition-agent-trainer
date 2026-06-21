@@ -22,6 +22,7 @@ Run these commands for every PR:
 
 ```bash
 bun install
+bun run lint
 bun run typecheck
 bun run test
 bun run build
@@ -39,15 +40,9 @@ Adjust example commands only when package scripts change.
 
 ## Lint status
 
-`bun run lint` is currently blocked by a Biome config/version mismatch. Do not run or fix lint as part of feature PRs.
+`bun run lint` is required for every PR and runs in CI.
 
-Lint must be fixed in a dedicated tooling-only PR:
-
-```txt
-chore: align Biome config with installed version
-```
-
-After lint works, it can be added to CI in that same tooling-only PR.
+Do not mix lint/tooling migrations with feature work. Future lint failures should be fixed in the same PR only when they are caused by that PR's own changes. Broader tooling changes must remain isolated in dedicated tooling PRs.
 
 ## Scope control
 

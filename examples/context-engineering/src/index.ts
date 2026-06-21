@@ -82,13 +82,10 @@ const result = await createExperiment({
   dataset,
   variants,
   rewards: [
-    compositeReward(
-      [
-        containsAll({ weight: 0.65 }),
-        citationPresence({ weight: 0.35 }),
-      ],
-      { name: "answer_quality", weight: 0.75 },
-    ),
+    compositeReward([containsAll({ weight: 0.65 }), citationPresence({ weight: 0.35 })], {
+      name: "answer_quality",
+      weight: 0.75,
+    }),
     latencyPenalty({ maxLatencyMs: 1500, weight: 0.15 }),
     costPenalty({ maxCostUsd: 0.006, weight: 0.1 }),
   ],
