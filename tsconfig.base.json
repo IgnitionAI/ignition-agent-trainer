@@ -22,6 +22,7 @@
       "@ignitionai/trainer": ["packages/trainer/src/index.ts"],
       "@ignitionai/environment": ["packages/environment/src/index.ts"],
       "@ignitionai/rl": ["packages/rl/src/index.ts"],
+      "@ignitionai/adapter-callable": ["packages/adapter-callable/src/index.ts"],
       "@ignitionai/adapter-langchain": ["packages/adapter-langchain/src/index.ts"],
       "@ignitionai/adapter-langgraph": ["packages/adapter-langgraph/src/index.ts"],
       "@ignitionai/adapter-mastra": ["packages/adapter-mastra/src/index.ts"],
