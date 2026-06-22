@@ -1,12 +1,14 @@
 # Project Audit
 
-This audit reflects the repository state through the current IgnitionRAG Evaluation Center checklist work.
+This audit reflects the repository state through the current IgnitionRAG evaluation bridge prototype work.
 
 PR #22 added missing package READMEs and package manifest metadata. Stability labels still depend on tests, examples and implementation maturity.
 
 PR #38 aligns the root and workspace package manifests on `0.1.0-alpha.0` and `license: MIT` for the internal alpha tag.
 
 PR #39 adds the Evaluation Center implementation checklist. It is documentation only and does not add hosted IgnitionRAG runtime code.
+
+PR #40 adds a deterministic local bridge prototype from IgnitionRAG-shaped records to Agent Trainer `Dataset` and `AgentVariant` objects. It does not add production IgnitionRAG integration.
 
 Audit rule:
 
@@ -201,6 +203,13 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Mocked or live: deterministic mocked adapters.
 - Product concept: alpha dogfood loop with dataset, variants, rewards, leaderboard, recommendation, report exports, regression gate and local history.
 
+### `examples/ignitionrag-evaluation-bridge`
+
+- Demonstrates: mapping IgnitionRAG-shaped collection, dataset, case and workflow snapshot records into Agent Trainer objects.
+- Command: `bun run --filter './examples/ignitionrag-evaluation-bridge' dev`.
+- Mocked or live: deterministic mocked records and adapters.
+- Product concept: bridge prototype proving `Dataset` and `AgentVariant` mapping without IgnitionRAG app code.
+
 ## Current Capabilities Matrix
 
 | Capability | Status | Package/File | Stable? | Notes |
@@ -223,6 +232,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 | simple search optimization | done | `packages/trainer/src/search.ts` | Yes | Deterministic grid search over manual parameter grids. |
 | IgnitionRAG design | done | `docs/10-ignitionrag-integration-design.md` | Yes | Design-only; no IgnitionRAG runtime integration. |
 | IgnitionRAG Evaluation Center checklist | done | `docs/IGNITIONRAG_EVALUATION_CENTER_CHECKLIST.md` | Yes | Actionable checklist only; no IgnitionRAG app code, migrations or frontend. |
+| IgnitionRAG evaluation bridge prototype | prototype | `examples/ignitionrag-evaluation-bridge` | No | Deterministic record mapping only; no database, hosted worker, auth or real provider calls. |
 | file-based history | done | `packages/experiments/src/history.ts` | Yes | JSONL local history helpers, no CLI flag yet. |
 | policy abstraction | partial | `packages/rl/src/policy.ts` | No | Deterministic static and score-based selection only; no training loop. |
 | trajectory recorder | partial | `packages/rl/src/trajectory.ts` | No | Local state/action/reward/outcome records with deterministic summaries. |

@@ -126,6 +126,12 @@ Run the alpha dogfood experiment through the local CLI and write a report bundle
 bun run --filter '@ignitionai/cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood
 ```
 
+Run the IgnitionRAG evaluation bridge prototype:
+
+```bash
+bun run --filter './examples/ignitionrag-evaluation-bridge' dev
+```
+
 ---
 
 ## Minimal usage

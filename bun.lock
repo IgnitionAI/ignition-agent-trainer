@@ -62,9 +62,20 @@
         "@ignitionai/trainer": "workspace:*",
       },
     },
+    "examples/ignitionrag-evaluation-bridge": {
+      "name": "ignitionrag-evaluation-bridge",
+      "version": "0.0.0",
+      "dependencies": {
+        "@ignitionai/adapter-ignitionrag": "workspace:*",
+        "@ignitionai/core": "workspace:*",
+        "@ignitionai/experiments": "workspace:*",
+        "@ignitionai/preset-rag": "workspace:*",
+        "@ignitionai/trainer": "workspace:*",
+      },
+    },
     "packages/adapter-callable": {
       "name": "@ignitionai/adapter-callable",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "dependencies": {
         "@ignitionai/core": "workspace:*",
       },
@@ -76,7 +87,7 @@
     },
     "packages/adapter-ignitionrag": {
       "name": "@ignitionai/adapter-ignitionrag",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "dependencies": {
         "@ignitionai/core": "workspace:*",
         "@ignitionai/exporters": "workspace:*",
@@ -89,7 +100,7 @@
     },
     "packages/adapter-langchain": {
       "name": "@ignitionai/adapter-langchain",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "dependencies": {
         "@ignitionai/adapter-callable": "workspace:*",
         "@ignitionai/core": "workspace:*",
@@ -108,7 +119,7 @@
     },
     "packages/adapter-langgraph": {
       "name": "@ignitionai/adapter-langgraph",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "dependencies": {
         "@ignitionai/adapter-callable": "workspace:*",
         "@ignitionai/core": "workspace:*",
@@ -127,7 +138,7 @@
     },
     "packages/adapter-mastra": {
       "name": "@ignitionai/adapter-mastra",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "dependencies": {
         "@ignitionai/adapter-callable": "workspace:*",
         "@ignitionai/core": "workspace:*",
@@ -146,7 +157,7 @@
     },
     "packages/adapter-vercel-ai": {
       "name": "@ignitionai/adapter-vercel-ai",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "dependencies": {
         "@ignitionai/adapter-callable": "workspace:*",
         "@ignitionai/core": "workspace:*",
@@ -165,7 +176,7 @@
     },
     "packages/cli": {
       "name": "@ignitionai/cli",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "bin": {
         "ignition": "./dist/index.js",
       },
@@ -183,7 +194,7 @@
     },
     "packages/core": {
       "name": "@ignitionai/core",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "devDependencies": {
         "tsup": "latest",
         "typescript": "latest",
@@ -192,7 +203,7 @@
     },
     "packages/environment": {
       "name": "@ignitionai/environment",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "dependencies": {
         "@ignitionai/core": "workspace:*",
       },
@@ -204,7 +215,7 @@
     },
     "packages/evals": {
       "name": "@ignitionai/evals",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "dependencies": {
         "@ignitionai/core": "workspace:*",
       },
@@ -216,7 +227,7 @@
     },
     "packages/experiments": {
       "name": "@ignitionai/experiments",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "dependencies": {
         "@ignitionai/core": "workspace:*",
         "@ignitionai/evals": "workspace:*",
@@ -229,7 +240,7 @@
     },
     "packages/exporters": {
       "name": "@ignitionai/exporters",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "dependencies": {
         "@ignitionai/core": "workspace:*",
       },
@@ -241,7 +252,7 @@
     },
     "packages/preset-rag": {
       "name": "@ignitionai/preset-rag",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "dependencies": {
         "@ignitionai/core": "workspace:*",
         "@ignitionai/evals": "workspace:*",
@@ -254,7 +265,7 @@
     },
     "packages/preset-strategies": {
       "name": "@ignitionai/preset-strategies",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "dependencies": {
         "@ignitionai/core": "workspace:*",
       },
@@ -266,7 +277,7 @@
     },
     "packages/rl": {
       "name": "@ignitionai/rl",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "dependencies": {
         "@ignitionai/core": "workspace:*",
         "@ignitionai/environment": "workspace:*",
@@ -279,7 +290,7 @@
     },
     "packages/trainer": {
       "name": "@ignitionai/trainer",
-      "version": "0.0.0",
+      "version": "0.1.0-alpha.0",
       "dependencies": {
         "@ignitionai/core": "workspace:*",
         "@ignitionai/experiments": "workspace:*",
@@ -570,6 +581,8 @@
     "fix-dts-default-cjs-exports": ["fix-dts-default-cjs-exports@1.0.1", "", { "dependencies": { "magic-string": "^0.30.17", "mlly": "^1.7.4", "rollup": "^4.34.8" } }, "sha512-pVIECanWFC61Hzl2+oOCtoJ3F17kglZC/6N94eRWycFgBH35hHx0Li604ZIzhseh97mf2p0cv7vVrOZGoqhlEg=="],
 
     "fsevents": ["fsevents@2.3.3", "", { "os": "darwin" }, "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw=="],
+
+    "ignitionrag-evaluation-bridge": ["ignitionrag-evaluation-bridge@workspace:examples/ignitionrag-evaluation-bridge"],
 
     "joycon": ["joycon@3.1.1", "", {}, "sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw=="],
 

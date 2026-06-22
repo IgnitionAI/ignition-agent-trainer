@@ -36,6 +36,7 @@ bun run --filter './examples/context-engineering' dev
 bun run --filter './examples/callable-adapter' dev
 bun run --filter './examples/ci-regression-gate' dev
 bun run --filter './examples/alpha-dogfood' dev
+bun run --filter './examples/ignitionrag-evaluation-bridge' dev
 ```
 
 Adjust example commands only when package scripts change.
