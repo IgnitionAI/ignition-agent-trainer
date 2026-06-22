@@ -2,6 +2,8 @@
 
 This audit reflects the repository state after PR #20.
 
+PR #22 added missing package READMEs and package manifest metadata. Stability labels still depend on tests, examples and implementation maturity.
+
 Audit rule:
 
 ```txt
@@ -72,7 +74,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Stability level: partial.
 - Tests present: no dedicated package tests.
 - Example present: yes, used by all current examples.
-- Known limitations: no package README, limited direct tests, no schema serialization helpers beyond TypeScript types.
+- Known limitations: no dedicated package tests, no schema serialization helpers beyond TypeScript types.
 
 ### `@ignitionai/environment`
 
@@ -81,7 +83,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Stability level: prototype.
 - Tests present: no.
 - Example present: no.
-- Known limitations: no README, no tests, no rollout recorder, no production policy evaluation.
+- Known limitations: no tests, no rollout recorder, no production policy evaluation.
 
 ### `@ignitionai/evals`
 
@@ -90,7 +92,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Stability level: partial.
 - Tests present: yes.
 - Example present: yes, used by current examples.
-- Known limitations: no package README, reward set is small, no RAG-specific preset package yet.
+- Known limitations: reward set is small, no RAG-specific preset package yet.
 
 ### `@ignitionai/experiments`
 
@@ -156,8 +158,8 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 
 | Capability | Status | Package/File | Stable? | Notes |
 |---|---|---|---|---|
-| core primitives | partial | `packages/core` | No | Core types and helpers exist, but package lacks dedicated tests and README. |
-| evals/rewards | partial | `packages/evals` | No | Tests exist, README missing, reward set is intentionally small. |
+| core primitives | partial | `packages/core` | No | Core types and helpers exist, but package lacks dedicated tests. |
+| evals/rewards | partial | `packages/evals` | No | Tests and README exist, but reward set is intentionally small and no RAG presets exist. |
 | experiment runner | done | `packages/experiments` | Yes | Local deterministic runner with tests and docs. |
 | trainer recommendations | done | `packages/trainer` | Yes | Deterministic recommendation and objective ranking are tested and documented. |
 | callable adapter | done | `packages/adapter-callable` | Yes | Tested, documented and covered by an example. |
@@ -180,7 +182,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - No real LLM calls by default.
 - No hosted IgnitionRAG integration code.
 - IgnitionRAG integration is design-only.
-- Core, evals and environment need stronger package documentation.
+- Core and environment need dedicated tests before alpha-stable status.
 - Ecosystem adapters are minimal and structural.
 - CLI does not yet support history, baseline selection or fail-on-regression flags.
 - Report output is split across JSON/Markdown helpers, but no report bundle artifact exists yet.

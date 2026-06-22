@@ -192,6 +192,7 @@ See:
 - [Backlog](./docs/BACKLOG.md)
 - [Post-#20 roadmap](./docs/POST_20_ROADMAP.md)
 - [Project audit](./docs/PROJECT_AUDIT.md)
+- [Alpha readiness checklist](./docs/ALPHA_READINESS.md)
 - [Definition of Done](./docs/DEFINITION_OF_DONE.md)
 - [Milestones](./docs/MILESTONES.md)
 - [Strategic vision in French](./docs/00-vision-fr.md)
