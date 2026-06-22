@@ -1,3 +1,6 @@
+import { mkdtemp, readdir, readFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { createDataset, createMockAdapter, type RewardFunction } from "@ignitionai/core";
 import { defineExperiment, type ExperimentDefinition } from "@ignitionai/experiments";
 import { describe, expect, it } from "vitest";
@@ -14,6 +17,8 @@ describe("parseCliArgs", () => {
         "reports/result.json",
         "--markdown",
         "reports/result.md",
+        "--bundle",
+        "reports/bundles",
       ]),
     ).toEqual({
       ok: true,
@@ -22,6 +27,7 @@ describe("parseCliArgs", () => {
         experimentPath: "./experiment.ts",
         jsonOutputPath: "reports/result.json",
         markdownOutputPath: "reports/result.md",
+        bundleOutputDirectory: "reports/bundles",
       },
     });
   });
@@ -131,6 +137,53 @@ describe("runCli", () => {
     expect(markdown).toContain("## Recommendation");
     expect(output.out.join("\n")).toContain("JSON report: reports/result.json");
     expect(output.out.join("\n")).toContain("Markdown report: reports/result.md");
+  });
+
+  it("writes a timestamped report bundle when requested", async () => {
+    const definition = createCliExperimentDefinition();
+    const output = createOutput();
+    const workspace = await mkdtemp(join(tmpdir(), "ignition-cli-bundle-"));
+    const bundleRoot = join(workspace, "reports");
+
+    const exitCode = await runCli(["eval", "run", "./experiment.ts", "--bundle", "reports"], {
+      cwd: workspace,
+      stdout: output.stdout,
+      stderr: output.stderr,
+      fileExists: (absolutePath) => absolutePath === join(workspace, "experiment.ts"),
+      importModule: async () => ({ default: definition }),
+    });
+
+    expect(exitCode).toBe(0);
+    expect(output.err).toEqual([]);
+
+    const bundleDirectories = await readdir(bundleRoot);
+    expect(bundleDirectories).toHaveLength(1);
+    const bundleName = bundleDirectories[0];
+    expect(bundleName).toBeDefined();
+    if (bundleName === undefined) throw new Error("Expected one report bundle directory.");
+    expect(bundleName).toMatch(/^cli-definition-demo-/);
+
+    const bundleDirectory = join(bundleRoot, bundleName);
+    const json = JSON.parse(await readFile(join(bundleDirectory, "report.json"), "utf8"));
+    expect(json).toMatchObject({
+      schemaVersion: "ignition.experiment-report.v1",
+      experiment: { name: "cli-definition-demo" },
+      recommendation: { winner: "strong-agent" },
+    });
+
+    const markdown = await readFile(join(bundleDirectory, "report.md"), "utf8");
+    expect(markdown).toContain("# Experiment report: cli-definition-demo");
+
+    const metadata = JSON.parse(await readFile(join(bundleDirectory, "metadata.json"), "utf8"));
+    expect(metadata).toMatchObject({
+      schemaVersion: "ignition.report-bundle.v1",
+      files: {
+        json: "report.json",
+        markdown: "report.md",
+        metadata: "metadata.json",
+      },
+    });
+    expect(output.out.join("\n")).toContain(`Report bundle: ${bundleDirectory}`);
   });
 });
 

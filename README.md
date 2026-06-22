@@ -102,6 +102,12 @@ Run a typed experiment through the local CLI:
 bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts
 ```
 
+Write a timestamped local report bundle:
+
+```bash
+bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts --bundle reports
+```
+
 ---
 
 ## Minimal usage

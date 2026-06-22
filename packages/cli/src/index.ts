@@ -10,6 +10,7 @@ import {
   type ExperimentResultExportOptions,
   toJsonReport,
   toMarkdownReport,
+  writeReportBundle,
 } from "@ignitionai/exporters";
 import { recommendVariant, type VariantRecommendation } from "@ignitionai/trainer";
 
@@ -18,6 +19,7 @@ export interface EvalRunCommand {
   experimentPath: string;
   jsonOutputPath?: string;
   markdownOutputPath?: string;
+  bundleOutputDirectory?: string;
 }
 
 export type CliCommand = EvalRunCommand;
@@ -49,11 +51,12 @@ interface ResolvedCliEnvironment {
 const usage = `Ignition Agent Trainer CLI
 
 Usage:
-  ignition eval run <experiment.ts> [--json <report.json>] [--markdown <report.md>]
+  ignition eval run <experiment.ts> [--json <report.json>] [--markdown <report.md>] [--bundle <reports-dir>]
 
 Options:
   --json <path>       Write a JSON experiment report.
   --markdown <path>   Write a Markdown experiment report.
+  --bundle <dir>      Write a timestamped JSON/Markdown report bundle.
   -h, --help          Show this help message.`;
 
 export function parseCliArgs(args: string[]): ParseCliArgsResult {
@@ -109,6 +112,16 @@ export function parseCliArgs(args: string[]): ParseCliArgsResult {
         return { ok: false, message: "Missing value for --markdown.", exitCode: 1 };
       }
       command.markdownOutputPath = value;
+      index += 1;
+      continue;
+    }
+
+    if (arg === "--bundle") {
+      const value = args[index + 1];
+      if (value === undefined || value.startsWith("-")) {
+        return { ok: false, message: "Missing value for --bundle.", exitCode: 1 };
+      }
+      command.bundleOutputDirectory = value;
       index += 1;
       continue;
     }
@@ -274,6 +287,16 @@ async function writeRequestedReports(
     await writeReport(command.markdownOutputPath, toMarkdownReport(result, exportOptions), env);
     env.stdout(`Markdown report: ${command.markdownOutputPath}`);
   }
+
+  if (command.bundleOutputDirectory !== undefined) {
+    const outputDirectory = resolveOutputPath(command.bundleOutputDirectory, env);
+    const bundle = await writeReportBundle(result, {
+      ...exportOptions,
+      outputDirectory,
+      includeMetadataFile: true,
+    });
+    env.stdout(`Report bundle: ${bundle.directory}`);
+  }
 }
 
 async function writeReport(
@@ -281,9 +304,13 @@ async function writeReport(
   contents: string,
   env: ResolvedCliEnvironment,
 ): Promise<void> {
-  const absolutePath = isAbsolute(outputPath) ? outputPath : resolve(env.cwd, outputPath);
+  const absolutePath = resolveOutputPath(outputPath, env);
   await env.ensureDirectory(dirname(absolutePath));
   await env.writeFile(absolutePath, contents);
+}
+
+function resolveOutputPath(outputPath: string, env: ResolvedCliEnvironment): string {
+  return isAbsolute(outputPath) ? outputPath : resolve(env.cwd, outputPath);
 }
 
 function resolveEnvironment(environment: CliEnvironment): ResolvedCliEnvironment {
