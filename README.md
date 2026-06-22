@@ -114,6 +114,18 @@ Run the sample CI regression gate:
 bun run --filter './examples/ci-regression-gate' dev
 ```
 
+Run the alpha dogfood document-assistant experiment:
+
+```bash
+bun run --filter './examples/alpha-dogfood' dev
+```
+
+Run the alpha dogfood experiment through the local CLI and write a report bundle:
+
+```bash
+bun run --filter '@ignitionai/cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood
+```
+
 ---
 
 ## Minimal usage
