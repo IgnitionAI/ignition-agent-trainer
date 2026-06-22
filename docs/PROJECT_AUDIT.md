@@ -141,8 +141,8 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 
 ### `@ignitionai/rl`
 
-- Purpose: experimental RL-inspired utilities and fixed-strategy bandit prototype.
-- Main exports: `EpsilonGreedyBandit`, `RandomPolicy`, `ExperimentalBanditStrategySelector`, PPO/GRPO design placeholder interfaces.
+- Purpose: experimental RL-inspired utilities, deterministic policy selection helpers and fixed-strategy bandit prototype.
+- Main exports: `Policy`, `PolicyContext`, `PolicyDecision`, `createStaticPolicy`, `createScoreBasedPolicy`, `EpsilonGreedyBandit`, `RandomPolicy`, `ExperimentalBanditStrategySelector`, PPO/GRPO design placeholder interfaces.
 - Stability level: prototype.
 - Tests present: yes for the strategy bandit prototype.
 - Example present: no.
@@ -209,6 +209,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 | simple search optimization | done | `packages/trainer/src/search.ts` | Yes | Deterministic grid search over manual parameter grids. |
 | IgnitionRAG design | done | `docs/10-ignitionrag-integration-design.md` | Yes | Design-only; no IgnitionRAG runtime integration. |
 | file-based history | done | `packages/experiments/src/history.ts` | Yes | JSONL local history helpers, no CLI flag yet. |
+| policy abstraction | partial | `packages/rl/src/policy.ts` | No | Deterministic static and score-based selection only; no training loop. |
 | bandit prototype | prototype | `packages/rl/src/strategy-bandit.ts` | No | Clearly experimental, fixed arms only, no contextual policy or PPO. |
 
 ## Current Limitations

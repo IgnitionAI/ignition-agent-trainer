@@ -258,6 +258,7 @@
       "version": "0.0.0",
       "dependencies": {
         "@ignitionai/core": "workspace:*",
+        "@ignitionai/environment": "workspace:*",
       },
       "devDependencies": {
         "tsup": "latest",

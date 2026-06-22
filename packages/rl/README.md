@@ -4,6 +4,26 @@ Experimental reinforcement-learning-inspired utilities for Ignition Agent Traine
 
 This package is prototype-only today. It does not train model weights, route live production traffic, implement PPO or implement GRPO.
 
+## Policy Selection
+
+Use the policy helpers to choose among fixed strategy candidates before introducing bandits or rollout training.
+
+```ts
+import { createScoreBasedPolicy, createStaticPolicy } from "@ignitionai/rl";
+
+const staticPolicy = createStaticPolicy("rag-basic");
+const scorePolicy = createScoreBasedPolicy();
+
+const decision = await scorePolicy.decide({
+  candidates: [
+    { id: "direct-answer", action: { strategyId: "direct-answer" }, score: 0.42 },
+    { id: "rag-basic", action: { strategyId: "rag-basic" }, score: 0.82 },
+  ],
+});
+```
+
+`PolicyContext` and `PolicyDecision` model strategy selection only. They do not train a model, mutate prompts or update workflow state.
+
 ## Experimental Fixed-Strategy Bandit
 
 Use `ExperimentalBanditStrategySelector` to choose among fixed, developer-supplied strategies and update their rewards from observed experiment outcomes.
@@ -43,6 +63,7 @@ selector.updateFromExperimentResult(result, {
 
 ## Current Guarantees
 
+- static and score-based policies are deterministic,
 - arms are fixed and supplied by the developer,
 - selection is epsilon-greedy,
 - exploitation tie-breaking is deterministic by average reward, pulls, then arm id,
@@ -57,5 +78,6 @@ This package does not implement:
 - GRPO,
 - model training,
 - neural policies,
+- workflow mutation,
 - live traffic routing,
 - production SaaS integration.

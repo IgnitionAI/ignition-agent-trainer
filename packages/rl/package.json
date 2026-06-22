@@ -25,7 +25,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ignitionai/core": "workspace:*"
+    "@ignitionai/core": "workspace:*",
+    "@ignitionai/environment": "workspace:*"
   },
   "devDependencies": {
     "tsup": "latest",
