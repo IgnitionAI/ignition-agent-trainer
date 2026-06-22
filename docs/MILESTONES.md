@@ -296,7 +296,7 @@ docs/ALPHA_VALIDATION_PLAN.md
 Current status:
 
 ```txt
-PR #36 and PR #37 are complete. PR #38 is the current alpha release readiness branch.
+PR #36, PR #37 and PR #38 are complete. The internal v0.1.0-alpha.0 tag is pushed. PR #39 is the current Evaluation Center checklist branch.
 ```
 
 Explicit non-goals:

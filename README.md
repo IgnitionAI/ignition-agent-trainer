@@ -229,6 +229,7 @@ See:
 - [ADR 0003: RL foundation sequence](./docs/adr/0003-rl-foundation-sequence.md)
 - [IgnitionRAG integration plan](./docs/04-ignitionrag-integration.md)
 - [IgnitionRAG integration design](./docs/10-ignitionrag-integration-design.md)
+- [IgnitionRAG Evaluation Center checklist](./docs/IGNITIONRAG_EVALUATION_CENTER_CHECKLIST.md)
 - [MVP specification](./docs/05-mvp-spec.md)
 - [Competitive landscape](./docs/06-competitive-landscape.md)
 - [Implementation checklist](./docs/07-implementation-checklist.md)
