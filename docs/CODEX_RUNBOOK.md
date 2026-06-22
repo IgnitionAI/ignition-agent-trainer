@@ -14,6 +14,7 @@ docs/PR_PLAYBOOK.md
 docs/BACKLOG.md
 docs/POST_20_ROADMAP.md
 docs/PROJECT_AUDIT.md
+docs/ALPHA_VALIDATION_PLAN.md
 docs/DEFINITION_OF_DONE.md
 docs/MILESTONES.md
 ```
@@ -55,6 +56,18 @@ After PR #20, Codex must not jump directly to PPO or deep RL.
 It must follow the post-#20 backlog in order. If the backlog is unclear, Codex must create or update docs before implementing runtime features.
 
 The bandit from PR #20 is a prototype. It does not mean the project is ready for PPO.
+
+## Alpha validation rule
+
+After PR #35, Codex must stop adding framework abstractions by default.
+
+The next sequence must prove the framework end to end on an IgnitionRAG-style alpha dogfood case:
+
+```txt
+alpha validation plan -> alpha dogfood experiment -> alpha readiness tag prep -> IgnitionRAG checklist -> IgnitionRAG bridge prototype
+```
+
+Do not add more RL abstractions, PPO, GRPO training, real provider calls, database code or frontend code unless a specific backlog PR explicitly asks for it.
 
 ## Required report format
 
@@ -118,6 +131,7 @@ First read:
 - docs/BACKLOG.md
 - docs/POST_20_ROADMAP.md
 - docs/PROJECT_AUDIT.md
+- docs/ALPHA_VALIDATION_PLAN.md
 - docs/DEFINITION_OF_DONE.md
 - docs/MILESTONES.md
 

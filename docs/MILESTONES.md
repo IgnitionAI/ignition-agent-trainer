@@ -262,3 +262,39 @@ Explicit non-goals:
 ```txt
 No PPO optimization, GPU training, model weight updates or production RL serving.
 ```
+
+### Milestone 10 - Alpha Validation
+
+Goal:
+
+```txt
+Prove the framework is usable end to end on a realistic IgnitionRAG-style document assistant evaluation.
+```
+
+Included PRs:
+
+```txt
+PR #36 - docs: add alpha validation plan
+PR #37 - feat: add alpha dogfood experiment
+PR #38 - chore: prepare v0.1.0-alpha.0 readiness
+PR #39 - docs: add IgnitionRAG Evaluation Center integration checklist
+PR #40 - feat: add IgnitionRAG evaluation bridge prototype
+```
+
+Exit criteria:
+
+```txt
+A developer can run the alpha dogfood experiment locally, export reports, compare a baseline, and understand the recommended RAG strategy without reading source code.
+```
+
+Primary validation reference:
+
+```txt
+docs/ALPHA_VALIDATION_PLAN.md
+```
+
+Explicit non-goals:
+
+```txt
+No frontend, database, SaaS integration, real provider calls, PPO implementation, GRPO training, model fine-tuning or production IgnitionRAG integration.
+```
