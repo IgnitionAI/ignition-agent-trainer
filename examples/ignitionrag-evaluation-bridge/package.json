@@ -1,0 +1,16 @@
+{
+  "name": "ignitionrag-evaluation-bridge",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun src/index.ts"
+  },
+  "dependencies": {
+    "@ignitionai/adapter-ignitionrag": "workspace:*",
+    "@ignitionai/core": "workspace:*",
+    "@ignitionai/experiments": "workspace:*",
+    "@ignitionai/preset-rag": "workspace:*",
+    "@ignitionai/trainer": "workspace:*"
+  }
+}

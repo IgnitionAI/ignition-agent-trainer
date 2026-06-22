@@ -296,7 +296,7 @@ docs/ALPHA_VALIDATION_PLAN.md
 Current status:
 
 ```txt
-PR #36, PR #37 and PR #38 are complete. The internal v0.1.0-alpha.0 tag is pushed. PR #39 is the current Evaluation Center checklist branch.
+PR #36 through PR #39 are complete. The internal v0.1.0-alpha.0 tag is pushed. PR #40 is the current IgnitionRAG bridge prototype branch.
 ```
 
 Explicit non-goals:
