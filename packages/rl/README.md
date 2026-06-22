@@ -127,6 +127,33 @@ const selected = selector.select({
 
 The contextual bandit is a prototype over developer-supplied features and fixed strategies. It does not learn embeddings, train neural policies, mutate prompts or route live production traffic.
 
+## Offline Policy Evaluation
+
+Use `evaluatePolicyOffline()` to replay a policy against local records that contain candidates and known rewards. This is for deterministic analysis only; it does not route live traffic.
+
+```ts
+import { createScoreBasedPolicy, evaluatePolicyOffline } from "@ignitionai/rl";
+
+const result = await evaluatePolicyOffline(createScoreBasedPolicy(), [
+  {
+    id: "case-1",
+    context: {
+      candidates: [
+        { id: "direct", action: { strategyId: "direct" }, score: 0.45 },
+        { id: "rag-basic", action: { strategyId: "rag-basic" }, score: 0.82 },
+      ],
+    },
+    rewardByCandidateId: {
+      direct: 0.45,
+      "rag-basic": 0.82,
+    },
+    expectedCandidateId: "rag-basic",
+  },
+]);
+```
+
+`createOfflinePolicyRecordsFromTrajectories()` can convert recorded trajectories into observed-action records. Those records only know the reward for the logged action unless you provide richer offline records yourself.
+
 ## Current Guarantees
 
 - static and score-based policies are deterministic,
@@ -135,6 +162,7 @@ The contextual bandit is a prototype over developer-supplied features and fixed 
 - selection is epsilon-greedy,
 - exploitation tie-breaking is deterministic by average reward, pulls, then arm id,
 - contextual selection uses deterministic feature and reward scoring,
+- offline policy evaluation replays local records deterministically,
 - tests use fixed random values,
 - no external APIs are called.
 
