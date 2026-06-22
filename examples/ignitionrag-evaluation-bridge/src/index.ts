@@ -1,4 +1,4 @@
-import { recommendVariant } from "@ignitionai/trainer";
+import { recommendVariant } from "@ignitionai/agent-trainer";
 import {
   sampleBridgeExperiment,
   sampleCaseRecords,

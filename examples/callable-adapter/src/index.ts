@@ -1,8 +1,13 @@
-import { createCallableAdapter } from "@ignitionai/adapter-callable";
-import { createDataset } from "@ignitionai/core";
-import { citationPresence, containsAll, costPenalty, latencyPenalty } from "@ignitionai/evals";
-import { createExperiment } from "@ignitionai/experiments";
-import { recommendVariant } from "@ignitionai/trainer";
+import { recommendVariant } from "@ignitionai/agent-trainer";
+import { createCallableAdapter } from "@ignitionai/agent-trainer-adapter-callable";
+import { createDataset } from "@ignitionai/agent-trainer-core";
+import {
+  citationPresence,
+  containsAll,
+  costPenalty,
+  latencyPenalty,
+} from "@ignitionai/agent-trainer-evals";
+import { createExperiment } from "@ignitionai/agent-trainer-experiments";
 
 const dataset = createDataset([
   {

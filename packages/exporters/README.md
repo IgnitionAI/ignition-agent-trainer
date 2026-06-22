@@ -1,4 +1,4 @@
-# @ignitionai/exporters
+# @ignitionai/agent-trainer-exporters
 
 Reusable exporters for Ignition Agent Trainer experiment results.
 
@@ -10,7 +10,7 @@ import {
   toJsonReport,
   toMarkdownReport,
   writeReportBundle,
-} from "@ignitionai/exporters";
+} from "@ignitionai/agent-trainer-exporters";
 
 const stableReport = exportExperimentResult(result, {
   recommendation,

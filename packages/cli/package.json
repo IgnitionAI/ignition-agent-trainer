@@ -1,6 +1,6 @@
 {
-  "name": "@ignitionai/cli",
-  "version": "0.1.0-alpha.0",
+  "name": "@ignitionai/agent-trainer-cli",
+  "version": "0.1.0-alpha.1",
   "description": "Local CLI for running typed Ignition Agent Trainer experiments.",
   "license": "MIT",
   "type": "module",
@@ -14,7 +14,7 @@
     }
   },
   "bin": {
-    "ignition": "./dist/index.js"
+    "ignition-agent-trainer": "./dist/index.js"
   },
   "files": [
     "dist"
@@ -30,10 +30,10 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ignitionai/core": "workspace:*",
-    "@ignitionai/experiments": "workspace:*",
-    "@ignitionai/exporters": "workspace:*",
-    "@ignitionai/trainer": "workspace:*"
+    "@ignitionai/agent-trainer": "0.1.0-alpha.1",
+    "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
+    "@ignitionai/agent-trainer-experiments": "0.1.0-alpha.1",
+    "@ignitionai/agent-trainer-exporters": "0.1.0-alpha.1"
   },
   "devDependencies": {
     "tsup": "latest",
@@ -41,5 +41,9 @@
     "vitest": "latest"
   },
   "peerDependencies": {},
-  "peerDependenciesMeta": {}
+  "peerDependenciesMeta": {},
+  "publishConfig": {
+    "access": "public",
+    "tag": "alpha"
+  }
 }

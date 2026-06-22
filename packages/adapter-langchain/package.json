@@ -1,6 +1,6 @@
 {
-  "name": "@ignitionai/adapter-langchain",
-  "version": "0.1.0-alpha.0",
+  "name": "@ignitionai/agent-trainer-adapter-langchain",
+  "version": "0.1.0-alpha.1",
   "description": "Minimal structural LangChain adapter for Ignition Agent Trainer.",
   "license": "MIT",
   "type": "module",
@@ -26,8 +26,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ignitionai/adapter-callable": "workspace:*",
-    "@ignitionai/core": "workspace:*"
+    "@ignitionai/agent-trainer-adapter-callable": "workspace:*",
+    "@ignitionai/agent-trainer-core": "workspace:*"
   },
   "devDependencies": {
     "tsup": "latest",
@@ -41,5 +41,6 @@
     "langchain": {
       "optional": true
     }
-  }
+  },
+  "private": true
 }

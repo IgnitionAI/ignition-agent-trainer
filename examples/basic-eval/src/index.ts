@@ -1,6 +1,6 @@
-import { createDataset, createMockAdapter } from "@ignitionai/core";
-import { containsAll, costPenalty, latencyPenalty } from "@ignitionai/evals";
-import { createExperiment } from "@ignitionai/experiments";
+import { createDataset, createMockAdapter } from "@ignitionai/agent-trainer-core";
+import { containsAll, costPenalty, latencyPenalty } from "@ignitionai/agent-trainer-evals";
+import { createExperiment } from "@ignitionai/agent-trainer-experiments";
 
 const dataset = createDataset([
   {

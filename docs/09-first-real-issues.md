@@ -36,7 +36,7 @@ The runner must execute each variant against each dataset item and output:
 Target:
 
 ```bash
-ignition eval run --dataset ./dataset.json --variant ./variant.ts --out ./report.json
+ignition-agent-trainer eval run --dataset ./dataset.json --variant ./variant.ts --out ./report.json
 ```
 
 ## Issue 5 — Add LangChain adapter

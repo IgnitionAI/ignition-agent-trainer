@@ -11,7 +11,7 @@ bun run typecheck
 
 ## Package rules
 
-- Keep `@ignitionai/core` dependency-light.
+- Keep `@ignitionai/agent-trainer-core` dependency-light.
 - Adapter packages should keep their framework dependencies as peer dependencies.
 - New rewards must return a score between `0` and `1` unless explicitly documented.
 - Reports must be serializable to JSON.

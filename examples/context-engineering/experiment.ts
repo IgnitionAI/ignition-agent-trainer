@@ -1,7 +1,7 @@
-import type { AgentAdapter, AgentInput, RunContext } from "@ignitionai/core";
-import { createDataset } from "@ignitionai/core";
-import { defineExperiment } from "@ignitionai/experiments";
-import { ragQualityPreset } from "@ignitionai/preset-rag";
+import type { AgentAdapter, AgentInput, RunContext } from "@ignitionai/agent-trainer-core";
+import { createDataset } from "@ignitionai/agent-trainer-core";
+import { defineExperiment } from "@ignitionai/agent-trainer-experiments";
+import { ragQualityPreset } from "@ignitionai/agent-trainer-preset-rag";
 
 type StrategyName = "direct-answer" | "rag-basic" | "rag-with-verification";
 

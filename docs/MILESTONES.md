@@ -296,13 +296,13 @@ docs/ALPHA_VALIDATION_PLAN.md
 Current status:
 
 ```txt
-PR #36 through PR #40 are complete. The internal v0.1.0-alpha.0 tag is pushed on the merged bridge prototype. PR #41 is the current release-notes branch.
+PR #36 through PR #41 are complete. The internal v0.1.0-alpha.0 tag is pushed on the merged bridge prototype. PR #42 is the current npm alpha publishing readiness branch.
 ```
 
 Next phase:
 
 ```txt
-Do not add more framework abstractions by default. Dogfood the alpha inside IgnitionRAG first, then return with concrete findings.
+Prepare npm alpha publishing, tag v0.1.0-alpha.1 after PR #42 merges, publish with dist-tag alpha, then dogfood the alpha inside IgnitionRAG.
 ```
 
 Explicit non-goals:

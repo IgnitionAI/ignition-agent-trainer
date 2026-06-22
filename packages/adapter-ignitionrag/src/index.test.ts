@@ -1,4 +1,8 @@
-import { createDataset, createMockAdapter, type RewardFunction } from "@ignitionai/core";
+import {
+  createDataset,
+  createMockAdapter,
+  type RewardFunction,
+} from "@ignitionai/agent-trainer-core";
 import { describe, expect, it } from "vitest";
 import type {
   IgnitionRagAdapterContract,

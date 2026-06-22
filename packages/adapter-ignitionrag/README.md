@@ -1,4 +1,4 @@
-# @ignitionai/adapter-ignitionrag
+# @ignitionai/agent-trainer-adapter-ignitionrag
 
 Type-level adapter contract between IgnitionRAG and Ignition Agent Trainer.
 
@@ -8,7 +8,7 @@ This package defines the boundary IgnitionRAG can implement when it is ready to 
 import type {
   IgnitionRagAdapterContract,
   IgnitionRagExperimentExecutionRequest,
-} from "@ignitionai/adapter-ignitionrag";
+} from "@ignitionai/agent-trainer-adapter-ignitionrag";
 
 const adapter: IgnitionRagAdapterContract = {
   async executeExperiment(request: IgnitionRagExperimentExecutionRequest) {

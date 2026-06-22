@@ -1,11 +1,11 @@
-# @ignitionai/adapter-vercel-ai
+# @ignitionai/agent-trainer-adapter-vercel-ai
 
 Minimal structural adapter for Vercel AI SDK-style functions.
 
 This package does not require the `ai` package at runtime. It expects a function that accepts a prompt-shaped object and returns text or structured data:
 
 ```ts
-import { createVercelAiAdapter } from "@ignitionai/adapter-vercel-ai";
+import { createVercelAiAdapter } from "@ignitionai/agent-trainer-adapter-vercel-ai";
 
 const adapter = createVercelAiAdapter({
   name: "support-generator",
@@ -18,7 +18,7 @@ const adapter = createVercelAiAdapter({
 Use `vercelAiAdapter()` when you want an `AgentVariant` directly:
 
 ```ts
-import { vercelAiAdapter } from "@ignitionai/adapter-vercel-ai";
+import { vercelAiAdapter } from "@ignitionai/agent-trainer-adapter-vercel-ai";
 
 const variant = vercelAiAdapter({
   id: "vercel-ai-support",

@@ -1,6 +1,6 @@
-import { createDataset } from "@ignitionai/core";
-import { containsAll } from "@ignitionai/evals";
-import { createExperiment } from "@ignitionai/experiments";
+import { createDataset } from "@ignitionai/agent-trainer-core";
+import { containsAll } from "@ignitionai/agent-trainer-evals";
+import { createExperiment } from "@ignitionai/agent-trainer-experiments";
 import { describe, expect, it } from "vitest";
 import { createVercelAiAdapter, type VercelAiGenerateLike, vercelAiAdapter } from "./index";
 

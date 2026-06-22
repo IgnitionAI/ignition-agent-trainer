@@ -17,21 +17,21 @@
     "exactOptionalPropertyTypes": true,
     "baseUrl": ".",
     "paths": {
-      "@ignitionai/core": ["packages/core/src/index.ts"],
-      "@ignitionai/evals": ["packages/evals/src/index.ts"],
-      "@ignitionai/experiments": ["packages/experiments/src/index.ts"],
-      "@ignitionai/exporters": ["packages/exporters/src/index.ts"],
-      "@ignitionai/preset-rag": ["packages/preset-rag/src/index.ts"],
-      "@ignitionai/preset-strategies": ["packages/preset-strategies/src/index.ts"],
-      "@ignitionai/trainer": ["packages/trainer/src/index.ts"],
-      "@ignitionai/environment": ["packages/environment/src/index.ts"],
-      "@ignitionai/rl": ["packages/rl/src/index.ts"],
-      "@ignitionai/adapter-callable": ["packages/adapter-callable/src/index.ts"],
-      "@ignitionai/adapter-langchain": ["packages/adapter-langchain/src/index.ts"],
-      "@ignitionai/adapter-langgraph": ["packages/adapter-langgraph/src/index.ts"],
-      "@ignitionai/adapter-mastra": ["packages/adapter-mastra/src/index.ts"],
-      "@ignitionai/adapter-vercel-ai": ["packages/adapter-vercel-ai/src/index.ts"],
-      "@ignitionai/adapter-ignitionrag": ["packages/adapter-ignitionrag/src/index.ts"]
+      "@ignitionai/agent-trainer-core": ["packages/core/src/index.ts"],
+      "@ignitionai/agent-trainer-evals": ["packages/evals/src/index.ts"],
+      "@ignitionai/agent-trainer-experiments": ["packages/experiments/src/index.ts"],
+      "@ignitionai/agent-trainer-exporters": ["packages/exporters/src/index.ts"],
+      "@ignitionai/agent-trainer-preset-rag": ["packages/preset-rag/src/index.ts"],
+      "@ignitionai/agent-trainer-preset-strategies": ["packages/preset-strategies/src/index.ts"],
+      "@ignitionai/agent-trainer": ["packages/trainer/src/index.ts"],
+      "@ignitionai/agent-trainer-environment": ["packages/environment/src/index.ts"],
+      "@ignitionai/agent-trainer-rl": ["packages/rl/src/index.ts"],
+      "@ignitionai/agent-trainer-adapter-callable": ["packages/adapter-callable/src/index.ts"],
+      "@ignitionai/agent-trainer-adapter-langchain": ["packages/adapter-langchain/src/index.ts"],
+      "@ignitionai/agent-trainer-adapter-langgraph": ["packages/adapter-langgraph/src/index.ts"],
+      "@ignitionai/agent-trainer-adapter-mastra": ["packages/adapter-mastra/src/index.ts"],
+      "@ignitionai/agent-trainer-adapter-vercel-ai": ["packages/adapter-vercel-ai/src/index.ts"],
+      "@ignitionai/agent-trainer-adapter-ignitionrag": ["packages/adapter-ignitionrag/src/index.ts"]
     }
   }
 }

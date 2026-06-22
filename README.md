@@ -63,16 +63,16 @@ apps / SaaS
    └─ Agent Training
 
 open-source framework
-├─ @ignitionai/core
-├─ @ignitionai/evals
-├─ @ignitionai/experiments
-├─ @ignitionai/trainer
-├─ @ignitionai/environment
-├─ @ignitionai/rl
-├─ @ignitionai/adapter-langchain
-├─ @ignitionai/adapter-langgraph
-├─ @ignitionai/adapter-mastra
-└─ @ignitionai/adapter-vercel-ai
+├─ @ignitionai/agent-trainer-core
+├─ @ignitionai/agent-trainer-evals
+├─ @ignitionai/agent-trainer-experiments
+├─ @ignitionai/agent-trainer
+├─ @ignitionai/agent-trainer-environment
+├─ @ignitionai/agent-trainer-rl
+├─ @ignitionai/agent-trainer-adapter-langchain
+├─ @ignitionai/agent-trainer-adapter-langgraph
+├─ @ignitionai/agent-trainer-adapter-mastra
+└─ @ignitionai/agent-trainer-adapter-vercel-ai
 ```
 
 ---
@@ -99,13 +99,13 @@ bun run --filter './examples/basic-eval' dev
 Run a typed experiment through the local CLI:
 
 ```bash
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/context-engineering/experiment.ts
 ```
 
 Write a timestamped local report bundle:
 
 ```bash
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts --bundle reports
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/context-engineering/experiment.ts --bundle reports
 ```
 
 Run the sample CI regression gate:
@@ -123,7 +123,7 @@ bun run --filter './examples/alpha-dogfood' dev
 Run the alpha dogfood experiment through the local CLI and write a report bundle:
 
 ```bash
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood
 ```
 
 Run the IgnitionRAG evaluation bridge prototype:
@@ -137,9 +137,9 @@ bun run --filter './examples/ignitionrag-evaluation-bridge' dev
 ## Minimal usage
 
 ```ts
-import { createDataset } from "@ignitionai/core";
-import { containsText, costPenalty, latencyPenalty } from "@ignitionai/evals";
-import { createExperiment } from "@ignitionai/experiments";
+import { createDataset } from "@ignitionai/agent-trainer-core";
+import { containsText, costPenalty, latencyPenalty } from "@ignitionai/agent-trainer-evals";
+import { createExperiment } from "@ignitionai/agent-trainer-experiments";
 
 const dataset = createDataset({
   name: "contract-risk-demo",
@@ -226,6 +226,7 @@ See:
 - [Alpha readiness checklist](./docs/ALPHA_READINESS.md)
 - [Alpha release readiness](./docs/ALPHA_RELEASE.md)
 - [v0.1.0-alpha.0 release notes](./docs/releases/v0.1.0-alpha.0.md)
+- [npm alpha publishing](./docs/NPM_ALPHA_PUBLISHING.md)
 - [Alpha validation plan](./docs/ALPHA_VALIDATION_PLAN.md)
 - [Definition of Done](./docs/DEFINITION_OF_DONE.md)
 - [Milestones](./docs/MILESTONES.md)

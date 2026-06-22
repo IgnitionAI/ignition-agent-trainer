@@ -1,17 +1,17 @@
-# @ignitionai/cli
+# @ignitionai/agent-trainer-cli
 
 Local CLI for running typed Ignition Agent Trainer experiment modules.
 
 ## Run a Typed Experiment
 
 ```bash
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/context-engineering/experiment.ts
 ```
 
 The experiment file must default export an `ExperimentDefinition` created with `defineExperiment()`:
 
 ```ts
-import { defineExperiment } from "@ignitionai/experiments";
+import { defineExperiment } from "@ignitionai/agent-trainer-experiments";
 
 export default defineExperiment({
   name: "context-engineering-strategies",
@@ -34,7 +34,7 @@ The command prints:
 Use `--json` and `--markdown` to persist exporter output:
 
 ```bash
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts \
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/context-engineering/experiment.ts \
   --json reports/context-engineering.json \
   --markdown reports/context-engineering.md
 ```
@@ -46,7 +46,7 @@ Both reports include the leaderboard and recommendation.
 Use `--bundle` when CI or local runs should keep JSON, Markdown and bundle metadata together:
 
 ```bash
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts \
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/context-engineering/experiment.ts \
   --bundle reports
 ```
 

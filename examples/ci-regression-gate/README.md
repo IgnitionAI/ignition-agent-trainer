@@ -66,7 +66,7 @@ bun run --filter './examples/ci-regression-gate' dev
 It also exports the current experiment as a report bundle for debugging:
 
 ```bash
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts --bundle reports
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/context-engineering/experiment.ts --bundle reports
 ```
 
 This example workflow is intentionally not installed under `.github/workflows`, so it does not change this repository's production CI behavior.

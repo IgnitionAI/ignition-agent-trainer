@@ -1,13 +1,13 @@
-# @ignitionai/preset-strategies
+# @ignitionai/agent-trainer-preset-strategies
 
 Reusable strategy preset registry for Ignition Agent Trainer experiments.
 
 Use this package when an experiment needs deterministic context/workflow strategy variants without wiring every mocked variant by hand.
 
 ```ts
-import { createExperiment } from "@ignitionai/experiments";
-import { ragQualityPreset } from "@ignitionai/preset-rag";
-import { getStrategyPreset } from "@ignitionai/preset-strategies";
+import { createExperiment } from "@ignitionai/agent-trainer-experiments";
+import { ragQualityPreset } from "@ignitionai/agent-trainer-preset-rag";
+import { getStrategyPreset } from "@ignitionai/agent-trainer-preset-strategies";
 
 const variants = ["direct-answer", "rag-basic", "rag-with-verification"].map((id) => {
   const preset = getStrategyPreset(id);

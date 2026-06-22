@@ -1,4 +1,4 @@
-import type { ExperimentResult, VariantSummary } from "@ignitionai/core";
+import type { ExperimentResult, VariantSummary } from "@ignitionai/agent-trainer-core";
 
 export type RecommendationConfidence = "low" | "medium" | "high";
 

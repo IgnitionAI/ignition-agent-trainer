@@ -1,4 +1,4 @@
-import type { ExperimentResult, Metadata, VariantSummary } from "@ignitionai/core";
+import type { ExperimentResult, Metadata, VariantSummary } from "@ignitionai/agent-trainer-core";
 
 export interface ExperimentalBanditStrategyArm<TStrategy = unknown> {
   id: string;

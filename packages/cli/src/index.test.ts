@@ -1,8 +1,12 @@
 import { mkdtemp, readdir, readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { createDataset, createMockAdapter, type RewardFunction } from "@ignitionai/core";
-import { defineExperiment, type ExperimentDefinition } from "@ignitionai/experiments";
+import {
+  createDataset,
+  createMockAdapter,
+  type RewardFunction,
+} from "@ignitionai/agent-trainer-core";
+import { defineExperiment, type ExperimentDefinition } from "@ignitionai/agent-trainer-experiments";
 import { describe, expect, it } from "vitest";
 import { parseCliArgs, runCli } from "./index";
 

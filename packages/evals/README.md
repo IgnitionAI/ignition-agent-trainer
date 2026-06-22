@@ -1,4 +1,4 @@
-# @ignitionai/evals
+# @ignitionai/agent-trainer-evals
 
 Reward functions and trace helpers for scoring Ignition Agent Trainer runs.
 
@@ -14,7 +14,7 @@ import {
   costPenalty,
   exactMatch,
   latencyPenalty,
-} from "@ignitionai/evals";
+} from "@ignitionai/agent-trainer-evals";
 ```
 
 Main exports:

@@ -1,4 +1,4 @@
-# @ignitionai/core
+# @ignitionai/agent-trainer-core
 
 Shared TypeScript primitives for Ignition Agent Trainer.
 
@@ -13,7 +13,7 @@ import {
   normalizeRunResult,
   toAgentInput,
   weightedAverage,
-} from "@ignitionai/core";
+} from "@ignitionai/agent-trainer-core";
 ```
 
 Main exports:

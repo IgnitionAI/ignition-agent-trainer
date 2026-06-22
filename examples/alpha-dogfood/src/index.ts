@@ -1,9 +1,13 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { appendExperimentHistory } from "@ignitionai/experiments";
-import { toJsonReport, toMarkdownReport, writeReportBundle } from "@ignitionai/exporters";
-import { recommendVariant } from "@ignitionai/trainer";
+import { recommendVariant } from "@ignitionai/agent-trainer";
+import { appendExperimentHistory } from "@ignitionai/agent-trainer-experiments";
+import {
+  toJsonReport,
+  toMarkdownReport,
+  writeReportBundle,
+} from "@ignitionai/agent-trainer-exporters";
 import alphaDogfoodExperiment, { dataset, variants } from "../experiment";
 import { runAlphaDogfoodRegressionGate } from "../regression-gate";
 

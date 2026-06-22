@@ -1,4 +1,4 @@
-import type { ExperimentResult, VariantSummary } from "@ignitionai/core";
+import type { ExperimentResult, VariantSummary } from "@ignitionai/agent-trainer-core";
 
 export type RegressionGateMetric = "score" | "latency" | "cost" | "variant";
 export type RegressionGateScope = "experiment" | "variant";

@@ -1,4 +1,4 @@
-import { type DatasetItem, normalizeRunResult, toAgentInput } from "@ignitionai/core";
+import { type DatasetItem, normalizeRunResult, toAgentInput } from "@ignitionai/agent-trainer-core";
 import { describe, expect, it } from "vitest";
 import {
   builtInStrategyPresets,

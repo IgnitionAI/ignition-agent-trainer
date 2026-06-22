@@ -2,7 +2,7 @@ import {
   type CallableAdapterRunInput,
   type CallableAdapterRunResult,
   createCallableAdapter,
-} from "@ignitionai/adapter-callable";
+} from "@ignitionai/agent-trainer-adapter-callable";
 import type {
   AgentOutput,
   AgentVariant,
@@ -10,7 +10,7 @@ import type {
   MaybePromise,
   Metadata,
   UsageMetrics,
-} from "@ignitionai/core";
+} from "@ignitionai/agent-trainer-core";
 
 export interface VercelAiGenerateLike {
   // biome-ignore lint/style/useShorthandFunctionType: keep the exported interface stable for adapter consumers.

@@ -1,4 +1,4 @@
-# @ignitionai/rl
+# @ignitionai/agent-trainer-rl
 
 Experimental reinforcement-learning-inspired utilities for Ignition Agent Trainer.
 
@@ -9,7 +9,7 @@ This package is prototype-only today. It does not train model weights, route liv
 Use the policy helpers to choose among fixed strategy candidates before introducing bandits or rollout training.
 
 ```ts
-import { createScoreBasedPolicy, createStaticPolicy } from "@ignitionai/rl";
+import { createScoreBasedPolicy, createStaticPolicy } from "@ignitionai/agent-trainer-rl";
 
 const staticPolicy = createStaticPolicy("rag-basic");
 const scorePolicy = createScoreBasedPolicy();
@@ -29,7 +29,7 @@ const decision = await scorePolicy.decide({
 Use `recordTrajectory()` and `summarizeTrajectory()` when you need a local record of state, action, reward and outcome steps.
 
 ```ts
-import { recordTrajectory, summarizeTrajectory } from "@ignitionai/rl";
+import { recordTrajectory, summarizeTrajectory } from "@ignitionai/agent-trainer-rl";
 
 const trajectory = recordTrajectory(
   [
@@ -52,7 +52,7 @@ Trajectories are plain JSON-compatible records. They are not an external tracing
 Use `ExperimentalBanditStrategySelector` to choose among fixed, developer-supplied strategies and update their rewards from observed experiment outcomes.
 
 ```ts
-import { ExperimentalBanditStrategySelector } from "@ignitionai/rl";
+import { ExperimentalBanditStrategySelector } from "@ignitionai/agent-trainer-rl";
 
 const selector = new ExperimentalBanditStrategySelector(
   [
@@ -89,7 +89,7 @@ selector.updateFromExperimentResult(result, {
 Use `ContextualBanditStrategySelector` when fixed strategy arms should be scored against deterministic task features before any deeper policy optimization exists.
 
 ```ts
-import { ContextualBanditStrategySelector } from "@ignitionai/rl";
+import { ContextualBanditStrategySelector } from "@ignitionai/agent-trainer-rl";
 
 const selector = new ContextualBanditStrategySelector([
   {
@@ -132,7 +132,7 @@ The contextual bandit is a prototype over developer-supplied features and fixed 
 Use `evaluatePolicyOffline()` to replay a policy against local records that contain candidates and known rewards. This is for deterministic analysis only; it does not route live traffic.
 
 ```ts
-import { createScoreBasedPolicy, evaluatePolicyOffline } from "@ignitionai/rl";
+import { createScoreBasedPolicy, evaluatePolicyOffline } from "@ignitionai/agent-trainer-rl";
 
 const result = await evaluatePolicyOffline(createScoreBasedPolicy(), [
   {
@@ -159,7 +159,7 @@ const result = await evaluatePolicyOffline(createScoreBasedPolicy(), [
 Use `selectGroupRelativeBest()` when prompt, workflow or strategy candidates should be ranked by their advantage relative to other candidates in the same group.
 
 ```ts
-import { selectGroupRelativeBest } from "@ignitionai/rl";
+import { selectGroupRelativeBest } from "@ignitionai/agent-trainer-rl";
 
 const result = selectGroupRelativeBest([
   {
@@ -188,7 +188,7 @@ This is group-relative selection only. It does not update model weights, compute
 Use the PPO types only as a future integration boundary. `UnimplementedPPOTrainer` exists to fail clearly if a caller tries to run PPO before a real trainer is designed.
 
 ```ts
-import { UnimplementedPPOTrainer, type PPOConfig, type PPOTrainingBatch } from "@ignitionai/rl";
+import { UnimplementedPPOTrainer, type PPOConfig, type PPOTrainingBatch } from "@ignitionai/agent-trainer-rl";
 
 const config: PPOConfig = {
   clipRatio: 0.2,

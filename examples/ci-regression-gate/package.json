@@ -7,7 +7,7 @@
     "dev": "bun regression-gate.ts"
   },
   "dependencies": {
-    "@ignitionai/core": "workspace:*",
-    "@ignitionai/experiments": "workspace:*"
+    "@ignitionai/agent-trainer-core": "workspace:*",
+    "@ignitionai/agent-trainer-experiments": "workspace:*"
   }
 }

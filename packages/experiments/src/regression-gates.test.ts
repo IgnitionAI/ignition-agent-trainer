@@ -1,4 +1,4 @@
-import type { ExperimentResult, VariantSummary } from "@ignitionai/core";
+import type { ExperimentResult, VariantSummary } from "@ignitionai/agent-trainer-core";
 import { describe, expect, it } from "vitest";
 import {
   assertNoRegression,

@@ -1,4 +1,4 @@
-import type { JsonValue, Metadata } from "@ignitionai/core";
+import type { JsonValue, Metadata } from "@ignitionai/agent-trainer-core";
 import type { Policy, PolicyCandidate, PolicyContext, PolicyDecision } from "./policy";
 import type { Trajectory, TrajectoryStep } from "./trajectory";
 

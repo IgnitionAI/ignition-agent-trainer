@@ -1,6 +1,6 @@
 {
-  "name": "@ignitionai/trainer",
-  "version": "0.1.0-alpha.0",
+  "name": "@ignitionai/agent-trainer",
+  "version": "0.1.0-alpha.1",
   "description": "Deterministic recommendation, ranking and search helpers for Ignition Agent Trainer.",
   "license": "MIT",
   "type": "module",
@@ -26,9 +26,9 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ignitionai/core": "workspace:*",
-    "@ignitionai/experiments": "workspace:*",
-    "@ignitionai/rl": "workspace:*"
+    "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
+    "@ignitionai/agent-trainer-experiments": "0.1.0-alpha.1",
+    "@ignitionai/agent-trainer-rl": "0.1.0-alpha.1"
   },
   "devDependencies": {
     "tsup": "latest",
@@ -36,5 +36,9 @@
     "vitest": "latest"
   },
   "peerDependencies": {},
-  "peerDependenciesMeta": {}
+  "peerDependenciesMeta": {},
+  "publishConfig": {
+    "access": "public",
+    "tag": "alpha"
+  }
 }

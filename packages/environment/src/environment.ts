@@ -1,4 +1,4 @@
-import type { JsonRecord, JsonValue, RewardResult } from "@ignitionai/core";
+import type { JsonRecord, JsonValue, RewardResult } from "@ignitionai/agent-trainer-core";
 
 export interface EnvironmentState {
   id: string;

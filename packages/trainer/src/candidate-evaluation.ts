@@ -8,8 +8,8 @@ import type {
   Metadata,
   RewardFunction,
   RunContext,
-} from "@ignitionai/core";
-import { createExperiment, type ExperimentOptions } from "@ignitionai/experiments";
+} from "@ignitionai/agent-trainer-core";
+import { createExperiment, type ExperimentOptions } from "@ignitionai/agent-trainer-experiments";
 import { type OptimizationObjective, type RankedVariant, rankVariants } from "./optimization";
 
 export type CandidateKind = "prompt" | "workflow";

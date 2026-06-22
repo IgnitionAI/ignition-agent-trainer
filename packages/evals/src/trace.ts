@@ -1,4 +1,4 @@
-import type { AgentTrace } from "@ignitionai/core";
+import type { AgentTrace } from "@ignitionai/agent-trainer-core";
 
 export function getToolCallNames(trace: AgentTrace): string[] {
   return trace.steps.filter((step) => step.type === "tool_call").map((step) => step.name);

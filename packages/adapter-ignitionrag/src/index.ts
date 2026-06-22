@@ -4,8 +4,8 @@ import type {
   ExperimentResult,
   Metadata,
   RewardFunction,
-} from "@ignitionai/core";
-import type { ExperimentResultExport } from "@ignitionai/exporters";
+} from "@ignitionai/agent-trainer-core";
+import type { ExperimentResultExport } from "@ignitionai/agent-trainer-exporters";
 
 export interface IgnitionRagCollectionReference {
   kind: "ignitionrag.collection";

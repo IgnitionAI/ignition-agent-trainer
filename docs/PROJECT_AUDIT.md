@@ -19,7 +19,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 
 ## Current Packages
 
-### `@ignitionai/adapter-callable`
+### `@ignitionai/agent-trainer-adapter-callable`
 
 - Purpose: wrap a developer-owned function as an `AgentAdapter`.
 - Main exports: `createCallableAdapter`, `CallableAdapterOptions`, `CallableAdapterRun`, `CallableAgentAdapter`.
@@ -28,7 +28,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: yes, `examples/callable-adapter`.
 - Known limitations: no remote execution, no streaming, no framework-specific behavior.
 
-### `@ignitionai/adapter-ignitionrag`
+### `@ignitionai/agent-trainer-adapter-ignitionrag`
 
 - Purpose: define the package-level contract IgnitionRAG can implement to call Ignition Agent Trainer.
 - Main exports: `IgnitionRagCollectionReference`, `IgnitionRagWorkflowReference`, `IgnitionRagAgentReference`, `IgnitionRagExperimentExecutionRequest`, `IgnitionRagExperimentExecutionResult`, `IgnitionRagAdapterContract`.
@@ -37,7 +37,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: yes, package README shows the boundary.
 - Known limitations: type-level contract only; no IgnitionRAG runtime, database, auth, billing or frontend integration.
 
-### `@ignitionai/adapter-langchain`
+### `@ignitionai/agent-trainer-adapter-langchain`
 
 - Purpose: minimal structural adapter for LangChain Runnable-like objects.
 - Main exports: `createLangChainAdapter`, `langChainAdapter`, `LangChainRunnableLike`.
@@ -46,7 +46,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: no dedicated example.
 - Known limitations: does not require or inspect LangChain internals, does not stream, does not call providers, and only expects `invoke()`.
 
-### `@ignitionai/adapter-langgraph`
+### `@ignitionai/agent-trainer-adapter-langgraph`
 
 - Purpose: minimal structural adapter for LangGraph-like graph objects.
 - Main exports: `createLangGraphAdapter`, `langGraphAdapter`, `LangGraphLike`.
@@ -55,7 +55,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: no dedicated example.
 - Known limitations: does not persist graph state, stream events, inspect graph internals or call providers.
 
-### `@ignitionai/adapter-mastra`
+### `@ignitionai/agent-trainer-adapter-mastra`
 
 - Purpose: minimal structural adapter for Mastra-like agent objects.
 - Main exports: `createMastraAdapter`, `mastraAdapter`, `MastraAgentLike`.
@@ -64,7 +64,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: no dedicated example.
 - Known limitations: only supports `generate()` or `run()` style objects, no tools, memory, persistence or full Mastra API coverage.
 
-### `@ignitionai/adapter-vercel-ai`
+### `@ignitionai/agent-trainer-adapter-vercel-ai`
 
 - Purpose: minimal structural adapter for Vercel AI SDK-style generate functions.
 - Main exports: `createVercelAiAdapter`, `vercelAiAdapter`, `VercelAiGenerateLike`.
@@ -73,7 +73,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: no dedicated example.
 - Known limitations: no real provider calls, no auth, no streaming, no tool integration and no prompt generation.
 
-### `@ignitionai/cli`
+### `@ignitionai/agent-trainer-cli`
 
 - Purpose: run typed experiment modules locally and write JSON/Markdown reports or report bundles.
 - Main exports: `parseCliArgs`, `runCli`, `CliCommand`, `CliEnvironment`.
@@ -82,7 +82,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: yes, `examples/context-engineering/experiment.ts` through the CLI.
 - Known limitations: no watch mode, no persistent history flag, no baseline selection flag, no regression-gate command, no remote execution.
 
-### `@ignitionai/core`
+### `@ignitionai/agent-trainer-core`
 
 - Purpose: shared dataset, adapter, trace, reward, run and experiment result types plus small helpers.
 - Main exports: `createDataset`, `createMockAdapter`, `normalizeRunResult`, `toAgentInput`, `clampScore`, `weightedAverage`, shared interfaces.
@@ -91,7 +91,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: yes, used by all current examples.
 - Known limitations: no dedicated package tests, no schema serialization helpers beyond TypeScript types.
 
-### `@ignitionai/environment`
+### `@ignitionai/agent-trainer-environment`
 
 - Purpose: early state/action/reward/policy environment loop primitives.
 - Main exports: `runEpisode`, `AgentEnvironment`, `EnvironmentState`, `EnvironmentAction`, `Policy`, `EpisodeResult`.
@@ -100,16 +100,16 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: no.
 - Known limitations: no tests, no rollout recorder, no production policy evaluation.
 
-### `@ignitionai/evals`
+### `@ignitionai/agent-trainer-evals`
 
 - Purpose: reward functions and trace helpers for scoring agent outputs.
 - Main exports: `exactMatch`, `containsAll`, `containsText`, `jsonValidity`, `citationPresence`, `toolUsagePenalty`, `toolCallCountPenalty`, `latencyPenalty`, `costPenalty`, `compositeReward`, `customReward`, trace helpers.
 - Stability level: partial.
 - Tests present: yes.
 - Example present: yes, used by current examples.
-- Known limitations: reward set is intentionally small; RAG presets live in `@ignitionai/preset-rag`.
+- Known limitations: reward set is intentionally small; RAG presets live in `@ignitionai/agent-trainer-preset-rag`.
 
-### `@ignitionai/experiments`
+### `@ignitionai/agent-trainer-experiments`
 
 - Purpose: run experiments, define typed experiment modules, compare regression gates and store local JSONL history.
 - Main exports: `createExperiment`, `defineExperiment`, `compareExperimentResults`, `assertNoRegression`, `appendExperimentHistory`, `readExperimentHistory`, `getLatestExperimentResult`, report helpers.
@@ -118,7 +118,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: yes, `basic-eval`, `callable-adapter` and `context-engineering`.
 - Known limitations: no remote execution, no database, no hosted reporting.
 
-### `@ignitionai/exporters`
+### `@ignitionai/agent-trainer-exporters`
 
 - Purpose: convert `ExperimentResult` into stable JSON and Markdown report shapes and local report bundles.
 - Main exports: `exportExperimentResult`, `toJsonReport`, `toMarkdownReport`, `writeReportBundle`.
@@ -127,7 +127,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: partial, used through CLI report output in `examples/context-engineering`.
 - Known limitations: does not compare baselines, store reports remotely or create hosted report surfaces.
 
-### `@ignitionai/preset-rag`
+### `@ignitionai/agent-trainer-preset-rag`
 
 - Purpose: compose existing deterministic rewards into reusable RAG and agentic RAG presets.
 - Main exports: `citationQualityPreset`, `ragQualityPreset`, `agenticRagPreset`.
@@ -136,7 +136,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: yes, documented mocked usage in package README.
 - Known limitations: no live retrieval, vector database integration, document ingestion or model-graded scoring.
 
-### `@ignitionai/preset-strategies`
+### `@ignitionai/agent-trainer-preset-strategies`
 
 - Purpose: register reusable deterministic context/workflow strategy presets.
 - Main exports: `defineStrategyPreset`, `createStrategyRegistry`, `getStrategyPreset`, `listStrategyPresets`.
@@ -145,7 +145,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: yes, documented variant creation in package README.
 - Known limitations: no real retrieval, reranking, provider calls, persistence or hosted registry.
 
-### `@ignitionai/rl`
+### `@ignitionai/agent-trainer-rl`
 
 - Purpose: experimental RL-inspired utilities, deterministic policy selection helpers, fixed-strategy/contextual bandit prototypes, offline policy evaluation, GRPO-style candidate selection and PPO interface skeletons.
 - Main exports: `Policy`, `PolicyContext`, `PolicyDecision`, `createStaticPolicy`, `createScoreBasedPolicy`, `Trajectory`, `TrajectoryStep`, `recordTrajectory`, `summarizeTrajectory`, `EpsilonGreedyBandit`, `RandomPolicy`, `ExperimentalBanditStrategySelector`, `ContextualBanditStrategySelector`, `ContextFeatures`, `scoreContextMatch`, `evaluatePolicyOffline`, `PolicyEvaluationResult`, `selectGroupRelativeBest`, `rankCandidateGroup`, `GroupRelativeSelectionResult`, `PPOConfig`, `PPOTrainer`, `PPOTrainingBatch`, `PPOTrainingResult`, `UnimplementedPPOTrainer`, `createUnimplementedPPOTrainer`.
@@ -154,7 +154,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: no.
 - Known limitations: no PPO optimization, no GRPO model training, no production routing.
 
-### `@ignitionai/trainer`
+### `@ignitionai/agent-trainer`
 
 - Purpose: deterministic recommendation, ranking, candidate evaluation and grid search helpers.
 - Main exports: `recommendVariant`, `selectBestVariant`, `rankVariants`, `selectBestByObjective`, `suggestNextExperiment`, `evaluateCandidates`, `runGridSearch`, `generateParameterCombinations`.
@@ -183,7 +183,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 
 - Demonstrates: comparing direct answer, basic RAG and verified RAG strategies with the same mocked base model.
 - Command: `bun run --filter './examples/context-engineering' dev`.
-- CLI command: `bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts`.
+- CLI command: `bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/context-engineering/experiment.ts`.
 - Mocked or live: mocked.
 - Product concept: context engineering strategy comparison and CLI-ready typed experiments.
 
@@ -199,7 +199,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Demonstrates: an IgnitionRAG-style document assistant evaluation with direct answer, basic RAG, rerank, verification and agentic RAG variants.
 - Command: `bun run --filter './examples/alpha-dogfood' dev`.
 - Gate command: `bun run --filter './examples/alpha-dogfood' gate`.
-- CLI command: `bun run --filter '@ignitionai/cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood`.
+- CLI command: `bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood`.
 - Mocked or live: deterministic mocked adapters.
 - Product concept: alpha dogfood loop with dataset, variants, rewards, leaderboard, recommendation, report exports, regression gate and local history.
 

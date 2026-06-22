@@ -1,9 +1,9 @@
-import type { MaybePromise, Metadata } from "@ignitionai/core";
+import type { MaybePromise, Metadata } from "@ignitionai/agent-trainer-core";
 import type {
   EnvironmentAction,
   Policy as EnvironmentPolicy,
   EnvironmentState,
-} from "@ignitionai/environment";
+} from "@ignitionai/agent-trainer-environment";
 
 export interface PolicyCandidate<TAction = unknown> {
   id: string;

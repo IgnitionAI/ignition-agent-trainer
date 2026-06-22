@@ -1,4 +1,4 @@
-import type { RewardFunction } from "@ignitionai/core";
+import type { RewardFunction } from "@ignitionai/agent-trainer-core";
 import {
   citationPresence,
   compositeReward,
@@ -6,7 +6,7 @@ import {
   costPenalty,
   latencyPenalty,
   toolCallCountPenalty,
-} from "@ignitionai/evals";
+} from "@ignitionai/agent-trainer-evals";
 
 export interface CitationQualityPresetOptions {
   qualityRewardName?: string;

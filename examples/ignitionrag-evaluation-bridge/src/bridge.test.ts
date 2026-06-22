@@ -1,4 +1,4 @@
-import { normalizeRunResult } from "@ignitionai/core";
+import { normalizeRunResult } from "@ignitionai/agent-trainer-core";
 import { describe, expect, it } from "vitest";
 import {
   createBridgeExperiment,

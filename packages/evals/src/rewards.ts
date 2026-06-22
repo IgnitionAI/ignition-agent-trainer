@@ -5,8 +5,8 @@ import type {
   RewardFunction,
   RunContext,
   RunResult,
-} from "@ignitionai/core";
-import { clampScore, weightedAverage } from "@ignitionai/core";
+} from "@ignitionai/agent-trainer-core";
+import { clampScore, weightedAverage } from "@ignitionai/agent-trainer-core";
 
 export interface RewardOptions {
   name?: string;

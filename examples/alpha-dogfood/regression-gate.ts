@@ -1,13 +1,13 @@
 #!/usr/bin/env bun
 
 import { pathToFileURL } from "node:url";
-import type { ExperimentResult } from "@ignitionai/core";
+import type { ExperimentResult } from "@ignitionai/agent-trainer-core";
 import {
   assertNoRegression,
   type RegressionGateComparison,
   RegressionGateError,
   type RegressionGateOptions,
-} from "@ignitionai/experiments";
+} from "@ignitionai/agent-trainer-experiments";
 import baselineFixture from "./baseline.alpha-dogfood.json";
 import alphaDogfoodExperiment, { variants } from "./experiment";
 

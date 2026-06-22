@@ -1,4 +1,4 @@
-import type { VariantSummary } from "@ignitionai/core";
+import type { VariantSummary } from "@ignitionai/agent-trainer-core";
 import { describe, expect, it } from "vitest";
 import { rankVariants, selectBestByObjective, suggestNextExperiment } from "./optimization";
 

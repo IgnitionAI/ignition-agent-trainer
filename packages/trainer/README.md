@@ -1,4 +1,4 @@
-# @ignitionai/trainer
+# @ignitionai/agent-trainer
 
 Deterministic recommendation primitives for Ignition Agent Trainer experiment results.
 
@@ -23,7 +23,7 @@ import {
   selectBestByObjective,
   selectBestVariant,
   suggestNextExperiment,
-} from "@ignitionai/trainer";
+} from "@ignitionai/agent-trainer";
 
 const winner = selectBestVariant(result);
 const recommendation = recommendVariant(result);
@@ -61,7 +61,7 @@ They use only the experiment leaderboard data already present in an `ExperimentR
 Prompt and workflow candidates are manually supplied by the developer. The trainer can convert them into experiment variants, run the existing evaluation loop and rank the result:
 
 ```ts
-import { evaluateCandidates } from "@ignitionai/trainer";
+import { evaluateCandidates } from "@ignitionai/agent-trainer";
 
 const result = await evaluateCandidates({
   name: "candidate-comparison",
@@ -86,7 +86,7 @@ The package does not generate, mutate or synthesize candidates. It evaluates the
 Use `runGridSearch()` when a context engineering strategy has a small, manually defined parameter grid:
 
 ```ts
-import { runGridSearch } from "@ignitionai/trainer";
+import { runGridSearch } from "@ignitionai/agent-trainer";
 
 const search = await runGridSearch({
   name: "retrieval-grid",

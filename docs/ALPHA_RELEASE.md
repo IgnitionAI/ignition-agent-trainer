@@ -50,7 +50,7 @@ Run the alpha validation flow:
 ```bash
 bun run --filter './examples/alpha-dogfood' dev
 bun run --filter './examples/alpha-dogfood' gate
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood
 ```
 
 Generated `reports` and package `dist` folders must not be committed.
