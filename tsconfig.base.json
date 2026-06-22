@@ -30,7 +30,8 @@
       "@ignitionai/adapter-langchain": ["packages/adapter-langchain/src/index.ts"],
       "@ignitionai/adapter-langgraph": ["packages/adapter-langgraph/src/index.ts"],
       "@ignitionai/adapter-mastra": ["packages/adapter-mastra/src/index.ts"],
-      "@ignitionai/adapter-vercel-ai": ["packages/adapter-vercel-ai/src/index.ts"]
+      "@ignitionai/adapter-vercel-ai": ["packages/adapter-vercel-ai/src/index.ts"],
+      "@ignitionai/adapter-ignitionrag": ["packages/adapter-ignitionrag/src/index.ts"]
     }
   }
 }
