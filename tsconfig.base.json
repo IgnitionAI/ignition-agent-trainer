@@ -22,6 +22,7 @@
       "@ignitionai/experiments": ["packages/experiments/src/index.ts"],
       "@ignitionai/exporters": ["packages/exporters/src/index.ts"],
       "@ignitionai/preset-rag": ["packages/preset-rag/src/index.ts"],
+      "@ignitionai/preset-strategies": ["packages/preset-strategies/src/index.ts"],
       "@ignitionai/trainer": ["packages/trainer/src/index.ts"],
       "@ignitionai/environment": ["packages/environment/src/index.ts"],
       "@ignitionai/rl": ["packages/rl/src/index.ts"],

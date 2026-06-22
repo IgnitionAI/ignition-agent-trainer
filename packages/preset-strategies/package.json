@@ -1,0 +1,37 @@
+{
+  "name": "@ignitionai/preset-strategies",
+  "version": "0.0.0",
+  "description": "Reusable strategy preset registry for Ignition Agent Trainer experiments.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IgnitionAI/ignition-agent-trainer.git",
+    "directory": "packages/preset-strategies"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ignitionai/core": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "latest",
+    "typescript": "latest",
+    "vitest": "latest"
+  },
+  "peerDependencies": {},
+  "peerDependenciesMeta": {}
+}

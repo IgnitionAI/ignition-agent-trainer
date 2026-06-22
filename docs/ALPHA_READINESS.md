@@ -25,6 +25,7 @@ Status values:
 | `@ignitionai/experiments` | ready | ready | ready | ready | ready | Local runner, definitions, gates and JSONL history are tested and documented. |
 | `@ignitionai/exporters` | ready | ready | ready | ready | ready | JSON/Markdown report shape and local report bundles are tested. |
 | `@ignitionai/preset-rag` | ready | ready | ready | ready | partial | RAG presets compose existing deterministic rewards; no live retrieval or model-graded scoring. |
+| `@ignitionai/preset-strategies` | ready | ready | ready | ready | partial | Strategy registry provides deterministic mocked variants; no real retrieval, reranking or provider calls. |
 | `@ignitionai/rl` | ready | ready | partial | ready | prototype | Fixed-strategy bandit is tested; deeper RL is intentionally absent. |
 | `@ignitionai/trainer` | ready | ready | ready | ready | ready | Deterministic recommendation, candidate evaluation and grid search are tested. |
 

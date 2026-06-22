@@ -228,6 +228,18 @@
         "vitest": "latest",
       },
     },
+    "packages/preset-strategies": {
+      "name": "@ignitionai/preset-strategies",
+      "version": "0.0.0",
+      "dependencies": {
+        "@ignitionai/core": "workspace:*",
+      },
+      "devDependencies": {
+        "tsup": "latest",
+        "typescript": "latest",
+        "vitest": "latest",
+      },
+    },
     "packages/rl": {
       "name": "@ignitionai/rl",
       "version": "0.0.0",
@@ -355,6 +367,8 @@
     "@ignitionai/exporters": ["@ignitionai/exporters@workspace:packages/exporters"],
 
     "@ignitionai/preset-rag": ["@ignitionai/preset-rag@workspace:packages/preset-rag"],
+
+    "@ignitionai/preset-strategies": ["@ignitionai/preset-strategies@workspace:packages/preset-strategies"],
 
     "@ignitionai/rl": ["@ignitionai/rl@workspace:packages/rl"],
 
