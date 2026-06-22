@@ -108,3 +108,9 @@ PR #35 - feat: add PPO interface skeletons
 ```
 
 PR #35 must add interfaces only. It must not implement PPO optimization, neural network training, GPU support or model fine-tuning.
+
+## Completion Status
+
+The Post-#20 sequence is complete through PR #35 once the PPO interface skeletons PR is merged.
+
+Remaining RL work belongs to a future phase and must be scoped separately.

@@ -3,5 +3,6 @@ export * from "./contextual-bandit";
 export * from "./group-relative-selection";
 export * from "./offline-policy-evaluation";
 export * from "./policy";
+export * from "./ppo";
 export * from "./strategy-bandit";
 export * from "./trajectory";

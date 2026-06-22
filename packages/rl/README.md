@@ -183,6 +183,39 @@ const result = selectGroupRelativeBest([
 
 This is group-relative selection only. It does not update model weights, compute gradients, require GPUs or implement a real GRPO trainer.
 
+## PPO Interface Skeletons
+
+Use the PPO types only as a future integration boundary. `UnimplementedPPOTrainer` exists to fail clearly if a caller tries to run PPO before a real trainer is designed.
+
+```ts
+import { UnimplementedPPOTrainer, type PPOConfig, type PPOTrainingBatch } from "@ignitionai/rl";
+
+const config: PPOConfig = {
+  clipRatio: 0.2,
+  discountFactor: 0.99,
+  gaeLambda: 0.95,
+  learningRate: 0.0003,
+  epochs: 4,
+  batchSize: 32,
+};
+
+const batch: PPOTrainingBatch = {
+  samples: [
+    {
+      state: { task: "support" },
+      action: { id: "rag-basic" },
+      reward: 0.82,
+      advantage: 0.1,
+      returnEstimate: 0.92,
+    },
+  ],
+};
+
+new UnimplementedPPOTrainer().train(batch, config);
+```
+
+This throws by design. The package defines PPO-facing types only; it does not implement PPO optimization.
+
 ## Current Guarantees
 
 - static and score-based policies are deterministic,
@@ -193,6 +226,7 @@ This is group-relative selection only. It does not update model weights, compute
 - contextual selection uses deterministic feature and reward scoring,
 - offline policy evaluation replays local records deterministically,
 - GRPO-style candidate selection ranks fixed groups deterministically,
+- PPO exports are interface skeletons only and throw if invoked through the placeholder trainer,
 - tests use fixed random values,
 - no external APIs are called.
 
@@ -200,7 +234,7 @@ This is group-relative selection only. It does not update model weights, compute
 
 This package does not implement:
 
-- PPO,
+- PPO optimization,
 - full GRPO training,
 - model training,
 - neural policies,
