@@ -141,12 +141,12 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 
 ### `@ignitionai/rl`
 
-- Purpose: experimental RL-inspired utilities, deterministic policy selection helpers and fixed-strategy/contextual bandit prototypes.
-- Main exports: `Policy`, `PolicyContext`, `PolicyDecision`, `createStaticPolicy`, `createScoreBasedPolicy`, `Trajectory`, `TrajectoryStep`, `recordTrajectory`, `summarizeTrajectory`, `EpsilonGreedyBandit`, `RandomPolicy`, `ExperimentalBanditStrategySelector`, `ContextualBanditStrategySelector`, `ContextFeatures`, `scoreContextMatch`, PPO/GRPO design placeholder interfaces.
+- Purpose: experimental RL-inspired utilities, deterministic policy selection helpers, fixed-strategy/contextual bandit prototypes and offline policy evaluation.
+- Main exports: `Policy`, `PolicyContext`, `PolicyDecision`, `createStaticPolicy`, `createScoreBasedPolicy`, `Trajectory`, `TrajectoryStep`, `recordTrajectory`, `summarizeTrajectory`, `EpsilonGreedyBandit`, `RandomPolicy`, `ExperimentalBanditStrategySelector`, `ContextualBanditStrategySelector`, `ContextFeatures`, `scoreContextMatch`, `evaluatePolicyOffline`, `PolicyEvaluationResult`, PPO/GRPO design placeholder interfaces.
 - Stability level: prototype.
-- Tests present: yes for policy helpers, trajectories, fixed-strategy bandit and contextual bandit.
+- Tests present: yes for policy helpers, trajectories, fixed-strategy bandit, contextual bandit and offline policy evaluation.
 - Example present: no.
-- Known limitations: no PPO, no GRPO, no offline policy evaluation, no production routing.
+- Known limitations: no PPO, no GRPO, no production routing.
 
 ### `@ignitionai/trainer`
 
@@ -213,6 +213,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 | trajectory recorder | partial | `packages/rl/src/trajectory.ts` | No | Local state/action/reward/outcome records with deterministic summaries. |
 | bandit prototype | prototype | `packages/rl/src/strategy-bandit.ts` | No | Clearly experimental, fixed arms only, no PPO. |
 | contextual bandit prototype | prototype | `packages/rl/src/contextual-bandit.ts` | No | Deterministic fixed-feature scoring over task type, citation need, cost sensitivity, latency sensitivity and risk level. |
+| offline policy evaluation | prototype | `packages/rl/src/offline-policy-evaluation.ts` | No | Deterministic replay over local records or observed trajectory steps; no live traffic path. |
 
 ## Current Limitations
 
@@ -226,7 +227,6 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Ecosystem adapters are minimal and structural.
 - CLI does not yet support history, baseline selection or fail-on-regression flags.
 - Bandit support is prototype-only.
-- No offline policy evaluation.
 - No GRPO implementation.
 - No PPO implementation.
 - No model training.
