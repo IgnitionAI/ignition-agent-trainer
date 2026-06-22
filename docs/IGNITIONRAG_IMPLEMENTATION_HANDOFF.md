@@ -6,6 +6,7 @@ Related design docs:
 
 - `docs/10-ignitionrag-integration-design.md`
 - `docs/04-ignitionrag-integration.md`
+- `docs/IGNITIONRAG_EVALUATION_CENTER_CHECKLIST.md`
 - `packages/adapter-ignitionrag/README.md`
 
 ## Implementation Rule

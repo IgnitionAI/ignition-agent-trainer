@@ -18,6 +18,8 @@ IgnitionRAG workflow
 
 This is a product integration design only. It does not add app code, database tables, API routes, UI, billing, auth or live provider calls.
 
+For the first Evaluation Center implementation checklist, see `docs/IGNITIONRAG_EVALUATION_CENTER_CHECKLIST.md`.
+
 ## Integration Boundary
 
 Ignition Agent Trainer stays as the open-source TypeScript evaluation engine. IgnitionRAG becomes the hosted product surface that stores projects, datasets, workflows, reports and governance state.

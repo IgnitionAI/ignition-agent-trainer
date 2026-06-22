@@ -1,10 +1,12 @@
 # Project Audit
 
-This audit reflects the repository state through the current alpha release readiness work.
+This audit reflects the repository state through the current IgnitionRAG Evaluation Center checklist work.
 
 PR #22 added missing package READMEs and package manifest metadata. Stability labels still depend on tests, examples and implementation maturity.
 
 PR #38 aligns the root and workspace package manifests on `0.1.0-alpha.0` and `license: MIT` for the internal alpha tag.
+
+PR #39 adds the Evaluation Center implementation checklist. It is documentation only and does not add hosted IgnitionRAG runtime code.
 
 Audit rule:
 
@@ -220,6 +222,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 | ecosystem adapters | partial | `packages/adapter-*` | No | Structural adapters exist with tests/docs, but dedicated examples and deeper framework coverage are missing. |
 | simple search optimization | done | `packages/trainer/src/search.ts` | Yes | Deterministic grid search over manual parameter grids. |
 | IgnitionRAG design | done | `docs/10-ignitionrag-integration-design.md` | Yes | Design-only; no IgnitionRAG runtime integration. |
+| IgnitionRAG Evaluation Center checklist | done | `docs/IGNITIONRAG_EVALUATION_CENTER_CHECKLIST.md` | Yes | Actionable checklist only; no IgnitionRAG app code, migrations or frontend. |
 | file-based history | done | `packages/experiments/src/history.ts` | Yes | JSONL local history helpers, no CLI flag yet. |
 | policy abstraction | partial | `packages/rl/src/policy.ts` | No | Deterministic static and score-based selection only; no training loop. |
 | trajectory recorder | partial | `packages/rl/src/trajectory.ts` | No | Local state/action/reward/outcome records with deterministic summaries. |
