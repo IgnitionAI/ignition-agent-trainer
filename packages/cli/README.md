@@ -41,6 +41,25 @@ bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineerin
 
 Both reports include the leaderboard and recommendation.
 
+## Write Report Bundles
+
+Use `--bundle` when CI or local runs should keep JSON, Markdown and bundle metadata together:
+
+```bash
+bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts \
+  --bundle reports
+```
+
+The command writes a timestamped folder:
+
+```txt
+reports/
+└─ context-engineering-strategies-2026-01-01T00-02-00-000Z/
+   ├─ report.json
+   ├─ report.md
+   └─ metadata.json
+```
+
 ## Non-goals
 
 The CLI does not implement watch mode, remote execution, hosted dashboards, auth, provider keys, persistent history or regression gates.

@@ -18,12 +18,12 @@ Status values:
 | `@ignitionai/adapter-langgraph` | ready | ready | ready | ready | partial | Structural adapter only; no persistence, streaming or graph internals. |
 | `@ignitionai/adapter-mastra` | ready | ready | ready | ready | partial | Structural adapter only; no memory, tool or full Mastra coverage. |
 | `@ignitionai/adapter-vercel-ai` | ready | ready | ready | ready | partial | Structural adapter only; no streaming, tools or live provider calls. |
-| `@ignitionai/cli` | ready | ready | ready | ready | partial | Runs typed experiments and writes reports; no history/baseline/regression flags yet. |
+| `@ignitionai/cli` | ready | ready | ready | ready | partial | Runs typed experiments and writes standalone reports or timestamped bundles; no history/baseline/regression flags yet. |
 | `@ignitionai/core` | ready | ready | missing | ready | partial | Foundational types and helpers need dedicated tests before alpha-stable status. |
 | `@ignitionai/environment` | ready | ready | missing | ready | prototype | Early environment loop only; no recorder, policy evaluation or tests yet. |
 | `@ignitionai/evals` | ready | ready | ready | ready | partial | Current rewards are tested; RAG presets and richer scoring are still missing. |
 | `@ignitionai/experiments` | ready | ready | ready | ready | ready | Local runner, definitions, gates and JSONL history are tested and documented. |
-| `@ignitionai/exporters` | ready | ready | ready | ready | ready | JSON/Markdown report shape is tested; report bundle comes next. |
+| `@ignitionai/exporters` | ready | ready | ready | ready | ready | JSON/Markdown report shape and local report bundles are tested. |
 | `@ignitionai/rl` | ready | ready | partial | ready | prototype | Fixed-strategy bandit is tested; deeper RL is intentionally absent. |
 | `@ignitionai/trainer` | ready | ready | ready | ready | ready | Deterministic recommendation, candidate evaluation and grid search are tested. |
 
@@ -41,7 +41,6 @@ Status values:
 
 - Add dedicated tests for `@ignitionai/core`.
 - Add dedicated tests for `@ignitionai/environment` or keep it explicitly prototype-only.
-- Add report bundle output.
 - Add CI regression gate example.
 - Add CLI history/baseline/regression ergonomics after report bundles and CI examples.
 - Decide license/publishing policy before any npm publication.

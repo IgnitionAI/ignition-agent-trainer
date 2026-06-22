@@ -1,6 +1,9 @@
+import { mkdtemp, readFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import type { ExperimentResult } from "@ignitionai/core";
 import { describe, expect, it } from "vitest";
-import { exportExperimentResult, toJsonReport, toMarkdownReport } from "./index";
+import { exportExperimentResult, toJsonReport, toMarkdownReport, writeReportBundle } from "./index";
 
 const result: ExperimentResult = {
   name: "context-strategy-report",
@@ -187,5 +190,88 @@ describe("report serializers", () => {
     expect(markdown).toContain("## Reward summaries");
     expect(markdown).toContain("## Recommendation");
     expect(markdown).toContain("- Best answer quality.");
+  });
+});
+
+describe("writeReportBundle", () => {
+  it("writes deterministic JSON, Markdown and metadata files into a timestamped folder", async () => {
+    const outputDirectory = await mkdtemp(join(tmpdir(), "ignition-report-bundle-"));
+
+    const bundle = await writeReportBundle(result, {
+      outputDirectory,
+      generatedAt: "2026-01-01T00:02:00.000Z",
+      metadata: { source: "bundle-test" },
+      recommendation: {
+        winner: "RAG + Verify",
+        score: 0.91,
+        summary: "Use verification for better answer quality.",
+      },
+      includeMetadataFile: true,
+    });
+
+    expect(bundle.directory).toBe(
+      join(outputDirectory, "context-strategy-report-2026-01-01T00-02-00-000Z"),
+    );
+    expect(bundle.files).toEqual({
+      json: join(bundle.directory, "report.json"),
+      markdown: join(bundle.directory, "report.md"),
+      metadata: join(bundle.directory, "metadata.json"),
+    });
+
+    const json = JSON.parse(await readFile(bundle.files.json, "utf8"));
+    expect(json).toMatchObject({
+      schemaVersion: "ignition.experiment-report.v1",
+      generatedAt: "2026-01-01T00:02:00.000Z",
+      metadata: { source: "bundle-test" },
+      recommendation: { winner: "RAG + Verify" },
+    });
+
+    const markdown = await readFile(bundle.files.markdown, "utf8");
+    expect(markdown).toContain("# Experiment report: context-strategy-report");
+    expect(markdown).toContain("## Leaderboard");
+
+    const metadataPath = bundle.files.metadata;
+    expect(metadataPath).toBeDefined();
+    if (metadataPath === undefined) throw new Error("Expected metadata file path.");
+    const metadata = JSON.parse(await readFile(metadataPath, "utf8"));
+    expect(metadata).toEqual({
+      schemaVersion: "ignition.report-bundle.v1",
+      generatedAt: "2026-01-01T00:02:00.000Z",
+      experiment: {
+        name: "context-strategy-report",
+        startedAt: "2026-01-01T00:00:00.000Z",
+        endedAt: "2026-01-01T00:01:00.000Z",
+        metadata: { owner: "evals" },
+      },
+      files: {
+        json: "report.json",
+        markdown: "report.md",
+        metadata: "metadata.json",
+      },
+      metadata: { source: "bundle-test" },
+    });
+    expect(bundle.manifest).toEqual(metadata);
+  });
+
+  it("supports custom bundle and file names without writing metadata by default", async () => {
+    const outputDirectory = await mkdtemp(join(tmpdir(), "ignition-report-bundle-"));
+
+    const bundle = await writeReportBundle(result, {
+      outputDirectory,
+      bundleName: "latest",
+      jsonFileName: "experiment.json",
+      markdownFileName: "summary.md",
+      generatedAt: new Date("2026-01-01T00:02:00.000Z"),
+    });
+
+    expect(bundle.directory).toBe(join(outputDirectory, "latest"));
+    expect(bundle.files).toEqual({
+      json: join(outputDirectory, "latest", "experiment.json"),
+      markdown: join(outputDirectory, "latest", "summary.md"),
+    });
+    expect(bundle.manifest).toBeUndefined();
+
+    const json = JSON.parse(await readFile(bundle.files.json, "utf8"));
+    expect(json.generatedAt).toBe("2026-01-01T00:02:00.000Z");
   });
 });

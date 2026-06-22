@@ -2,10 +2,15 @@
 
 Reusable exporters for Ignition Agent Trainer experiment results.
 
-Use this package when you want a stable JSON or Markdown report from an `ExperimentResult` without adding a CLI, filesystem writer, database or hosted service.
+Use this package when you want a stable JSON or Markdown report from an `ExperimentResult`, either in memory or as a local filesystem bundle.
 
 ```ts
-import { exportExperimentResult, toJsonReport, toMarkdownReport } from "@ignitionai/exporters";
+import {
+  exportExperimentResult,
+  toJsonReport,
+  toMarkdownReport,
+  writeReportBundle,
+} from "@ignitionai/exporters";
 
 const stableReport = exportExperimentResult(result, {
   recommendation,
@@ -14,6 +19,15 @@ const stableReport = exportExperimentResult(result, {
 
 const json = toJsonReport(result, { recommendation });
 const markdown = toMarkdownReport(result, { recommendation });
+
+const bundle = await writeReportBundle(result, {
+  outputDirectory: "reports",
+  generatedAt: "2026-01-01T00:02:00.000Z",
+  recommendation,
+  includeMetadataFile: true,
+});
+
+console.log(bundle.directory);
 ```
 
 ## Current API
@@ -21,6 +35,7 @@ const markdown = toMarkdownReport(result, { recommendation });
 - `exportExperimentResult(result, options?)` returns a stable report object.
 - `toJsonReport(result, options?)` returns pretty JSON.
 - `toMarkdownReport(result, options?)` returns a Markdown summary.
+- `writeReportBundle(result, options)` writes a timestamped local report folder.
 
 ## Stable Report Shape
 
@@ -36,6 +51,20 @@ The exported report includes:
 - recommendation when provided,
 - metadata when provided.
 
+## Report Bundles
+
+`writeReportBundle()` creates a local folder named from the experiment and generation timestamp:
+
+```txt
+reports/
+└─ context-strategy-report-2026-01-01T00-02-00-000Z/
+   ├─ report.json
+   ├─ report.md
+   └─ metadata.json
+```
+
+`metadata.json` is written only when `includeMetadataFile: true` or a custom `metadataFileName` is provided. Pass `generatedAt` or `bundleName` when CI needs deterministic paths.
+
 ## Non-goals
 
-This package does not write files, compare baselines, run experiments, call providers, or implement a CLI. Those capabilities belong in later backlog PRs.
+This package does not compare baselines, run experiments, call providers, store reports remotely, or create hosted reporting surfaces. Those capabilities belong in other packages or later backlog PRs.

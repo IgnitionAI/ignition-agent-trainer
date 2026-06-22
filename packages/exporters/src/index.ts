@@ -1,3 +1,5 @@
+import { mkdir, writeFile } from "node:fs/promises";
+import { join } from "node:path";
 import type { ExperimentResult, Metadata, VariantSummary } from "@ignitionai/core";
 
 export interface ExperimentResultExportOptions {
@@ -82,6 +84,40 @@ export interface ExperimentResultExport {
   metadata?: Metadata;
 }
 
+export interface ReportBundleOptions extends ExperimentResultExportOptions {
+  outputDirectory: string;
+  bundleName?: string;
+  jsonFileName?: string;
+  markdownFileName?: string;
+  metadataFileName?: string;
+  includeMetadataFile?: boolean;
+}
+
+export interface ReportBundleFiles {
+  json: string;
+  markdown: string;
+  metadata?: string;
+}
+
+export interface ReportBundleManifest {
+  schemaVersion: "ignition.report-bundle.v1";
+  generatedAt: string;
+  experiment: ExperimentSummaryExport;
+  files: {
+    json: string;
+    markdown: string;
+    metadata?: string;
+  };
+  metadata?: Metadata;
+}
+
+export interface ReportBundleResult {
+  directory: string;
+  files: ReportBundleFiles;
+  report: ExperimentResultExport;
+  manifest?: ReportBundleManifest;
+}
+
 export function exportExperimentResult(
   result: ExperimentResult,
   options: ExperimentResultExportOptions = {},
@@ -114,7 +150,7 @@ export function toJsonReport(
   result: ExperimentResult,
   options: ExperimentResultExportOptions = {},
 ): string {
-  return `${JSON.stringify(exportExperimentResult(result, options), null, 2)}\n`;
+  return reportExportToJson(exportExperimentResult(result, options));
 }
 
 export function toMarkdownReport(
@@ -122,6 +158,59 @@ export function toMarkdownReport(
   options: ExperimentResultExportOptions = {},
 ): string {
   const report = exportExperimentResult(result, options);
+  return reportExportToMarkdown(report);
+}
+
+export async function writeReportBundle(
+  result: ExperimentResult,
+  options: ReportBundleOptions,
+): Promise<ReportBundleResult> {
+  const generatedAt = normalizeTimestamp(options.generatedAt);
+  const report = exportExperimentResult(result, { ...options, generatedAt });
+  const bundleName = options.bundleName ?? createBundleName(result.name, generatedAt);
+  const jsonFileName = options.jsonFileName ?? "report.json";
+  const markdownFileName = options.markdownFileName ?? "report.md";
+  const shouldWriteManifest =
+    options.includeMetadataFile === true || options.metadataFileName !== undefined;
+  const metadataFileName = options.metadataFileName ?? "metadata.json";
+
+  const directory = join(options.outputDirectory, bundleName);
+  const jsonPath = join(directory, jsonFileName);
+  const markdownPath = join(directory, markdownFileName);
+  await mkdir(directory, { recursive: true });
+  await writeFile(jsonPath, reportExportToJson(report), "utf8");
+  await writeFile(markdownPath, reportExportToMarkdown(report), "utf8");
+
+  const files: ReportBundleFiles = {
+    json: jsonPath,
+    markdown: markdownPath,
+  };
+  const resultBundle: ReportBundleResult = {
+    directory,
+    files,
+    report,
+  };
+
+  if (shouldWriteManifest) {
+    const manifest = createBundleManifest(report, {
+      jsonFileName,
+      markdownFileName,
+      metadataFileName,
+    });
+    const metadataPath = join(directory, metadataFileName);
+    await writeFile(metadataPath, `${JSON.stringify(manifest, null, 2)}\n`, "utf8");
+    files.metadata = metadataPath;
+    resultBundle.manifest = manifest;
+  }
+
+  return resultBundle;
+}
+
+function reportExportToJson(report: ExperimentResultExport): string {
+  return `${JSON.stringify(report, null, 2)}\n`;
+}
+
+function reportExportToMarkdown(report: ExperimentResultExport): string {
   const sections = [
     `# Experiment report: ${report.experiment.name}`,
     [
@@ -143,9 +232,41 @@ export function toMarkdownReport(
   return `${sections.join("\n\n")}\n`;
 }
 
+function createBundleManifest(
+  report: ExperimentResultExport,
+  fileNames: { jsonFileName: string; markdownFileName: string; metadataFileName: string },
+): ReportBundleManifest {
+  const manifest: ReportBundleManifest = {
+    schemaVersion: "ignition.report-bundle.v1",
+    generatedAt: report.generatedAt,
+    experiment: report.experiment,
+    files: {
+      json: fileNames.jsonFileName,
+      markdown: fileNames.markdownFileName,
+      metadata: fileNames.metadataFileName,
+    },
+  };
+
+  if (report.metadata !== undefined) manifest.metadata = report.metadata;
+  return manifest;
+}
+
 function normalizeTimestamp(value: string | Date | undefined): string {
   if (value instanceof Date) return value.toISOString();
   return value ?? new Date().toISOString();
+}
+
+function createBundleName(experimentName: string, generatedAt: string): string {
+  return `${slugSegment(experimentName)}-${slugSegment(generatedAt)}`;
+}
+
+function slugSegment(value: string): string {
+  return (
+    value
+      .trim()
+      .replace(/[^a-zA-Z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "") || "value"
+  );
 }
 
 function datasetSize(result: ExperimentResult): number {
