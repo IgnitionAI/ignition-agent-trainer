@@ -84,6 +84,49 @@ selector.updateFromExperimentResult(result, {
 });
 ```
 
+## Contextual Bandit Prototype
+
+Use `ContextualBanditStrategySelector` when fixed strategy arms should be scored against deterministic task features before any deeper policy optimization exists.
+
+```ts
+import { ContextualBanditStrategySelector } from "@ignitionai/rl";
+
+const selector = new ContextualBanditStrategySelector([
+  {
+    id: "direct-answer",
+    strategy: { workflow: "direct" },
+    preferredContext: {
+      taskType: "faq",
+      citationNeed: "none",
+      costSensitivity: "high",
+      latencySensitivity: "high",
+      riskLevel: "low",
+    },
+  },
+  {
+    id: "rag-with-verification",
+    strategy: { workflow: "rag-verify" },
+    preferredContext: {
+      taskType: "policy-analysis",
+      citationNeed: "required",
+      costSensitivity: "medium",
+      latencySensitivity: "low",
+      riskLevel: "high",
+    },
+  },
+]);
+
+const selected = selector.select({
+  taskType: "policy-analysis",
+  citationNeed: "required",
+  costSensitivity: "medium",
+  latencySensitivity: "low",
+  riskLevel: "high",
+});
+```
+
+The contextual bandit is a prototype over developer-supplied features and fixed strategies. It does not learn embeddings, train neural policies, mutate prompts or route live production traffic.
+
 ## Current Guarantees
 
 - static and score-based policies are deterministic,
@@ -91,6 +134,7 @@ selector.updateFromExperimentResult(result, {
 - arms are fixed and supplied by the developer,
 - selection is epsilon-greedy,
 - exploitation tie-breaking is deterministic by average reward, pulls, then arm id,
+- contextual selection uses deterministic feature and reward scoring,
 - tests use fixed random values,
 - no external APIs are called.
 

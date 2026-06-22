@@ -1,6 +1,6 @@
 # Project Audit
 
-This audit reflects the repository state after PR #20.
+This audit reflects the repository state through the current post-#20 roadmap work.
 
 PR #22 added missing package READMEs and package manifest metadata. Stability labels still depend on tests, examples and implementation maturity.
 
@@ -141,12 +141,12 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 
 ### `@ignitionai/rl`
 
-- Purpose: experimental RL-inspired utilities, deterministic policy selection helpers and fixed-strategy bandit prototype.
-- Main exports: `Policy`, `PolicyContext`, `PolicyDecision`, `createStaticPolicy`, `createScoreBasedPolicy`, `Trajectory`, `TrajectoryStep`, `recordTrajectory`, `summarizeTrajectory`, `EpsilonGreedyBandit`, `RandomPolicy`, `ExperimentalBanditStrategySelector`, PPO/GRPO design placeholder interfaces.
+- Purpose: experimental RL-inspired utilities, deterministic policy selection helpers and fixed-strategy/contextual bandit prototypes.
+- Main exports: `Policy`, `PolicyContext`, `PolicyDecision`, `createStaticPolicy`, `createScoreBasedPolicy`, `Trajectory`, `TrajectoryStep`, `recordTrajectory`, `summarizeTrajectory`, `EpsilonGreedyBandit`, `RandomPolicy`, `ExperimentalBanditStrategySelector`, `ContextualBanditStrategySelector`, `ContextFeatures`, `scoreContextMatch`, PPO/GRPO design placeholder interfaces.
 - Stability level: prototype.
-- Tests present: yes for the strategy bandit prototype.
+- Tests present: yes for policy helpers, trajectories, fixed-strategy bandit and contextual bandit.
 - Example present: no.
-- Known limitations: no PPO, no GRPO, no contextual bandit, no trajectory recorder, no offline policy evaluation, no production routing.
+- Known limitations: no PPO, no GRPO, no offline policy evaluation, no production routing.
 
 ### `@ignitionai/trainer`
 
@@ -211,7 +211,8 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 | file-based history | done | `packages/experiments/src/history.ts` | Yes | JSONL local history helpers, no CLI flag yet. |
 | policy abstraction | partial | `packages/rl/src/policy.ts` | No | Deterministic static and score-based selection only; no training loop. |
 | trajectory recorder | partial | `packages/rl/src/trajectory.ts` | No | Local state/action/reward/outcome records with deterministic summaries. |
-| bandit prototype | prototype | `packages/rl/src/strategy-bandit.ts` | No | Clearly experimental, fixed arms only, no contextual policy or PPO. |
+| bandit prototype | prototype | `packages/rl/src/strategy-bandit.ts` | No | Clearly experimental, fixed arms only, no PPO. |
+| contextual bandit prototype | prototype | `packages/rl/src/contextual-bandit.ts` | No | Deterministic fixed-feature scoring over task type, citation need, cost sensitivity, latency sensitivity and risk level. |
 
 ## Current Limitations
 
@@ -225,8 +226,6 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Ecosystem adapters are minimal and structural.
 - CLI does not yet support history, baseline selection or fail-on-regression flags.
 - Bandit support is prototype-only.
-- No contextual bandits.
-- No rollout or trajectory recorder.
 - No offline policy evaluation.
 - No GRPO implementation.
 - No PPO implementation.
