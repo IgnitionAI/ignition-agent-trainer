@@ -251,6 +251,12 @@ Exit criteria:
 The repo has clear RL architecture boundaries and type-level PPO skeletons only.
 ```
 
+Primary architecture reference:
+
+```txt
+docs/adr/0003-rl-foundation-sequence.md
+```
+
 Explicit non-goals:
 
 ```txt

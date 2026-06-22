@@ -212,6 +212,7 @@ See:
 - [Feasibility](./docs/01-feasibility.md)
 - [Architecture](./docs/02-architecture.md)
 - [Concepts: RL for agents](./docs/03-rl-concepts-for-agents.md)
+- [ADR 0003: RL foundation sequence](./docs/adr/0003-rl-foundation-sequence.md)
 - [IgnitionRAG integration plan](./docs/04-ignitionrag-integration.md)
 - [IgnitionRAG integration design](./docs/10-ignitionrag-integration-design.md)
 - [MVP specification](./docs/05-mvp-spec.md)
