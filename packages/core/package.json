@@ -1,7 +1,8 @@
 {
   "name": "@ignitionai/core",
-  "version": "0.0.0",
+  "version": "0.1.0-alpha.0",
   "description": "Shared primitives for Ignition Agent Trainer datasets, adapters, traces, rewards and reports.",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

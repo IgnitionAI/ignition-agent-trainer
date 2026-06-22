@@ -296,7 +296,7 @@ docs/ALPHA_VALIDATION_PLAN.md
 Current status:
 
 ```txt
-PR #36 is complete. PR #37 is the current alpha dogfood implementation branch.
+PR #36 and PR #37 are complete. PR #38 is the current alpha release readiness branch.
 ```
 
 Explicit non-goals:

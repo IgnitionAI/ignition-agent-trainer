@@ -1,8 +1,10 @@
 # Project Audit
 
-This audit reflects the repository state through the current alpha dogfood roadmap work.
+This audit reflects the repository state through the current alpha release readiness work.
 
 PR #22 added missing package READMEs and package manifest metadata. Stability labels still depend on tests, examples and implementation maturity.
+
+PR #38 aligns the root and workspace package manifests on `0.1.0-alpha.0` and `license: MIT` for the internal alpha tag.
 
 Audit rule:
 

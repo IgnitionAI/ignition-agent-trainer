@@ -9,6 +9,14 @@ Status values:
 - `prototype`: exploratory; not alpha-stable.
 - `missing`: not implemented.
 
+## Versioning Policy
+
+The internal alpha tag uses `0.1.0-alpha.0` across the root package and every workspace package.
+
+This version prepares the repository for an internal Git tag only. It does not imply npm publication, public API stability or production readiness.
+
+All packages declare `license: MIT`, matching the root `LICENSE` file.
+
 ## Package Readiness
 
 | Package | Manifest metadata | README | Tests | Build output verified | Alpha status | Notes |
@@ -30,27 +38,31 @@ Status values:
 | `@ignitionai/rl` | ready | ready | partial | ready | prototype | Deterministic policy helpers, trajectory recorder, fixed-strategy bandits, offline policy evaluation, GRPO-style selection and PPO interface skeletons are tested; deeper RL is intentionally absent. |
 | `@ignitionai/trainer` | ready | ready | ready | ready | ready | Deterministic recommendation, candidate evaluation and grid search are tested. |
 
-## Verified In PR #22
+## Verified Through PR #38
 
 - Package names use the `@ignitionai/*` scope.
+- Root and workspace package versions are aligned on `0.1.0-alpha.0`.
+- Root and workspace package manifests declare `license: MIT`.
 - Every package exports from `src/index.ts`.
 - Every package builds to `dist` through `tsup`.
 - Every package manifest declares `main`, `module`, `types`, `exports` and `files`.
 - Every package now has a package description and repository directory metadata.
 - Every package now has a README.
 - `bun install`, `bun run lint`, `bun run typecheck`, `bun run test` and `bun run build` pass locally.
+- The alpha dogfood experiment runs locally and through the CLI.
+- The alpha dogfood regression gate passes against its committed baseline.
 
-## Still Required Before Alpha
+## Known Work After Internal Alpha
 
 - Add dedicated tests for `@ignitionai/core`.
 - Add dedicated tests for `@ignitionai/environment` or keep it explicitly prototype-only.
 - Add CLI history/baseline/regression ergonomics after report bundles and CI examples.
-- Decide license/publishing policy before any npm publication.
-- Decide whether packages stay at `0.0.0` until the first internal alpha tag.
+- Decide package publishing policy before any npm publication.
+- Add deeper examples for ecosystem adapters.
 
 ## Explicit Non-goals
 
-PR #22 does not:
+Alpha readiness does not:
 
 - publish packages to npm,
 - redesign public APIs,

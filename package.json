@@ -1,8 +1,9 @@
 {
   "name": "ignition-agent-trainer",
-  "version": "0.0.0",
+  "version": "0.1.0-alpha.0",
   "private": true,
   "description": "Evaluation, experimentation and optimization layer for TypeScript AI agents.",
+  "license": "MIT",
   "type": "module",
   "packageManager": "bun@1.2.0",
   "workspaces": [
