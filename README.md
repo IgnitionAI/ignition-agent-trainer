@@ -225,6 +225,7 @@ See:
 - [Project audit](./docs/PROJECT_AUDIT.md)
 - [Alpha readiness checklist](./docs/ALPHA_READINESS.md)
 - [Alpha release readiness](./docs/ALPHA_RELEASE.md)
+- [v0.1.0-alpha.0 release notes](./docs/releases/v0.1.0-alpha.0.md)
 - [Alpha validation plan](./docs/ALPHA_VALIDATION_PLAN.md)
 - [Definition of Done](./docs/DEFINITION_OF_DONE.md)
 - [Milestones](./docs/MILESTONES.md)

@@ -2473,7 +2473,7 @@ Next PR:
 
 Status:
 
-- current
+- completed
 
 Branch:
 
@@ -2524,4 +2524,79 @@ Definition of done:
 
 Next PR:
 
-- Future phase - only after the alpha dogfood and bridge prototype are reviewed.
+- PR #41 - `docs: add v0.1.0-alpha.0 release notes`
+
+### PR #41 - `docs: add v0.1.0-alpha.0 release notes`
+
+Status:
+
+- current
+
+Branch:
+
+```txt
+docs/v0.1.0-alpha-release-notes
+```
+
+Goal:
+
+Document the frozen technical alpha before dogfooding inside IgnitionRAG.
+
+Scope:
+
+- add `docs/releases/v0.1.0-alpha.0.md`,
+- document included capabilities,
+- document explicit limitations,
+- document local validation commands,
+- document release criteria,
+- state that the next phase is IgnitionRAG dogfooding, not more framework abstraction.
+
+Out of scope:
+
+- runtime feature work,
+- package API changes,
+- new adapters,
+- frontend,
+- database,
+- production IgnitionRAG integration,
+- PPO implementation,
+- GRPO training.
+
+Required APIs / files:
+
+- release notes doc,
+- README link,
+- backlog, milestones and runbook status updates.
+
+Acceptance:
+
+```bash
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- alpha release notes clearly say what the alpha can and cannot do,
+- validation commands are accurate,
+- the next phase is clearly dogfooding inside IgnitionRAG,
+- no runtime source code is modified.
+
+Next phase:
+
+- Freeze framework abstraction work until real IgnitionRAG dogfooding produces concrete findings.
+
+## Dogfood phase - IgnitionRAG
+
+Next work should happen in IgnitionRAG, not by adding more framework abstractions here.
+
+Target product slices:
+
+- IgnitionRAG Evaluation Center prototype,
+- Experiment Lab prototype,
+- Context Engineering Recommendation view,
+- regression check for agent or workflow changes.
+
+Return to this repository only to fix concrete issues discovered by real dogfooding.

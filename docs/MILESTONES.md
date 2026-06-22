@@ -296,7 +296,13 @@ docs/ALPHA_VALIDATION_PLAN.md
 Current status:
 
 ```txt
-PR #36 through PR #39 are complete. The internal v0.1.0-alpha.0 tag is pushed. PR #40 is the current IgnitionRAG bridge prototype branch.
+PR #36 through PR #40 are complete. The internal v0.1.0-alpha.0 tag is pushed on the merged bridge prototype. PR #41 is the current release-notes branch.
+```
+
+Next phase:
+
+```txt
+Do not add more framework abstractions by default. Dogfood the alpha inside IgnitionRAG first, then return with concrete findings.
 ```
 
 Explicit non-goals:

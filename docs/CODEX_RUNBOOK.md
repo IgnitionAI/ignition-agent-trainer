@@ -69,6 +69,21 @@ alpha validation plan -> alpha dogfood experiment -> alpha readiness tag prep ->
 
 Do not add more RL abstractions, PPO, GRPO training, real provider calls, database code or frontend code unless a specific backlog PR explicitly asks for it.
 
+## Alpha freeze rule
+
+After the IgnitionRAG bridge prototype and `v0.1.0-alpha.0` release notes are complete, Codex must stop adding framework abstractions by default.
+
+The next phase is dogfooding inside IgnitionRAG:
+
+```txt
+IgnitionRAG Evaluation Center prototype
+-> Experiment Lab prototype
+-> Context Engineering Recommendation view
+-> regression check for agent or workflow changes
+```
+
+Return to this repository only when real dogfooding exposes a concrete framework issue such as missing types, awkward APIs, weak reports, CLI friction, incomplete adapter contracts or regression-gate ergonomics.
+
 ## Required report format
 
 Every Codex result must include:
