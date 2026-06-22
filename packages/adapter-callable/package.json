@@ -1,6 +1,7 @@
 {
   "name": "@ignitionai/adapter-callable",
   "version": "0.0.0",
+  "description": "Generic callable adapter for Ignition Agent Trainer.",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -14,6 +15,11 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IgnitionAI/ignition-agent-trainer.git",
+    "directory": "packages/adapter-callable"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts",
     "test": "vitest run"

@@ -1,6 +1,7 @@
 {
   "name": "@ignitionai/core",
   "version": "0.0.0",
+  "description": "Shared primitives for Ignition Agent Trainer datasets, adapters, traces, rewards and reports.",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -14,6 +15,11 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IgnitionAI/ignition-agent-trainer.git",
+    "directory": "packages/core"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts",
     "test": "vitest run"

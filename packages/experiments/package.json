@@ -1,6 +1,7 @@
 {
   "name": "@ignitionai/experiments",
   "version": "0.0.0",
+  "description": "Experiment runner, definitions, regression gates and local history for Ignition Agent Trainer.",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -14,6 +15,11 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IgnitionAI/ignition-agent-trainer.git",
+    "directory": "packages/experiments"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts",
     "test": "vitest run"

@@ -1,6 +1,7 @@
 {
   "name": "@ignitionai/exporters",
   "version": "0.0.0",
+  "description": "JSON and Markdown report exporters for Ignition Agent Trainer experiment results.",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -14,6 +15,11 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IgnitionAI/ignition-agent-trainer.git",
+    "directory": "packages/exporters"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts",
     "test": "vitest run"

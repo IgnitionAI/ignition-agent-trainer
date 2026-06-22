@@ -1,6 +1,7 @@
 {
   "name": "@ignitionai/cli",
   "version": "0.0.0",
+  "description": "Local CLI for running typed Ignition Agent Trainer experiments.",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -17,6 +18,11 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IgnitionAI/ignition-agent-trainer.git",
+    "directory": "packages/cli"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts",
     "dev": "bun src/index.ts",
