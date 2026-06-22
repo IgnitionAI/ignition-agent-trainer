@@ -2230,3 +2230,298 @@ RL package should eventually support:
 - PPO later.
 
 RL is not the next milestone.
+
+## Alpha validation sequence
+
+### PR #36 - `docs: add alpha validation plan`
+
+Status:
+
+- current
+
+Branch:
+
+```txt
+docs/alpha-validation-plan
+```
+
+Goal:
+
+Define the realistic alpha validation plan before adding more runtime features.
+
+Scope:
+
+- add `docs/ALPHA_VALIDATION_PLAN.md`,
+- define the alpha objective,
+- define the IgnitionRAG-style document assistant scenario,
+- define dataset, variants, rewards, expected outputs, CLI shape and regression threshold,
+- define alpha usability criteria,
+- update docs links and future backlog sequence.
+
+Out of scope:
+
+- runtime source code,
+- public API changes,
+- new package APIs,
+- frontend,
+- database,
+- real provider calls,
+- PPO implementation,
+- GRPO training,
+- model fine-tuning.
+
+Required APIs / files:
+
+- `docs/ALPHA_VALIDATION_PLAN.md`,
+- `docs/BACKLOG.md`,
+- `docs/MILESTONES.md`,
+- `docs/CODEX_RUNBOOK.md`,
+- `README.md`.
+
+Acceptance:
+
+```bash
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- alpha plan answers the nine required validation questions,
+- PR #37 through #40 are scoped with goal, scope, out of scope, acceptance commands and definition of done,
+- docs make clear this is not PPO, GRPO training, SaaS integration or live provider work,
+- no runtime source code is modified.
+
+Next PR:
+
+- PR #37 - `feat: add alpha dogfood experiment`
+
+### PR #37 - `feat: add alpha dogfood experiment`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/alpha-dogfood-experiment
+```
+
+Goal:
+
+Add the runnable alpha dogfood experiment for an IgnitionRAG-style document assistant.
+
+Scope:
+
+- add `examples/alpha-dogfood`,
+- create a 20 to 50 question deterministic dataset,
+- add `direct-answer`, `rag-basic`, `rag-rerank`, `rag-with-verification` and `agentic-rag` variants,
+- use contains, citation, groundedness-like, latency and cost rewards,
+- generate leaderboard, recommendation, JSON report, Markdown report, regression result and local history entry.
+
+Out of scope:
+
+- real LLM calls,
+- frontend,
+- database,
+- production IgnitionRAG integration,
+- PPO implementation,
+- GRPO training,
+- model fine-tuning.
+
+Required APIs / files:
+
+- `examples/alpha-dogfood`,
+- alpha dogfood experiment module,
+- deterministic baseline and regression gate,
+- example README.
+
+Acceptance:
+
+```bash
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+bun run --filter './examples/alpha-dogfood' dev
+bun run --filter '@ignitionai/cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood
+```
+
+Definition of done:
+
+- dogfood experiment runs end to end,
+- no API key is required,
+- report outputs are generated,
+- regression gate behavior is documented.
+
+Next PR:
+
+- PR #38 - `chore: prepare v0.1.0-alpha.0 readiness`
+
+### PR #38 - `chore: prepare v0.1.0-alpha.0 readiness`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+chore/v0.1.0-alpha.0-readiness
+```
+
+Goal:
+
+Prepare the repository for a first internal alpha tag.
+
+Scope:
+
+- audit package versions and package metadata,
+- document alpha tag criteria,
+- update release notes or changelog docs,
+- confirm alpha validation commands pass.
+
+Out of scope:
+
+- npm publication,
+- runtime feature work,
+- API redesign,
+- production deployment.
+
+Required APIs / files:
+
+- release or alpha readiness docs.
+
+Acceptance:
+
+```bash
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- alpha readiness criteria are explicit,
+- package metadata is internally consistent,
+- tag process is documented.
+
+Next PR:
+
+- PR #39 - `docs: add IgnitionRAG Evaluation Center integration checklist`
+
+### PR #39 - `docs: add IgnitionRAG Evaluation Center integration checklist`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+docs/ignitionrag-evaluation-center-checklist
+```
+
+Goal:
+
+Translate the alpha dogfood workflow into an IgnitionRAG Evaluation Center implementation checklist.
+
+Scope:
+
+- define Evaluation Center user flow,
+- map datasets, variants, rewards, reports and regression gates to IgnitionRAG concepts,
+- list backend worker responsibilities,
+- list data required from IgnitionRAG,
+- identify open integration risks.
+
+Out of scope:
+
+- IgnitionRAG repo changes,
+- database migrations,
+- frontend implementation,
+- auth,
+- billing.
+
+Required APIs / files:
+
+- IgnitionRAG Evaluation Center checklist doc.
+
+Acceptance:
+
+```bash
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- checklist is actionable for an IgnitionRAG implementation PR,
+- open risks are explicit,
+- no runtime source code is modified.
+
+Next PR:
+
+- PR #40 - `feat: add IgnitionRAG evaluation bridge prototype`
+
+### PR #40 - `feat: add IgnitionRAG evaluation bridge prototype`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/ignitionrag-evaluation-bridge-prototype
+```
+
+Goal:
+
+Create a minimal bridge prototype showing how IgnitionRAG-shaped records can become an Ignition Agent Trainer experiment.
+
+Scope:
+
+- add a small prototype module or example,
+- map IgnitionRAG-style dataset and workflow records to `Dataset` and `AgentVariant`,
+- run the alpha-style evaluation loop locally,
+- keep the bridge deterministic and provider-free.
+
+Out of scope:
+
+- production IgnitionRAG integration,
+- database access,
+- auth,
+- SaaS UI,
+- real provider calls,
+- PPO implementation,
+- GRPO training.
+
+Required APIs / files:
+
+- bridge prototype module or example,
+- docs describing data mapping and limitations.
+
+Acceptance:
+
+```bash
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+```
+
+Definition of done:
+
+- bridge prototype proves the data mapping,
+- no IgnitionRAG app code is required,
+- limitations are documented.
+
+Next PR:
+
+- Future phase - only after the alpha dogfood and bridge prototype are reviewed.
