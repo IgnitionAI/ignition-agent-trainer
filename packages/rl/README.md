@@ -2,7 +2,7 @@
 
 Experimental reinforcement-learning-inspired utilities for Ignition Agent Trainer.
 
-This package is prototype-only today. It does not train model weights, route live production traffic, implement PPO or implement GRPO.
+This package is prototype-only today. It does not train model weights, route live production traffic, implement PPO or implement full GRPO training.
 
 ## Policy Selection
 
@@ -154,6 +154,35 @@ const result = await evaluatePolicyOffline(createScoreBasedPolicy(), [
 
 `createOfflinePolicyRecordsFromTrajectories()` can convert recorded trajectories into observed-action records. Those records only know the reward for the logged action unless you provide richer offline records yourself.
 
+## GRPO-Style Candidate Selection
+
+Use `selectGroupRelativeBest()` when prompt, workflow or strategy candidates should be ranked by their advantage relative to other candidates in the same group.
+
+```ts
+import { selectGroupRelativeBest } from "@ignitionai/rl";
+
+const result = selectGroupRelativeBest([
+  {
+    id: "prompt-group",
+    kind: "prompt",
+    candidates: [
+      { id: "prompt-basic", score: 0.7 },
+      { id: "prompt-cited", score: 0.9 },
+    ],
+  },
+  {
+    id: "workflow-group",
+    kind: "workflow",
+    candidates: [
+      { id: "workflow-basic", score: 0.6 },
+      { id: "workflow-rerank", score: 0.95 },
+    ],
+  },
+]);
+```
+
+This is group-relative selection only. It does not update model weights, compute gradients, require GPUs or implement a real GRPO trainer.
+
 ## Current Guarantees
 
 - static and score-based policies are deterministic,
@@ -163,6 +192,7 @@ const result = await evaluatePolicyOffline(createScoreBasedPolicy(), [
 - exploitation tie-breaking is deterministic by average reward, pulls, then arm id,
 - contextual selection uses deterministic feature and reward scoring,
 - offline policy evaluation replays local records deterministically,
+- GRPO-style candidate selection ranks fixed groups deterministically,
 - tests use fixed random values,
 - no external APIs are called.
 
@@ -171,7 +201,7 @@ const result = await evaluatePolicyOffline(createScoreBasedPolicy(), [
 This package does not implement:
 
 - PPO,
-- GRPO,
+- full GRPO training,
 - model training,
 - neural policies,
 - workflow mutation,

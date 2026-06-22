@@ -27,7 +27,7 @@ Status values:
 | `@ignitionai/exporters` | ready | ready | ready | ready | ready | JSON/Markdown report shape and local report bundles are tested. |
 | `@ignitionai/preset-rag` | ready | ready | ready | ready | partial | RAG presets compose existing deterministic rewards; no live retrieval or model-graded scoring. |
 | `@ignitionai/preset-strategies` | ready | ready | ready | ready | partial | Strategy registry provides deterministic mocked variants; no real retrieval, reranking or provider calls. |
-| `@ignitionai/rl` | ready | ready | partial | ready | prototype | Deterministic policy helpers, trajectory recorder, fixed-strategy bandits and offline policy evaluation are tested; deeper RL is intentionally absent. |
+| `@ignitionai/rl` | ready | ready | partial | ready | prototype | Deterministic policy helpers, trajectory recorder, fixed-strategy bandits, offline policy evaluation and GRPO-style selection are tested; deeper RL is intentionally absent. |
 | `@ignitionai/trainer` | ready | ready | ready | ready | ready | Deterministic recommendation, candidate evaluation and grid search are tested. |
 
 ## Verified In PR #22
