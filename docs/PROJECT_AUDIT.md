@@ -121,6 +121,15 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: yes, documented mocked usage in package README.
 - Known limitations: no live retrieval, vector database integration, document ingestion or model-graded scoring.
 
+### `@ignitionai/preset-strategies`
+
+- Purpose: register reusable deterministic context/workflow strategy presets.
+- Main exports: `defineStrategyPreset`, `createStrategyRegistry`, `getStrategyPreset`, `listStrategyPresets`.
+- Stability level: partial.
+- Tests present: yes.
+- Example present: yes, documented variant creation in package README.
+- Known limitations: no real retrieval, reranking, provider calls, persistence or hosted registry.
+
 ### `@ignitionai/rl`
 
 - Purpose: experimental RL-inspired utilities and fixed-strategy bandit prototype.
@@ -177,6 +186,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 | core primitives | partial | `packages/core` | No | Core types and helpers exist, but package lacks dedicated tests. |
 | evals/rewards | partial | `packages/evals` | No | Tests and README exist, but reward set is intentionally small. |
 | RAG presets | partial | `packages/preset-rag` | No | Deterministic presets compose text, citation, latency, cost and tool-use rewards. |
+| strategy presets | partial | `packages/preset-strategies` | No | Deterministic registry maps strategy presets to mocked experiment variants. |
 | experiment runner | done | `packages/experiments` | Yes | Local deterministic runner with tests and docs. |
 | trainer recommendations | done | `packages/trainer` | Yes | Deterministic recommendation and objective ranking are tested and documented. |
 | callable adapter | done | `packages/adapter-callable` | Yes | Tested, documented and covered by an example. |
