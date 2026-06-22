@@ -218,6 +218,7 @@ See:
 - [Post-#20 roadmap](./docs/POST_20_ROADMAP.md)
 - [Project audit](./docs/PROJECT_AUDIT.md)
 - [Alpha readiness checklist](./docs/ALPHA_READINESS.md)
+- [Alpha release readiness](./docs/ALPHA_RELEASE.md)
 - [Alpha validation plan](./docs/ALPHA_VALIDATION_PLAN.md)
 - [Definition of Done](./docs/DEFINITION_OF_DONE.md)
 - [Milestones](./docs/MILESTONES.md)
