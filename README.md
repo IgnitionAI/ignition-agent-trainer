@@ -171,12 +171,27 @@ See [ROADMAP.md](./ROADMAP.md) for the full implementation plan.
 
 ---
 
+## Post-#20 roadmap
+
+The initial foundation backlog is complete through PR #20.
+
+The next phase focuses on alpha readiness, IgnitionRAG bridge work, and cautious RL exploration.
+
+See:
+
+- [Post-#20 roadmap](./docs/POST_20_ROADMAP.md)
+- [Project audit](./docs/PROJECT_AUDIT.md)
+
+---
+
 ## Key docs
 
 - [Autonomous implementation plan](./docs/IMPLEMENTATION_PLAN.md)
 - [Codex runbook](./docs/CODEX_RUNBOOK.md)
 - [PR playbook](./docs/PR_PLAYBOOK.md)
 - [Backlog](./docs/BACKLOG.md)
+- [Post-#20 roadmap](./docs/POST_20_ROADMAP.md)
+- [Project audit](./docs/PROJECT_AUDIT.md)
 - [Definition of Done](./docs/DEFINITION_OF_DONE.md)
 - [Milestones](./docs/MILESTONES.md)
 - [Strategic vision in French](./docs/00-vision-fr.md)
