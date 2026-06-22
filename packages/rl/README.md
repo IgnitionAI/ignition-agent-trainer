@@ -24,6 +24,29 @@ const decision = await scorePolicy.decide({
 
 `PolicyContext` and `PolicyDecision` model strategy selection only. They do not train a model, mutate prompts or update workflow state.
 
+## Trajectories
+
+Use `recordTrajectory()` and `summarizeTrajectory()` when you need a local record of state, action, reward and outcome steps.
+
+```ts
+import { recordTrajectory, summarizeTrajectory } from "@ignitionai/rl";
+
+const trajectory = recordTrajectory(
+  [
+    {
+      state: { task: "support", risk: "medium" },
+      action: { id: "rag-basic" },
+      reward: 0.82,
+    },
+  ],
+  { id: "support-policy-run", policyId: "score-policy" },
+);
+
+const summary = summarizeTrajectory(trajectory);
+```
+
+Trajectories are plain JSON-compatible records. They are not an external tracing service and they do not imply a training loop.
+
 ## Experimental Fixed-Strategy Bandit
 
 Use `ExperimentalBanditStrategySelector` to choose among fixed, developer-supplied strategies and update their rewards from observed experiment outcomes.
@@ -64,6 +87,7 @@ selector.updateFromExperimentResult(result, {
 ## Current Guarantees
 
 - static and score-based policies are deterministic,
+- trajectories are plain local records,
 - arms are fixed and supplied by the developer,
 - selection is epsilon-greedy,
 - exploitation tie-breaking is deterministic by average reward, pulls, then arm id,
@@ -79,5 +103,6 @@ This package does not implement:
 - model training,
 - neural policies,
 - workflow mutation,
+- external tracing service,
 - live traffic routing,
 - production SaaS integration.
