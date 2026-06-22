@@ -14,6 +14,7 @@ Status values:
 | Package | Manifest metadata | README | Tests | Build output verified | Alpha status | Notes |
 |---|---|---|---|---|---|---|
 | `@ignitionai/adapter-callable` | ready | ready | ready | ready | ready | Generic callable adapter has docs, tests and an example. |
+| `@ignitionai/adapter-ignitionrag` | ready | ready | ready | ready | partial | Type-level contract only; no runtime IgnitionRAG integration. |
 | `@ignitionai/adapter-langchain` | ready | ready | ready | ready | partial | Structural adapter only; no dedicated example or deep framework coverage. |
 | `@ignitionai/adapter-langgraph` | ready | ready | ready | ready | partial | Structural adapter only; no persistence, streaming or graph internals. |
 | `@ignitionai/adapter-mastra` | ready | ready | ready | ready | partial | Structural adapter only; no memory, tool or full Mastra coverage. |

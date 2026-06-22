@@ -22,6 +22,15 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Example present: yes, `examples/callable-adapter`.
 - Known limitations: no remote execution, no streaming, no framework-specific behavior.
 
+### `@ignitionai/adapter-ignitionrag`
+
+- Purpose: define the package-level contract IgnitionRAG can implement to call Ignition Agent Trainer.
+- Main exports: `IgnitionRagCollectionReference`, `IgnitionRagWorkflowReference`, `IgnitionRagAgentReference`, `IgnitionRagExperimentExecutionRequest`, `IgnitionRagExperimentExecutionResult`, `IgnitionRagAdapterContract`.
+- Stability level: partial.
+- Tests present: yes.
+- Example present: yes, package README shows the boundary.
+- Known limitations: type-level contract only; no IgnitionRAG runtime, database, auth, billing or frontend integration.
+
 ### `@ignitionai/adapter-langchain`
 
 - Purpose: minimal structural adapter for LangChain Runnable-like objects.
@@ -184,6 +193,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 | Capability | Status | Package/File | Stable? | Notes |
 |---|---|---|---|---|
 | core primitives | partial | `packages/core` | No | Core types and helpers exist, but package lacks dedicated tests. |
+| IgnitionRAG adapter contract | partial | `packages/adapter-ignitionrag` | No | Type-level contract only; no runtime IgnitionRAG integration. |
 | evals/rewards | partial | `packages/evals` | No | Tests and README exist, but reward set is intentionally small. |
 | RAG presets | partial | `packages/preset-rag` | No | Deterministic presets compose text, citation, latency, cost and tool-use rewards. |
 | strategy presets | partial | `packages/preset-strategies` | No | Deterministic registry maps strategy presets to mocked experiment variants. |
