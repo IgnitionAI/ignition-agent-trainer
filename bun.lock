@@ -46,8 +46,8 @@
       "version": "0.0.0",
       "dependencies": {
         "@ignitionai/core": "workspace:*",
-        "@ignitionai/evals": "workspace:*",
         "@ignitionai/experiments": "workspace:*",
+        "@ignitionai/preset-rag": "workspace:*",
         "@ignitionai/trainer": "workspace:*",
       },
     },
@@ -215,6 +215,19 @@
         "vitest": "latest",
       },
     },
+    "packages/preset-rag": {
+      "name": "@ignitionai/preset-rag",
+      "version": "0.0.0",
+      "dependencies": {
+        "@ignitionai/core": "workspace:*",
+        "@ignitionai/evals": "workspace:*",
+      },
+      "devDependencies": {
+        "tsup": "latest",
+        "typescript": "latest",
+        "vitest": "latest",
+      },
+    },
     "packages/rl": {
       "name": "@ignitionai/rl",
       "version": "0.0.0",
@@ -340,6 +353,8 @@
     "@ignitionai/experiments": ["@ignitionai/experiments@workspace:packages/experiments"],
 
     "@ignitionai/exporters": ["@ignitionai/exporters@workspace:packages/exporters"],
+
+    "@ignitionai/preset-rag": ["@ignitionai/preset-rag@workspace:packages/preset-rag"],
 
     "@ignitionai/rl": ["@ignitionai/rl@workspace:packages/rl"],
 

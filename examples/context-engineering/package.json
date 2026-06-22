@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "@ignitionai/core": "workspace:*",
-    "@ignitionai/evals": "workspace:*",
     "@ignitionai/experiments": "workspace:*",
+    "@ignitionai/preset-rag": "workspace:*",
     "@ignitionai/trainer": "workspace:*"
   }
 }

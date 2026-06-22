@@ -1,13 +1,7 @@
 import type { AgentAdapter, AgentInput, RunContext } from "@ignitionai/core";
 import { createDataset } from "@ignitionai/core";
-import {
-  citationPresence,
-  compositeReward,
-  containsAll,
-  costPenalty,
-  latencyPenalty,
-} from "@ignitionai/evals";
 import { defineExperiment } from "@ignitionai/experiments";
+import { ragQualityPreset } from "@ignitionai/preset-rag";
 
 type StrategyName = "direct-answer" | "rag-basic" | "rag-with-verification";
 
@@ -80,14 +74,10 @@ const contextEngineeringExperiment = defineExperiment({
   name: "context-engineering-strategies",
   dataset,
   variants,
-  rewards: [
-    compositeReward([containsAll({ weight: 0.65 }), citationPresence({ weight: 0.35 })], {
-      name: "answer_quality",
-      weight: 0.75,
-    }),
-    latencyPenalty({ maxLatencyMs: 1500, weight: 0.15 }),
-    costPenalty({ maxCostUsd: 0.006, weight: 0.1 }),
-  ],
+  rewards: ragQualityPreset({
+    maxLatencyMs: 1500,
+    maxCostUsd: 0.006,
+  }),
   options: {
     concurrency: 3,
   },
