@@ -27,6 +27,7 @@ In this project, context engineering means improving an agent by changing what t
 - cost and latency budgets.
 
 The reward functions measure whether those changes improve the final behavior.
+This example uses `@ignitionai/preset-rag` to compose required text, citation, latency and cost rewards.
 
 ## IgnitionRAG Mapping
 

@@ -60,7 +60,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 
 ### `@ignitionai/cli`
 
-- Purpose: run typed experiment modules locally and write JSON/Markdown reports.
+- Purpose: run typed experiment modules locally and write JSON/Markdown reports or report bundles.
 - Main exports: `parseCliArgs`, `runCli`, `CliCommand`, `CliEnvironment`.
 - Stability level: stable for the current local CLI surface.
 - Tests present: yes.
@@ -92,7 +92,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Stability level: partial.
 - Tests present: yes.
 - Example present: yes, used by current examples.
-- Known limitations: reward set is small, no RAG-specific preset package yet.
+- Known limitations: reward set is intentionally small; RAG presets live in `@ignitionai/preset-rag`.
 
 ### `@ignitionai/experiments`
 
@@ -101,16 +101,25 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Stability level: stable for local deterministic experiments.
 - Tests present: yes.
 - Example present: yes, `basic-eval`, `callable-adapter` and `context-engineering`.
-- Known limitations: no remote execution, no database, no hosted reporting, no first-class report bundle writer yet.
+- Known limitations: no remote execution, no database, no hosted reporting.
 
 ### `@ignitionai/exporters`
 
-- Purpose: convert `ExperimentResult` into stable JSON and Markdown report shapes.
-- Main exports: `exportExperimentResult`, `toJsonReport`, `toMarkdownReport`.
+- Purpose: convert `ExperimentResult` into stable JSON and Markdown report shapes and local report bundles.
+- Main exports: `exportExperimentResult`, `toJsonReport`, `toMarkdownReport`, `writeReportBundle`.
 - Stability level: stable for current report shape.
 - Tests present: yes.
 - Example present: partial, used through CLI report output in `examples/context-engineering`.
-- Known limitations: does not write files directly, does not bundle artifacts, does not compare baselines.
+- Known limitations: does not compare baselines, store reports remotely or create hosted report surfaces.
+
+### `@ignitionai/preset-rag`
+
+- Purpose: compose existing deterministic rewards into reusable RAG and agentic RAG presets.
+- Main exports: `citationQualityPreset`, `ragQualityPreset`, `agenticRagPreset`.
+- Stability level: partial.
+- Tests present: yes.
+- Example present: yes, documented mocked usage in package README.
+- Known limitations: no live retrieval, vector database integration, document ingestion or model-graded scoring.
 
 ### `@ignitionai/rl`
 
@@ -154,20 +163,28 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Mocked or live: mocked.
 - Product concept: context engineering strategy comparison and CLI-ready typed experiments.
 
+### `examples/ci-regression-gate`
+
+- Demonstrates: comparing a current experiment result against a committed baseline in CI.
+- Command: `bun run --filter './examples/ci-regression-gate' dev`.
+- Mocked or live: mocked.
+- Product concept: CI regression gates with pass/fail behavior and report bundle artifact export.
+
 ## Current Capabilities Matrix
 
 | Capability | Status | Package/File | Stable? | Notes |
 |---|---|---|---|---|
 | core primitives | partial | `packages/core` | No | Core types and helpers exist, but package lacks dedicated tests. |
-| evals/rewards | partial | `packages/evals` | No | Tests and README exist, but reward set is intentionally small and no RAG presets exist. |
+| evals/rewards | partial | `packages/evals` | No | Tests and README exist, but reward set is intentionally small. |
+| RAG presets | partial | `packages/preset-rag` | No | Deterministic presets compose text, citation, latency, cost and tool-use rewards. |
 | experiment runner | done | `packages/experiments` | Yes | Local deterministic runner with tests and docs. |
 | trainer recommendations | done | `packages/trainer` | Yes | Deterministic recommendation and objective ranking are tested and documented. |
 | callable adapter | done | `packages/adapter-callable` | Yes | Tested, documented and covered by an example. |
 | context engineering example | done | `examples/context-engineering` | Yes | Mocked strategy comparison plus CLI module. |
-| exporters | done | `packages/exporters` | Yes | Stable JSON/Markdown export shape, no file bundle writer yet. |
+| exporters | done | `packages/exporters` | Yes | Stable JSON/Markdown export shape and local report bundle writer. |
 | typed experiment definitions | done | `packages/experiments/src/definition.ts` | Yes | Used by the CLI example. |
 | CLI runner | partial | `packages/cli` | Yes | Current command works; history, baselines and regression gates are not CLI flags yet. |
-| regression gates | done | `packages/experiments/src/regression-gates.ts` | Yes | Tested comparison helpers, not yet shown in a CI example. |
+| regression gates | done | `packages/experiments/src/regression-gates.ts` | Yes | Tested comparison helpers plus a copyable CI example. |
 | ecosystem adapters | partial | `packages/adapter-*` | No | Structural adapters exist with tests/docs, but dedicated examples and deeper framework coverage are missing. |
 | simple search optimization | done | `packages/trainer/src/search.ts` | Yes | Deterministic grid search over manual parameter grids. |
 | IgnitionRAG design | done | `docs/10-ignitionrag-integration-design.md` | Yes | Design-only; no IgnitionRAG runtime integration. |
@@ -185,7 +202,6 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Core and environment need dedicated tests before alpha-stable status.
 - Ecosystem adapters are minimal and structural.
 - CLI does not yet support history, baseline selection or fail-on-regression flags.
-- Report output is split across JSON/Markdown helpers, but no report bundle artifact exists yet.
 - Bandit support is prototype-only.
 - No contextual bandits.
 - No rollout or trajectory recorder.

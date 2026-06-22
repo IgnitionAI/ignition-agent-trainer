@@ -9,9 +9,9 @@
       "score": 1,
       "totalCases": 3,
       "rewardAverages": {
-        "answer_quality": 1,
-        "latency": 1,
-        "cost": 1
+        "rag_quality": 1,
+        "rag_latency": 1,
+        "rag_cost": 1
       },
       "failedCases": 0,
       "averageLatencyMs": 1250,
@@ -23,9 +23,9 @@
       "score": 0.8145833333333333,
       "totalCases": 3,
       "rewardAverages": {
-        "answer_quality": 0.7527777777777778,
-        "latency": 1,
-        "cost": 1
+        "rag_quality": 0.7527777777777778,
+        "rag_latency": 1,
+        "rag_cost": 1
       },
       "failedCases": 0,
       "averageLatencyMs": 720,
@@ -37,9 +37,9 @@
       "score": 0.3854166666666667,
       "totalCases": 3,
       "rewardAverages": {
-        "answer_quality": 0.18055555555555558,
-        "latency": 1,
-        "cost": 1
+        "rag_quality": 0.18055555555555558,
+        "rag_latency": 1,
+        "rag_cost": 1
       },
       "failedCases": 0,
       "averageLatencyMs": 260,

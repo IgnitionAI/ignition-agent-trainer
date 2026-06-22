@@ -32,7 +32,6 @@ This package is usable for deterministic local evaluations, but remains partial 
 
 Known gaps:
 
-- no RAG preset package yet,
 - no domain-specific safety or hallucination scorers,
 - no model-graded reward support,
 - reward set is intentionally small.
