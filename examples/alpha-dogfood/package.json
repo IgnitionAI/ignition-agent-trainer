@@ -1,0 +1,17 @@
+{
+  "name": "alpha-dogfood",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun src/index.ts",
+    "gate": "bun regression-gate.ts"
+  },
+  "dependencies": {
+    "@ignitionai/core": "workspace:*",
+    "@ignitionai/evals": "workspace:*",
+    "@ignitionai/experiments": "workspace:*",
+    "@ignitionai/exporters": "workspace:*",
+    "@ignitionai/trainer": "workspace:*"
+  }
+}

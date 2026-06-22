@@ -1,0 +1,94 @@
+{
+  "name": "alpha-dogfood-document-assistant",
+  "startedAt": "2026-01-01T00:00:00.000Z",
+  "endedAt": "2026-01-01T00:00:01.000Z",
+  "leaderboard": [
+    {
+      "variantId": "rag-with-verification",
+      "name": "rag-with-verification",
+      "score": 0.95,
+      "totalCases": 24,
+      "averageLatencyMs": 1900,
+      "totalCostUsd": 0.23,
+      "rewardAverages": {
+        "contains_all": 1,
+        "citation_presence": 1,
+        "groundedness_like": 0.95,
+        "latency": 1,
+        "cost": 1,
+        "alpha_composite": 0.95
+      },
+      "failedCases": 0
+    },
+    {
+      "variantId": "agentic-rag",
+      "name": "agentic-rag",
+      "score": 0.93,
+      "totalCases": 24,
+      "averageLatencyMs": 3400,
+      "totalCostUsd": 0.62,
+      "rewardAverages": {
+        "contains_all": 1,
+        "citation_presence": 1,
+        "groundedness_like": 1,
+        "latency": 0.75,
+        "cost": 0.8,
+        "alpha_composite": 0.93
+      },
+      "failedCases": 0
+    },
+    {
+      "variantId": "rag-rerank",
+      "name": "rag-rerank",
+      "score": 0.83,
+      "totalCases": 24,
+      "averageLatencyMs": 1250,
+      "totalCostUsd": 0.14,
+      "rewardAverages": {
+        "contains_all": 1,
+        "citation_presence": 0.75,
+        "groundedness_like": 0.78,
+        "latency": 1,
+        "cost": 1,
+        "alpha_composite": 0.83
+      },
+      "failedCases": 0
+    },
+    {
+      "variantId": "rag-basic",
+      "name": "rag-basic",
+      "score": 0.7,
+      "totalCases": 24,
+      "averageLatencyMs": 850,
+      "totalCostUsd": 0.08,
+      "rewardAverages": {
+        "contains_all": 0.67,
+        "citation_presence": 0.75,
+        "groundedness_like": 0.67,
+        "latency": 1,
+        "cost": 1,
+        "alpha_composite": 0.7
+      },
+      "failedCases": 0
+    },
+    {
+      "variantId": "direct-answer",
+      "name": "direct-answer",
+      "score": 0.32,
+      "totalCases": 24,
+      "averageLatencyMs": 220,
+      "totalCostUsd": 0.014,
+      "rewardAverages": {
+        "contains_all": 0.33,
+        "citation_presence": 0,
+        "groundedness_like": 0.1,
+        "latency": 1,
+        "cost": 1,
+        "alpha_composite": 0.32
+      },
+      "failedCases": 0
+    }
+  ],
+  "cases": [],
+  "failedCases": []
+}

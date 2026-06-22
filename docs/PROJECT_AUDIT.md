@@ -1,6 +1,6 @@
 # Project Audit
 
-This audit reflects the repository state through the current post-#20 roadmap work.
+This audit reflects the repository state through the current alpha dogfood roadmap work.
 
 PR #22 added missing package READMEs and package manifest metadata. Stability labels still depend on tests, examples and implementation maturity.
 
@@ -188,6 +188,15 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Mocked or live: mocked.
 - Product concept: CI regression gates with pass/fail behavior and report bundle artifact export.
 
+### `examples/alpha-dogfood`
+
+- Demonstrates: an IgnitionRAG-style document assistant evaluation with direct answer, basic RAG, rerank, verification and agentic RAG variants.
+- Command: `bun run --filter './examples/alpha-dogfood' dev`.
+- Gate command: `bun run --filter './examples/alpha-dogfood' gate`.
+- CLI command: `bun run --filter '@ignitionai/cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood`.
+- Mocked or live: deterministic mocked adapters.
+- Product concept: alpha dogfood loop with dataset, variants, rewards, leaderboard, recommendation, report exports, regression gate and local history.
+
 ## Current Capabilities Matrix
 
 | Capability | Status | Package/File | Stable? | Notes |
@@ -205,6 +214,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 | typed experiment definitions | done | `packages/experiments/src/definition.ts` | Yes | Used by the CLI example. |
 | CLI runner | partial | `packages/cli` | Yes | Current command works; history, baselines and regression gates are not CLI flags yet. |
 | regression gates | done | `packages/experiments/src/regression-gates.ts` | Yes | Tested comparison helpers plus a copyable CI example. |
+| alpha dogfood workflow | done | `examples/alpha-dogfood` | Yes | Deterministic IgnitionRAG-style document assistant evaluation with report exports and a regression gate. |
 | ecosystem adapters | partial | `packages/adapter-*` | No | Structural adapters exist with tests/docs, but dedicated examples and deeper framework coverage are missing. |
 | simple search optimization | done | `packages/trainer/src/search.ts` | Yes | Deterministic grid search over manual parameter grids. |
 | IgnitionRAG design | done | `docs/10-ignitionrag-integration-design.md` | Yes | Design-only; no IgnitionRAG runtime integration. |

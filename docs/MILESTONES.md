@@ -293,6 +293,12 @@ Primary validation reference:
 docs/ALPHA_VALIDATION_PLAN.md
 ```
 
+Current status:
+
+```txt
+PR #36 is complete. PR #37 is the current alpha dogfood implementation branch.
+```
+
 Explicit non-goals:
 
 ```txt
