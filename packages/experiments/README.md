@@ -66,6 +66,12 @@ const comparison = compareExperimentResults(current, baseline, {
 console.log(comparison.markdown);
 ```
 
+For a copyable GitHub Actions example with a committed baseline fixture, see:
+
+```txt
+examples/ci-regression-gate
+```
+
 ## Keep Local Experiment History
 
 Use JSONL history helpers when you want to keep local runs without adding a database or hosted storage.
