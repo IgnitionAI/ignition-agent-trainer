@@ -193,6 +193,7 @@ See:
 
 - [Post-#20 roadmap](./docs/POST_20_ROADMAP.md)
 - [Project audit](./docs/PROJECT_AUDIT.md)
+- [IgnitionRAG implementation handoff](./docs/IGNITIONRAG_IMPLEMENTATION_HANDOFF.md)
 
 ---
 
