@@ -1,0 +1,23 @@
+name: Ignition Regression Gate Example
+
+on:
+  pull_request:
+
+jobs:
+  regression-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - name: Run regression gate
+        run: bun run --filter './examples/ci-regression-gate' dev
+      - name: Export current report bundle
+        if: always()
+        run: bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts --bundle reports
+      - name: Upload report bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ignition-report-bundle
+          path: reports

@@ -33,6 +33,14 @@
         "@ignitionai/trainer": "workspace:*",
       },
     },
+    "examples/ci-regression-gate": {
+      "name": "ci-regression-gate",
+      "version": "0.0.0",
+      "dependencies": {
+        "@ignitionai/core": "workspace:*",
+        "@ignitionai/experiments": "workspace:*",
+      },
+    },
     "examples/context-engineering": {
       "name": "context-engineering",
       "version": "0.0.0",
@@ -474,6 +482,8 @@
     "chai": ["chai@6.2.2", "", {}, "sha512-NUPRluOfOiTKBKvWPtSD4PhFvWCqOi0BGStNWs57X9js7XGTprSmFoz5F0tWhR4WPjNeR9jXqdC7/UpSJTnlRg=="],
 
     "chokidar": ["chokidar@4.0.3", "", { "dependencies": { "readdirp": "^4.0.1" } }, "sha512-Qgzu8kfBvo+cA4962jnP1KkS6Dop5NS6g7R5LFYJr4b8Ub94PPQXUksCw9PvXoeXPRRddRNC5C1JQUR2SMGtnA=="],
+
+    "ci-regression-gate": ["ci-regression-gate@workspace:examples/ci-regression-gate"],
 
     "commander": ["commander@4.1.1", "", {}, "sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA=="],
 

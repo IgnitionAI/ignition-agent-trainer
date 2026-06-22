@@ -1,0 +1,51 @@
+{
+  "name": "context-engineering-strategies",
+  "startedAt": "2026-01-01T00:00:00.000Z",
+  "endedAt": "2026-01-01T00:00:01.000Z",
+  "leaderboard": [
+    {
+      "variantId": "rag-with-verification",
+      "name": "rag-with-verification",
+      "score": 1,
+      "totalCases": 3,
+      "rewardAverages": {
+        "answer_quality": 1,
+        "latency": 1,
+        "cost": 1
+      },
+      "failedCases": 0,
+      "averageLatencyMs": 1250,
+      "totalCostUsd": 0.012
+    },
+    {
+      "variantId": "rag-basic",
+      "name": "rag-basic",
+      "score": 0.8145833333333333,
+      "totalCases": 3,
+      "rewardAverages": {
+        "answer_quality": 0.7527777777777778,
+        "latency": 1,
+        "cost": 1
+      },
+      "failedCases": 0,
+      "averageLatencyMs": 720,
+      "totalCostUsd": 0.006
+    },
+    {
+      "variantId": "direct-answer",
+      "name": "direct-answer",
+      "score": 0.3854166666666667,
+      "totalCases": 3,
+      "rewardAverages": {
+        "answer_quality": 0.18055555555555558,
+        "latency": 1,
+        "cost": 1
+      },
+      "failedCases": 0,
+      "averageLatencyMs": 260,
+      "totalCostUsd": 0.0018
+    }
+  ],
+  "cases": [],
+  "failedCases": []
+}

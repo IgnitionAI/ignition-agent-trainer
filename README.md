@@ -108,6 +108,12 @@ Write a timestamped local report bundle:
 bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts --bundle reports
 ```
 
+Run the sample CI regression gate:
+
+```bash
+bun run --filter './examples/ci-regression-gate' dev
+```
+
 ---
 
 ## Minimal usage

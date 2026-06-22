@@ -41,7 +41,6 @@ Status values:
 
 - Add dedicated tests for `@ignitionai/core`.
 - Add dedicated tests for `@ignitionai/environment` or keep it explicitly prototype-only.
-- Add CI regression gate example.
 - Add CLI history/baseline/regression ergonomics after report bundles and CI examples.
 - Decide license/publishing policy before any npm publication.
 - Decide whether packages stay at `0.0.0` until the first internal alpha tag.
