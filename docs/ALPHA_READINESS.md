@@ -38,7 +38,7 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 | `@ignitionai/agent-trainer-rl` | ready | ready | partial | ready | prototype | Deterministic policy helpers, trajectory recorder, fixed-strategy bandits, offline policy evaluation, GRPO-style selection and PPO interface skeletons are tested; deeper RL is intentionally absent. |
 | `@ignitionai/agent-trainer` | ready | ready | ready | ready | ready | Deterministic recommendation, candidate evaluation and grid search are tested. |
 
-## Verified Through PR #47
+## Verified Through PR #49
 
 - Package names use the `@ignitionai/*` scope.
 - Root and workspace package versions are aligned on `0.1.0-alpha.0`.
@@ -54,12 +54,14 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 - `@ignitionai/agent-trainer-core` has dedicated package-level tests for dataset helpers, adapter helpers and score helpers.
 - The CLI can record local experiment history, select a baseline and run regression checks.
 - Ecosystem adapters have a deterministic grouped example covering LangChain, LangGraph, Mastra and Vercel AI SDK-style shapes.
+- Core runtime validation helpers cover datasets, variants, run results, usage metrics, traces, metric/reward results, normalized scores and JSON-compatible fields.
+- npm alpha publishing policy is manual-only for `v0.1.0-alpha.x`; automated publishing is disabled until a dedicated Trusted Publishing/OIDC PR exists.
 
 ## Known Work After Internal Alpha
 
 - Dogfood the alpha inside IgnitionRAG and collect trajectory/reward evidence.
 - Add a lightweight policy optimization loop after real dogfood produces trajectory data.
-- Decide any next-step publishing automation policy before a future public release workflow.
+- Add a future npm Trusted Publishing/OIDC workflow only if manual alpha consumption proves automation is needed.
 
 ## Explicit Non-goals
 

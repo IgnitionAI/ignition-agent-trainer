@@ -253,6 +253,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 | environment episodes | partial | `packages/environment` | No | Tested episode runner with max-step safety, seed forwarding, final state and metadata. |
 | trajectory recorder | partial | `packages/rl/src/trajectory.ts` | No | Local state/action/reward/outcome records with deterministic summaries. |
 | trajectory reports | partial | `packages/rl/src/episode-trajectory.ts` | No | Environment episodes can become trajectories, Markdown reports and offline policy records. |
+| npm publishing policy | done | `docs/NPM_ALPHA_PUBLISHING.md` | Yes | Alpha publishing is manual-only with `--tag alpha`; future automation must use Trusted Publishing/OIDC and manual approval. |
 | bandit prototype | prototype | `packages/rl/src/strategy-bandit.ts` | No | Clearly experimental, fixed arms only, no PPO. |
 | contextual bandit prototype | prototype | `packages/rl/src/contextual-bandit.ts` | No | Deterministic fixed-feature scoring over task type, citation need, cost sensitivity, latency sensitivity and risk level. |
 | offline policy evaluation | prototype | `packages/rl/src/offline-policy-evaluation.ts` | No | Deterministic replay over local records or observed trajectory steps; no live traffic path. |

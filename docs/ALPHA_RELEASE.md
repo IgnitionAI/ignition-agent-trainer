@@ -4,6 +4,8 @@ This document defines the internal `v0.1.0-alpha.0` tag criteria and release pro
 
 The alpha tag is a repository milestone, not an npm publication.
 
+For npm alpha publishing policy, see `docs/NPM_ALPHA_PUBLISHING.md`. Current npm alpha publishing is manual only; no GitHub Actions workflow should publish packages automatically.
+
 ## Target Tag
 
 ```txt

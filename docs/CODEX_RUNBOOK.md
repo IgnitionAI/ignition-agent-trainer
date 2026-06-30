@@ -84,6 +84,16 @@ PR #42 packaging readiness
 
 PR #42 must not publish to npm during the PR and must not add runtime features.
 
+Current npm alpha publication policy is documented in `docs/NPM_ALPHA_PUBLISHING.md`:
+
+```txt
+manual alpha publish only
+no GitHub Actions auto-publish workflow
+no long-lived NPM_TOKEN
+publish prereleases with --tag alpha
+future automation must use npm Trusted Publishing/OIDC and manual approval
+```
+
 After the npm alpha is published, the next phase is dogfooding inside IgnitionRAG:
 
 ```txt
