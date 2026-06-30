@@ -4,9 +4,16 @@ import { join } from "node:path";
 import {
   createDataset,
   createMockAdapter,
+  type ExperimentResult,
   type RewardFunction,
+  type VariantSummary,
 } from "@ignitionai/agent-trainer-core";
-import { defineExperiment, type ExperimentDefinition } from "@ignitionai/agent-trainer-experiments";
+import {
+  appendExperimentHistory,
+  defineExperiment,
+  type ExperimentDefinition,
+  readExperimentHistory,
+} from "@ignitionai/agent-trainer-experiments";
 import { describe, expect, it } from "vitest";
 import { parseCliArgs, runCli } from "./index";
 
@@ -32,7 +39,107 @@ describe("parseCliArgs", () => {
         jsonOutputPath: "reports/result.json",
         markdownOutputPath: "reports/result.md",
         bundleOutputDirectory: "reports/bundles",
+        regressionOptions: {},
       },
+    });
+  });
+
+  it("parses history, baseline and regression options for eval runs", () => {
+    expect(
+      parseCliArgs([
+        "eval",
+        "run",
+        "./experiment.ts",
+        "--history",
+        ".ignition/history.jsonl",
+        "--baseline",
+        "latest",
+        "--regression",
+        "--max-score-drop",
+        "0.05",
+        "--max-latency-increase-ms",
+        "100",
+        "--max-cost-increase-usd",
+        "0.001",
+        "--variant",
+        "strong-agent",
+        "--regression-markdown",
+        "reports/regression.md",
+        "--record-history",
+      ]),
+    ).toEqual({
+      ok: true,
+      command: {
+        kind: "eval-run",
+        experimentPath: "./experiment.ts",
+        historyPath: ".ignition/history.jsonl",
+        baseline: "latest",
+        regression: true,
+        regressionMarkdownOutputPath: "reports/regression.md",
+        recordHistory: true,
+        regressionOptions: {
+          maxScoreDrop: 0.05,
+          maxLatencyIncreaseMs: 100,
+          maxCostIncreaseUsd: 0.001,
+          variantIds: ["strong-agent"],
+        },
+      },
+    });
+  });
+
+  it("parses history list and show commands", () => {
+    expect(
+      parseCliArgs([
+        "eval",
+        "history",
+        "list",
+        ".ignition/history.jsonl",
+        "--experiment",
+        "cli-definition-demo",
+        "--limit",
+        "2",
+      ]),
+    ).toEqual({
+      ok: true,
+      command: {
+        kind: "eval-history-list",
+        historyPath: ".ignition/history.jsonl",
+        experimentName: "cli-definition-demo",
+        limit: 2,
+      },
+    });
+
+    expect(
+      parseCliArgs([
+        "eval",
+        "history",
+        "show",
+        ".ignition/history.jsonl",
+        "latest",
+        "--experiment",
+        "cli-definition-demo",
+      ]),
+    ).toEqual({
+      ok: true,
+      command: {
+        kind: "eval-history-show",
+        historyPath: ".ignition/history.jsonl",
+        selector: "latest",
+        experimentName: "cli-definition-demo",
+      },
+    });
+  });
+
+  it("rejects regression flags that cannot select a baseline", () => {
+    expect(parseCliArgs(["eval", "run", "./experiment.ts", "--regression"])).toEqual({
+      ok: false,
+      message: "--regression requires --baseline.",
+      exitCode: 1,
+    });
+    expect(parseCliArgs(["eval", "run", "./experiment.ts", "--baseline", "latest"])).toEqual({
+      ok: false,
+      message: "--baseline requires --history.",
+      exitCode: 1,
     });
   });
 
@@ -189,9 +296,163 @@ describe("runCli", () => {
     });
     expect(output.out.join("\n")).toContain(`Report bundle: ${bundleDirectory}`);
   });
+
+  it("lists and shows experiment history entries", async () => {
+    const workspace = await mkdtemp(join(tmpdir(), "ignition-cli-history-"));
+    const historyPath = join(workspace, ".ignition", "history.jsonl");
+    await appendExperimentHistory(historyPath, createHistoryResult(0.82), {
+      recordedAt: "2026-01-01T00:00:00.000Z",
+    });
+    await appendExperimentHistory(historyPath, createHistoryResult(0.93), {
+      recordedAt: "2026-01-02T00:00:00.000Z",
+    });
+
+    const listOutput = createOutput();
+    const listExitCode = await runCli(
+      [
+        "eval",
+        "history",
+        "list",
+        ".ignition/history.jsonl",
+        "--experiment",
+        "cli-definition-demo",
+        "--limit",
+        "1",
+      ],
+      {
+        cwd: workspace,
+        stdout: listOutput.stdout,
+        stderr: listOutput.stderr,
+      },
+    );
+
+    expect(listExitCode).toBe(0);
+    expect(listOutput.err).toEqual([]);
+    const listStdout = listOutput.out.join("\n");
+    expect(listStdout).toContain("Entries: 2");
+    expect(listStdout).toContain("cli-definition-demo-2026-01-02T00-00-00-000Z");
+    expect(listStdout).not.toContain("cli-definition-demo-2026-01-01T00-00-00-000Z");
+
+    const showOutput = createOutput();
+    const showExitCode = await runCli(
+      [
+        "eval",
+        "history",
+        "show",
+        ".ignition/history.jsonl",
+        "latest",
+        "--experiment",
+        "cli-definition-demo",
+      ],
+      {
+        cwd: workspace,
+        stdout: showOutput.stdout,
+        stderr: showOutput.stderr,
+      },
+    );
+
+    expect(showExitCode).toBe(0);
+    expect(showOutput.err).toEqual([]);
+    const showStdout = showOutput.out.join("\n");
+    expect(showStdout).toContain("History entry: cli-definition-demo-2026-01-02T00-00-00-000Z");
+    expect(showStdout).toContain("Experiment: cli-definition-demo");
+    expect(showStdout).toContain("1. strong-agent - score 0.930");
+  });
+
+  it("records history and passes a regression check against the latest baseline", async () => {
+    const workspace = await mkdtemp(join(tmpdir(), "ignition-cli-regression-pass-"));
+    const historyPath = join(workspace, ".ignition", "history.jsonl");
+    await appendExperimentHistory(historyPath, createHistoryResult(0.9), {
+      recordedAt: "2026-01-01T00:00:00.000Z",
+    });
+
+    const output = createOutput();
+    const exitCode = await runCli(
+      [
+        "eval",
+        "run",
+        "./experiment.ts",
+        "--history",
+        ".ignition/history.jsonl",
+        "--baseline",
+        "latest",
+        "--regression",
+        "--max-score-drop",
+        "0.2",
+        "--regression-markdown",
+        "reports/regression.md",
+        "--record-history",
+      ],
+      {
+        cwd: workspace,
+        stdout: output.stdout,
+        stderr: output.stderr,
+        fileExists: (absolutePath) => absolutePath === join(workspace, "experiment.ts"),
+        importModule: async () => ({ default: createCliExperimentDefinition() }),
+      },
+    );
+
+    expect(exitCode).toBe(0);
+    expect(output.err).toEqual([]);
+    const stdout = output.out.join("\n");
+    expect(stdout).toContain("Baseline: cli-definition-demo-2026-01-01T00-00-00-000Z");
+    expect(stdout).toContain("Regression gate: pass");
+    expect(stdout).toContain("Regression Markdown: reports/regression.md");
+    expect(stdout).toContain("History entry: cli-definition-demo-");
+
+    const entries = await readExperimentHistory(historyPath);
+    expect(entries).toHaveLength(2);
+    expect(entries[1]?.metadata).toEqual({
+      source: "cli",
+      experimentPath: "./experiment.ts",
+    });
+
+    const markdown = await readFile(join(workspace, "reports", "regression.md"), "utf8");
+    expect(markdown).toContain("# Regression gate summary");
+    expect(markdown).toContain("Result: pass");
+  });
+
+  it("fails clearly when regression checks fail", async () => {
+    const workspace = await mkdtemp(join(tmpdir(), "ignition-cli-regression-fail-"));
+    const historyPath = join(workspace, ".ignition", "history.jsonl");
+    await appendExperimentHistory(historyPath, createHistoryResult(1), {
+      recordedAt: "2026-01-01T00:00:00.000Z",
+    });
+
+    const output = createOutput();
+    const exitCode = await runCli(
+      [
+        "eval",
+        "run",
+        "./experiment.ts",
+        "--history",
+        ".ignition/history.jsonl",
+        "--baseline",
+        "latest",
+        "--regression",
+      ],
+      {
+        cwd: workspace,
+        stdout: output.stdout,
+        stderr: output.stderr,
+        fileExists: (absolutePath) => absolutePath === join(workspace, "experiment.ts"),
+        importModule: async () => ({
+          default: createCliExperimentDefinition({ strongOutput: "wrong answer" }),
+        }),
+      },
+    );
+
+    expect(exitCode).toBe(1);
+    expect(output.out.join("\n")).toContain("Regression gate: fail");
+    expect(output.out.join("\n")).toContain("Result: fail");
+    expect(output.err.join("\n")).toContain("Regression gate failed:");
+    expect(output.err.join("\n")).toContain("Variant strong-agent score dropped");
+  });
 });
 
-function createCliExperimentDefinition(): ExperimentDefinition {
+function createCliExperimentDefinition(
+  options: { strongOutput?: string; weakOutput?: string } = {},
+): ExperimentDefinition {
   const qualityReward: RewardFunction = {
     name: "quality",
     evaluate(run) {
@@ -211,7 +472,7 @@ function createCliExperimentDefinition(): ExperimentDefinition {
         id: "strong-agent",
         name: "strong-agent",
         adapter: createMockAdapter({
-          output: "correct answer",
+          output: options.strongOutput ?? "correct answer",
           trace: { steps: [] },
           usage: { latencyMs: 100, costUsd: 0.001 },
         }),
@@ -220,7 +481,7 @@ function createCliExperimentDefinition(): ExperimentDefinition {
         id: "weak-agent",
         name: "weak-agent",
         adapter: createMockAdapter({
-          output: "wrong answer",
+          output: options.weakOutput ?? "wrong answer",
           trace: { steps: [] },
           usage: { latencyMs: 50, costUsd: 0.0005 },
         }),
@@ -228,6 +489,48 @@ function createCliExperimentDefinition(): ExperimentDefinition {
     ],
     rewards: [qualityReward],
   });
+}
+
+function createHistoryResult(strongScore: number): ExperimentResult {
+  return {
+    name: "cli-definition-demo",
+    startedAt: "2026-01-01T00:00:00.000Z",
+    endedAt: "2026-01-01T00:00:01.000Z",
+    leaderboard: [
+      variantSummary({
+        id: "strong-agent",
+        score: strongScore,
+        latencyMs: 100,
+        costUsd: 0.001,
+      }),
+      variantSummary({
+        id: "weak-agent",
+        score: 0,
+        latencyMs: 50,
+        costUsd: 0.0005,
+      }),
+    ],
+    cases: [],
+    failedCases: [],
+  };
+}
+
+function variantSummary(input: {
+  id: string;
+  score: number;
+  latencyMs: number;
+  costUsd: number;
+}): VariantSummary {
+  return {
+    variantId: input.id,
+    name: input.id,
+    score: input.score,
+    totalCases: 1,
+    averageLatencyMs: input.latencyMs,
+    totalCostUsd: input.costUsd,
+    rewardAverages: { quality: input.score },
+    failedCases: 0,
+  };
 }
 
 function createOutput(): {
