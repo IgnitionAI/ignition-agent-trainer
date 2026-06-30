@@ -11,9 +11,9 @@ Status values:
 Current snapshot:
 
 - Completed through PR #47.
-- No unblocked implementation PR is currently selected.
-- PR #48 is the next RL/product loop, but it stays blocked until dogfood or representative trajectory fixtures exist.
-- Useful unblocked maintenance can still happen as small focused PRs for docs, publish automation decisions or issues found while dogfooding.
+- PR #48 is the current unblocked core validation PR.
+- PR #49 and PR #50 are the next planned release-policy and CLI/environment ergonomics PRs.
+- The dogfood-driven policy optimization loop stays blocked until dogfood or representative trajectory fixtures exist.
 
 ## Stable PR sequence
 
@@ -2972,9 +2972,192 @@ Definition of done:
 
 Next PR:
 
-- PR #48 - `feat: add dogfood-driven policy optimization loop`
+- PR #48 - `feat(core): add runtime validation helpers`
 
-### PR #48 - `feat: add dogfood-driven policy optimization loop`
+### PR #48 - `feat(core): add runtime validation helpers`
+
+Status:
+
+- current
+
+Branch:
+
+```txt
+feat/core-runtime-validation-helpers
+```
+
+Goal:
+
+Move `@ignitionai/agent-trainer-core` closer to alpha-stable status by validating core runtime shapes.
+
+Scope:
+
+- add runtime assertions and non-throwing validators for datasets, dataset items, variants, adapters, run results, usage metrics, traces, metric results, reward results, normalized scores and JSON-compatible fields,
+- wire high-risk core entry points through the validators where compatible,
+- document the validation surface in `packages/core/README.md`,
+- update audit/readiness docs to remove the stale "no runtime schema validation" limitation for the covered core surface,
+- add focused tests for positive and failure paths.
+
+Out of scope:
+
+- external schema libraries,
+- full experiment report validation,
+- public API redesign,
+- provider calls,
+- database or hosted validation services.
+
+Required APIs / files:
+
+- `packages/core/src/validation.ts`,
+- `packages/core/src/dataset.ts`,
+- `packages/core/src/adapter.ts`,
+- `packages/core/src/index.ts`,
+- `packages/core/src/index.test.ts`,
+- `packages/core/README.md`,
+- alpha readiness and project audit docs.
+
+Acceptance:
+
+```bash
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+bun run pack:check
+```
+
+Definition of done:
+
+- developers can validate or assert common core runtime values without adding dependencies,
+- invalid usage, traces, scores and serialized JSON fields fail with clear errors,
+- existing public helpers keep working,
+- docs explain the validation limits.
+
+Next PR:
+
+- PR #49 - `docs(release): decide npm publish automation policy`
+
+### PR #49 - `docs(release): decide npm publish automation policy`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+docs/npm-publish-automation-policy
+```
+
+Goal:
+
+Make the alpha npm publishing policy explicit before any future public release automation.
+
+Scope:
+
+- decide manual vs GitHub Actions publication policy,
+- document dist-tag policy, especially `alpha` and no accidental `latest`,
+- document npm provenance posture,
+- document OTP/2FA and org permission expectations,
+- document what must pass before any publish attempt.
+
+Out of scope:
+
+- actually publishing packages,
+- introducing automatic npm publish in this PR,
+- changing package names or versions unless required by the policy doc,
+- release dashboard or hosted workflow.
+
+Required APIs / files:
+
+- `docs/NPM_ALPHA_PUBLISHING.md`,
+- `docs/ALPHA_RELEASE.md`,
+- `docs/CODEX_RUNBOOK.md` if runbook steps change,
+- alpha readiness/backlog docs.
+
+Acceptance:
+
+```bash
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+bun run pack:check
+```
+
+Definition of done:
+
+- the repo clearly says whether alpha publishing is manual or automated,
+- npm tag, provenance, OTP and permission rules are explicit,
+- no workflow can publish accidentally.
+
+Next PR:
+
+- PR #50 - `feat(cli): add environment episode trajectory commands`
+
+### PR #50 - `feat(cli): add environment episode trajectory commands`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/cli-environment-trajectory-commands
+```
+
+Goal:
+
+Expose environment episode and trajectory report ergonomics through the CLI without adding model training.
+
+Scope:
+
+- add a CLI command that loads a deterministic environment episode module,
+- run `runEpisode()` with seed, max steps, policy id and metadata options,
+- print episode steps, total reward and trajectory summary,
+- optionally write JSON and Markdown trajectory reports,
+- optionally print offline policy record counts,
+- add focused CLI parser/runtime tests and docs.
+
+Out of scope:
+
+- PPO, GRPO or neural policy training,
+- live provider calls,
+- production routing,
+- database or hosted trajectory store,
+- policy optimization loop.
+
+Required APIs / files:
+
+- `packages/cli`,
+- `packages/environment`,
+- `packages/rl`,
+- `examples/rag-environment-episode` if a reusable module export is needed,
+- CLI/environment/rl READMEs and audit docs.
+
+Acceptance:
+
+```bash
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+bun run pack:check
+```
+
+Definition of done:
+
+- a developer can run an episode module from the CLI,
+- JSON and Markdown trajectory reports are writable from CLI flags,
+- offline record count is visible,
+- docs explicitly say this is not a training loop.
+
+Next PR:
+
+- PR #51 - `feat: add dogfood-driven policy optimization loop`
+
+### PR #51 - `feat: add dogfood-driven policy optimization loop`
 
 Status:
 

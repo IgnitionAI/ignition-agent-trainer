@@ -229,7 +229,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 
 | Capability | Status | Package/File | Stable? | Notes |
 |---|---|---|---|---|
-| core primitives | partial | `packages/core` | No | Core types and helpers have dedicated tests; runtime schema validation remains out of scope. |
+| core primitives | partial | `packages/core` | No | Core types, helpers and runtime validation helpers have dedicated tests; full experiment report schema validation remains out of scope. |
 | IgnitionRAG adapter contract | partial | `packages/adapter-ignitionrag` | No | Type-level contract only; no runtime IgnitionRAG integration. |
 | evals/rewards | partial | `packages/evals` | No | Tests and README exist, but reward set is intentionally small. |
 | RAG presets | partial | `packages/preset-rag` | No | Deterministic presets compose text, citation, latency, cost and tool-use rewards. |
@@ -267,7 +267,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - No real LLM calls by default.
 - No hosted IgnitionRAG integration code.
 - IgnitionRAG integration is design-only.
-- Core still needs runtime schema validation before alpha-stable status.
+- Core still needs full experiment report schema validation before alpha-stable status.
 - Lightweight policy optimization remains blocked until dogfood or representative trajectory fixtures exist.
 - Environment episodes still need real dogfood data and CLI ergonomics before stable status.
 - Ecosystem adapters are minimal and structural.

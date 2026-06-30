@@ -28,7 +28,7 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 | `@ignitionai/agent-trainer-adapter-mastra` | ready | ready | ready | ready | partial | Structural adapter with mocked example coverage; no memory, tool or full Mastra coverage. |
 | `@ignitionai/agent-trainer-adapter-vercel-ai` | ready | ready | ready | ready | partial | Structural adapter with mocked example coverage; no streaming, tools or live provider calls. |
 | `@ignitionai/agent-trainer-cli` | ready | ready | ready | ready | partial | Runs typed experiments, writes reports/bundles, records local history, selects baselines and runs regression checks; no watch mode or remote execution. |
-| `@ignitionai/agent-trainer-core` | ready | ready | ready | ready | partial | Foundational helpers have dedicated tests; runtime schema validation remains outside the current helper surface. |
+| `@ignitionai/agent-trainer-core` | ready | ready | ready | ready | partial | Foundational helpers and runtime validation helpers have dedicated tests; full experiment report schema validation remains outside the current helper surface. |
 | `@ignitionai/agent-trainer-environment` | ready | ready | ready | ready | partial | Tested episode runner with safety guards and a deterministic RAG episode example; no production runtime or optimization loop. |
 | `@ignitionai/agent-trainer-evals` | ready | ready | ready | ready | partial | Current rewards are tested; RAG presets and richer scoring are still missing. |
 | `@ignitionai/agent-trainer-experiments` | ready | ready | ready | ready | ready | Local runner, definitions, gates and JSONL history are tested and documented. |
