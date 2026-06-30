@@ -2732,7 +2732,7 @@ Next PR:
 
 Status:
 
-- current
+- completed
 
 Branch:
 
@@ -2785,9 +2785,255 @@ Definition of done:
 - package readiness no longer says core tests are missing,
 - docs keep runtime schema validation out of scope.
 
+Next PR:
+
+- PR #45 - `docs: sync roadmap after core coverage`
+
+### PR #45 - `docs: sync roadmap after core coverage`
+
+Status:
+
+- current
+
+Branch:
+
+```txt
+docs/sync-roadmap-after-core-tests
+```
+
+Goal:
+
+Bring roadmap, milestones and backlog back in sync after PR #43 and PR #44, then document the next open-source work in a usable order.
+
+Scope:
+
+- mark PR #44 as completed,
+- update roadmap status after tested environment episodes and core tests,
+- document the next planned PRs with scope, non-goals and acceptance,
+- keep PPO, GRPO training and provider calls out of near-term scope.
+
+Out of scope:
+
+- runtime source code changes,
+- package API changes,
+- test implementation changes,
+- npm publication,
+- IgnitionRAG repo work.
+
+Required APIs / files:
+
+- `ROADMAP.md`,
+- `docs/POST_20_ROADMAP.md`,
+- `docs/MILESTONES.md`,
+- `docs/ALPHA_READINESS.md`,
+- `docs/BACKLOG.md`.
+
+Acceptance:
+
+```bash
+bun run lint
+git diff --check
+```
+
+Definition of done:
+
+- roadmap states the repo is complete through PR #44,
+- backlog has a concrete next sequence,
+- next work is phrased as developer ergonomics and dogfood-driven policy work,
+- no runtime files are modified.
+
+Next PR:
+
+- PR #46 - `feat: add CLI history baseline and regression ergonomics`
+
+### PR #46 - `feat: add CLI history baseline and regression ergonomics`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+feat/cli-history-baseline-regression
+```
+
+Goal:
+
+Make the CLI easier to use for repeated local and CI evaluation loops.
+
+Scope:
+
+- expose a history-oriented CLI workflow over existing experiment history helpers,
+- add baseline selection ergonomics for report comparisons,
+- add a regression-check command or flags that reuse existing regression gate primitives,
+- document exact commands for local and CI usage,
+- add focused CLI tests for success and failure paths.
+
+Out of scope:
+
+- database or hosted history,
+- SaaS dashboard,
+- remote execution,
+- provider calls,
+- new reward algorithms,
+- PPO or policy optimization.
+
+Required APIs / files:
+
+- `packages/cli`,
+- `packages/experiments`,
+- `examples/context-engineering`,
+- CLI README/docs,
+- alpha readiness and project audit docs if status changes.
+
+Acceptance:
+
+```bash
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+bun run pack:check
+```
+
+Definition of done:
+
+- a developer can list or inspect local experiment history from the CLI,
+- a developer can choose a baseline without hand-editing files,
+- a regression check can fail clearly with actionable output,
+- docs include copy-pastable commands.
+
+Next PR:
+
+- PR #47 - `examples: add deeper ecosystem adapter examples`
+
+### PR #47 - `examples: add deeper ecosystem adapter examples`
+
+Status:
+
+- planned
+
+Branch:
+
+```txt
+examples/deeper-ecosystem-adapters
+```
+
+Goal:
+
+Prove the adapter packages are usable without relying only on structural unit tests.
+
+Scope:
+
+- add deterministic mocked examples for LangChain, LangGraph, Mastra and Vercel AI SDK adapters,
+- show how each adapter plugs into `createExperiment`,
+- include trace, usage and metadata mapping where each framework shape supports it,
+- document adapter limits honestly.
+
+Out of scope:
+
+- live provider credentials,
+- real network calls,
+- deep framework feature coverage,
+- hosted demos,
+- IgnitionRAG integration.
+
+Required APIs / files:
+
+- `examples/*adapter*` or one grouped adapter example,
+- adapter package READMEs,
+- root README example list,
+- alpha readiness and project audit docs.
+
+Acceptance:
+
+```bash
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+bun run pack:check
+```
+
+Definition of done:
+
+- every ecosystem adapter has at least one runnable mocked example,
+- examples use public package APIs,
+- examples do not require secrets or network access,
+- docs make unsupported framework behavior clear.
+
+Next PR:
+
+- PR #48 - `feat: add dogfood-driven policy optimization loop`
+
+### PR #48 - `feat: add dogfood-driven policy optimization loop`
+
+Status:
+
+- planned, blocked until dogfood trajectories exist
+
+Branch:
+
+```txt
+feat/dogfood-policy-optimization-loop
+```
+
+Goal:
+
+Turn real or representative dogfood trajectories into a lightweight policy comparison and selection loop.
+
+Precondition:
+
+- IgnitionRAG dogfood must produce useful trajectory/reward data, or this repo must get committed representative fixtures derived from that dogfood.
+
+Scope:
+
+- load or define trajectory fixtures,
+- replay trajectories offline,
+- compare simple policies against offline records,
+- select a policy with contextual bandit or fixed-strategy bandit primitives,
+- produce a deterministic policy selection report,
+- optionally expose the workflow through CLI only if the CLI contract is already ready.
+
+Out of scope:
+
+- PPO implementation,
+- GRPO training,
+- neural policy training,
+- model fine-tuning,
+- live traffic routing,
+- production serving,
+- real provider calls.
+
+Required APIs / files:
+
+- `packages/rl`,
+- `packages/environment` only if episode contracts need small fixes,
+- `packages/cli` only if CLI integration is included,
+- dogfood-derived fixtures or examples,
+- docs explaining offline evaluation limits.
+
+Acceptance:
+
+```bash
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+bun run pack:check
+```
+
+Definition of done:
+
+- policy comparison works offline from deterministic trajectory data,
+- selection output explains why one policy wins,
+- no model training is introduced,
+- docs explicitly say this is lightweight policy optimization, not PPO.
+
 ## Dogfood phase - IgnitionRAG
 
-Next work should happen in IgnitionRAG, not by adding more framework abstractions here.
+Default next product work should happen in IgnitionRAG. Open-source work should stay limited to concrete developer ergonomics or framework gaps found while dogfooding.
 
 Target product slices:
 
