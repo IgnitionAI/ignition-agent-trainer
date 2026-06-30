@@ -73,6 +73,14 @@
         "@ignitionai/agent-trainer-preset-rag": "workspace:*",
       },
     },
+    "examples/rag-environment-episode": {
+      "name": "rag-environment-episode",
+      "version": "0.0.0",
+      "dependencies": {
+        "@ignitionai/agent-trainer-environment": "workspace:*",
+        "@ignitionai/agent-trainer-rl": "workspace:*",
+      },
+    },
     "packages/adapter-callable": {
       "name": "@ignitionai/agent-trainer-adapter-callable",
       "version": "0.1.0-alpha.1",
@@ -643,6 +651,8 @@
     "postcss": ["postcss@8.5.15", "", { "dependencies": { "nanoid": "^3.3.12", "picocolors": "^1.1.1", "source-map-js": "^1.2.1" } }, "sha512-FfR8sjd4em2T6fb3I2MwAJU7HWVMr9zba+enmQeeWFfCbm+UOC/0X4DS8XtpUTMwWMGbjKYP7xjfNekzyGmB3A=="],
 
     "postcss-load-config": ["postcss-load-config@6.0.1", "", { "dependencies": { "lilconfig": "^3.1.1" }, "peerDependencies": { "jiti": ">=1.21.0", "postcss": ">=8.0.9", "tsx": "^4.8.1", "yaml": "^2.4.2" }, "optionalPeers": ["jiti", "postcss", "tsx", "yaml"] }, "sha512-oPtTM4oerL+UXmx+93ytZVN82RrlY/wPUV8IeDxFrzIjXOLF1pN+EmKPLbubvKHT2HC20xXsCAH2Z+CKV6Oz/g=="],
+
+    "rag-environment-episode": ["rag-environment-episode@workspace:examples/rag-environment-episode"],
 
     "readdirp": ["readdirp@4.1.2", "", {}, "sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg=="],
 

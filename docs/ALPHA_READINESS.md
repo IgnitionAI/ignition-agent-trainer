@@ -29,7 +29,7 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 | `@ignitionai/agent-trainer-adapter-vercel-ai` | ready | ready | ready | ready | partial | Structural adapter only; no streaming, tools or live provider calls. |
 | `@ignitionai/agent-trainer-cli` | ready | ready | ready | ready | partial | Runs typed experiments and writes standalone reports or timestamped bundles; no history/baseline/regression flags yet. |
 | `@ignitionai/agent-trainer-core` | ready | ready | missing | ready | partial | Foundational types and helpers need dedicated tests before alpha-stable status. |
-| `@ignitionai/agent-trainer-environment` | ready | ready | missing | ready | prototype | Early environment loop only; no recorder, policy evaluation or tests yet. |
+| `@ignitionai/agent-trainer-environment` | ready | ready | ready | ready | partial | Tested episode runner with safety guards and a deterministic RAG episode example; no production runtime or optimization loop. |
 | `@ignitionai/agent-trainer-evals` | ready | ready | ready | ready | partial | Current rewards are tested; RAG presets and richer scoring are still missing. |
 | `@ignitionai/agent-trainer-experiments` | ready | ready | ready | ready | ready | Local runner, definitions, gates and JSONL history are tested and documented. |
 | `@ignitionai/agent-trainer-exporters` | ready | ready | ready | ready | ready | JSON/Markdown report shape and local report bundles are tested. |
@@ -55,10 +55,10 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 ## Known Work After Internal Alpha
 
 - Add dedicated tests for `@ignitionai/agent-trainer-core`.
-- Add dedicated tests for `@ignitionai/agent-trainer-environment` or keep it explicitly prototype-only.
 - Add CLI history/baseline/regression ergonomics after report bundles and CI examples.
 - Decide package publishing policy before any npm publication.
 - Add deeper examples for ecosystem adapters.
+- Add a lightweight policy optimization loop after real dogfood produces trajectory data.
 
 ## Explicit Non-goals
 

@@ -132,6 +132,12 @@ Run the IgnitionRAG evaluation bridge prototype:
 bun run --filter './examples/ignitionrag-evaluation-bridge' dev
 ```
 
+Run a deterministic RAG environment episode and trajectory report:
+
+```bash
+bun run --filter './examples/rag-environment-episode' dev
+```
+
 ---
 
 ## Minimal usage

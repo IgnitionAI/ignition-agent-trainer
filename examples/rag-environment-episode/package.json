@@ -1,0 +1,13 @@
+{
+  "name": "rag-environment-episode",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun src/index.ts"
+  },
+  "dependencies": {
+    "@ignitionai/agent-trainer-environment": "workspace:*",
+    "@ignitionai/agent-trainer-rl": "workspace:*"
+  }
+}

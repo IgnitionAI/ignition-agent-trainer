@@ -1,7 +1,7 @@
 {
   "name": "@ignitionai/agent-trainer-environment",
   "version": "0.1.0-alpha.1",
-  "description": "Prototype state/action/reward environment primitives for Ignition Agent Trainer.",
+  "description": "Tested state/action/reward environment episode primitives for Ignition Agent Trainer.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",

@@ -47,6 +47,28 @@ const summary = summarizeTrajectory(trajectory);
 
 Trajectories are plain JSON-compatible records. They are not an external tracing service and they do not imply a training loop.
 
+Environment episodes from `@ignitionai/agent-trainer-environment` can be converted directly:
+
+```ts
+import {
+  exportTrajectoryReport,
+  recordEpisodeTrajectory,
+  toMarkdownTrajectoryReport,
+} from "@ignitionai/agent-trainer-rl";
+
+const trajectory = recordEpisodeTrajectory(episode, {
+  id: "rag-environment-episode",
+});
+const report = exportTrajectoryReport(trajectory);
+const markdown = toMarkdownTrajectoryReport(report);
+```
+
+See `examples/rag-environment-episode` for a complete mocked RAG episode that runs:
+
+```txt
+search -> rerank -> verify -> answer
+```
+
 ## Experimental Fixed-Strategy Bandit
 
 Use `ExperimentalBanditStrategySelector` to choose among fixed, developer-supplied strategies and update their rewards from observed experiment outcomes.
@@ -153,6 +175,15 @@ const result = await evaluatePolicyOffline(createScoreBasedPolicy(), [
 ```
 
 `createOfflinePolicyRecordsFromTrajectories()` can convert recorded trajectories into observed-action records. Those records only know the reward for the logged action unless you provide richer offline records yourself.
+
+The same helper works with trajectories created from environment episodes:
+
+```ts
+const trajectory = recordEpisodeTrajectory(episode);
+const records = createOfflinePolicyRecordsFromTrajectories([trajectory], {
+  experimentName: "rag-environment",
+});
+```
 
 ## GRPO-Style Candidate Selection
 
