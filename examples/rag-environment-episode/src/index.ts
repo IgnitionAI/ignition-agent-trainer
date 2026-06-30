@@ -1,10 +1,11 @@
+import { pathToFileURL } from "node:url";
 import {
   type AgentEnvironment,
+  defineEnvironmentEpisode,
   type EnvironmentAction,
   type EnvironmentState,
   type EnvironmentStepResult,
   type Policy,
-  runEpisode,
 } from "@ignitionai/agent-trainer-environment";
 import {
   createOfflinePolicyRecordsFromTrajectories,
@@ -16,7 +17,7 @@ import {
 
 type RagActionName = "search" | "rerank" | "verify" | "answer";
 
-class ScriptedRagPolicy implements Policy {
+export class ScriptedRagPolicy implements Policy {
   private readonly sequence: RagActionName[] = ["search", "rerank", "verify", "answer"];
   private index = 0;
 
@@ -32,7 +33,7 @@ class ScriptedRagPolicy implements Policy {
   }
 }
 
-class MockRagEnvironment implements AgentEnvironment {
+export class MockRagEnvironment implements AgentEnvironment {
   private stage: RagActionName | "start" | "done" = "start";
 
   async reset(seed?: number): Promise<EnvironmentState> {
@@ -116,38 +117,53 @@ class MockRagEnvironment implements AgentEnvironment {
   }
 }
 
-const episode = await runEpisode(new MockRagEnvironment(), new ScriptedRagPolicy(), {
-  seed: 7,
-  policyId: "scripted-rag-policy",
-  metadata: { example: "rag-environment-episode" },
+const definition = defineEnvironmentEpisode({
+  name: "rag-environment-episode",
+  environment: () => new MockRagEnvironment(),
+  policy: () => new ScriptedRagPolicy(),
+  options: {
+    seed: 7,
+    policyId: "scripted-rag-policy",
+    metadata: { example: "rag-environment-episode" },
+  },
 });
 
-const trajectory = recordEpisodeTrajectory(episode, {
-  id: "rag-environment-episode",
-  startedAt: "2026-06-30T00:00:00.000Z",
-  endedAt: "2026-06-30T00:00:04.000Z",
-});
-const summary = summarizeTrajectory(trajectory);
-const offlineRecords = createOfflinePolicyRecordsFromTrajectories([trajectory], {
-  experimentName: "rag-environment-episode",
-});
-const report = exportTrajectoryReport(trajectory, {
-  generatedAt: "2026-06-30T00:00:05.000Z",
-});
+export default definition;
 
-console.log("RAG environment episode");
-console.table(
-  episode.steps.map((step) => ({
-    action: step.action.name,
-    reward: (step.reward.score * step.reward.weight).toFixed(3),
-    done: step.done,
-  })),
-);
-console.log(`Total reward: ${episode.totalReward.toFixed(3)}`);
-console.log(`Trajectory steps: ${summary.stepCount}`);
-console.log(`Offline records: ${offlineRecords.length}`);
-console.log("");
-console.log(toMarkdownTrajectoryReport(report));
+export async function runExample(): Promise<void> {
+  const episode = await definition.run();
+
+  const trajectory = recordEpisodeTrajectory(episode, {
+    id: "rag-environment-episode",
+    startedAt: "2026-06-30T00:00:00.000Z",
+    endedAt: "2026-06-30T00:00:04.000Z",
+  });
+  const summary = summarizeTrajectory(trajectory);
+  const offlineRecords = createOfflinePolicyRecordsFromTrajectories([trajectory], {
+    experimentName: "rag-environment-episode",
+  });
+  const report = exportTrajectoryReport(trajectory, {
+    generatedAt: "2026-06-30T00:00:05.000Z",
+  });
+
+  console.log("RAG environment episode");
+  console.table(
+    episode.steps.map((step) => ({
+      action: step.action.name,
+      reward: (step.reward.score * step.reward.weight).toFixed(3),
+      done: step.done,
+    })),
+  );
+  console.log(`Total reward: ${episode.totalReward.toFixed(3)}`);
+  console.log(`Trajectory steps: ${summary.stepCount}`);
+  console.log(`Offline records: ${offlineRecords.length}`);
+  console.log("");
+  console.log(toMarkdownTrajectoryReport(report));
+}
+
+if (isMainModule()) {
+  await runExample();
+}
 
 function state(
   id: string,
@@ -159,4 +175,9 @@ function state(
     observation,
     ...(done ? { done: true } : {}),
   };
+}
+
+function isMainModule(): boolean {
+  const entrypoint = process.argv[1];
+  return entrypoint !== undefined && import.meta.url === pathToFileURL(entrypoint).href;
 }

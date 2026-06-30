@@ -155,6 +155,15 @@ Run a deterministic RAG environment episode and trajectory report:
 bun run --filter './examples/rag-environment-episode' dev
 ```
 
+Run that episode through the local CLI and write trajectory reports:
+
+```bash
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- environment run ./examples/rag-environment-episode/src/index.ts \
+  --json reports/rag-trajectory.json \
+  --markdown reports/rag-trajectory.md \
+  --offline-records
+```
+
 ---
 
 ## Minimal usage

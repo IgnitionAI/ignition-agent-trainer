@@ -38,7 +38,7 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 | `@ignitionai/agent-trainer-rl` | ready | ready | partial | ready | prototype | Deterministic policy helpers, trajectory recorder, fixed-strategy bandits, offline policy evaluation, GRPO-style selection and PPO interface skeletons are tested; deeper RL is intentionally absent. |
 | `@ignitionai/agent-trainer` | ready | ready | ready | ready | ready | Deterministic recommendation, candidate evaluation and grid search are tested. |
 
-## Verified Through PR #49
+## Verified Through PR #50
 
 - Package names use the `@ignitionai/*` scope.
 - Root and workspace package versions are aligned on `0.1.0-alpha.0`.
@@ -56,6 +56,7 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 - Ecosystem adapters have a deterministic grouped example covering LangChain, LangGraph, Mastra and Vercel AI SDK-style shapes.
 - Core runtime validation helpers cover datasets, variants, run results, usage metrics, traces, metric/reward results, normalized scores and JSON-compatible fields.
 - npm alpha publishing policy is manual-only for `v0.1.0-alpha.x`; automated publishing is disabled until a dedicated Trusted Publishing/OIDC PR exists.
+- The CLI can run deterministic environment episode modules, export trajectory JSON/Markdown reports and print offline policy record counts.
 
 ## Known Work After Internal Alpha
 

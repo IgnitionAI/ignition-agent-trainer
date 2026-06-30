@@ -7,7 +7,7 @@ Use this package when modeling deterministic agent strategy episodes before deep
 ## Current API
 
 ```ts
-import { runEpisode } from "@ignitionai/agent-trainer-environment";
+import { defineEnvironmentEpisode, runEpisode } from "@ignitionai/agent-trainer-environment";
 ```
 
 Main exports:
@@ -15,7 +15,8 @@ Main exports:
 - environment types: `AgentEnvironment`, `EnvironmentState`, `EnvironmentAction`, `EnvironmentStepResult`,
 - policy type: `Policy`,
 - episode types: `EpisodeStep`, `EpisodeResult`,
-- runner helper: `runEpisode`.
+- runner helper: `runEpisode`,
+- reusable module helper: `defineEnvironmentEpisode`.
 
 `runEpisode(environment, policy, options)` supports:
 
@@ -43,6 +44,21 @@ search -> rerank -> verify -> answer
 
 That example records an episode trajectory through `@ignitionai/agent-trainer-rl` and converts it into offline policy records.
 
+Episode modules can be exported for the CLI:
+
+```ts
+export default defineEnvironmentEpisode({
+  name: "rag-environment-episode",
+  environment: () => environment,
+  policy: () => policy,
+  options: {
+    seed: 7,
+    maxSteps: 10,
+    policyId: "scripted-rag-policy",
+  },
+});
+```
+
 ## Alpha Readiness Status
 
 This package is partial alpha-level.
@@ -52,7 +68,7 @@ Known gaps:
 - no production environment implementation,
 - no durable rollout store,
 - no automatic policy optimization loop,
-- no CLI integration for environment episodes.
+- CLI integration is local-only and loads deterministic episode modules.
 
 ## Non-goals
 

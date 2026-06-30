@@ -28,6 +28,24 @@ export interface Policy {
   chooseAction(state: EnvironmentState, actions: EnvironmentAction[]): Promise<EnvironmentAction>;
 }
 
+export type EnvironmentFactory = AgentEnvironment | (() => AgentEnvironment);
+export type PolicyFactory = Policy | (() => Policy);
+
+export interface EnvironmentEpisodeConfig {
+  name: string;
+  environment: EnvironmentFactory;
+  policy: PolicyFactory;
+  options?: RunEpisodeOptions;
+  metadata?: Metadata;
+}
+
+export interface EnvironmentEpisodeDefinition extends EnvironmentEpisodeConfig {
+  readonly kind: "ignition.environment-episode-definition";
+  createEnvironment(): AgentEnvironment;
+  createPolicy(): Policy;
+  run(options?: RunEpisodeOptions): Promise<EpisodeResult>;
+}
+
 export interface EpisodeStep {
   state: EnvironmentState;
   action: EnvironmentAction;
@@ -52,6 +70,30 @@ export interface RunEpisodeOptions {
   maxSteps?: number;
   policyId?: string;
   metadata?: Metadata;
+}
+
+export function defineEnvironmentEpisode(
+  config: EnvironmentEpisodeConfig,
+): EnvironmentEpisodeDefinition {
+  validateEnvironmentEpisodeConfig(config);
+
+  return {
+    ...config,
+    kind: "ignition.environment-episode-definition",
+    createEnvironment() {
+      return resolveEnvironment(config.environment);
+    },
+    createPolicy() {
+      return resolvePolicy(config.policy);
+    },
+    run(options = {}) {
+      return runEpisode(
+        this.createEnvironment(),
+        this.createPolicy(),
+        mergeOptions(config, options),
+      );
+    },
+  };
 }
 
 export async function runEpisode(
@@ -108,6 +150,48 @@ function validateMaxSteps(maxSteps: number): void {
   if (!Number.isInteger(maxSteps) || maxSteps <= 0) {
     throw new Error("Episode maxSteps must be a positive integer.");
   }
+}
+
+function validateEnvironmentEpisodeConfig(config: EnvironmentEpisodeConfig): void {
+  if (!config.name.trim()) {
+    throw new Error("Environment episode name is required.");
+  }
+}
+
+function resolveEnvironment(value: EnvironmentFactory): AgentEnvironment {
+  const environment = typeof value === "function" ? value() : value;
+  if (
+    typeof environment.reset !== "function" ||
+    typeof environment.actions !== "function" ||
+    typeof environment.step !== "function"
+  ) {
+    throw new Error("Environment episode environment must implement reset, actions and step.");
+  }
+  return environment;
+}
+
+function resolvePolicy(value: PolicyFactory): Policy {
+  const policy = typeof value === "function" ? value() : value;
+  if (typeof policy.chooseAction !== "function") {
+    throw new Error("Environment episode policy must implement chooseAction.");
+  }
+  return policy;
+}
+
+function mergeOptions(
+  config: EnvironmentEpisodeConfig,
+  options: RunEpisodeOptions,
+): RunEpisodeOptions {
+  const metadata = {
+    ...(config.metadata ?? {}),
+    ...(config.options?.metadata ?? {}),
+    ...(options.metadata ?? {}),
+  };
+  const merged = {
+    ...(config.options ?? {}),
+    ...options,
+  };
+  return Object.keys(metadata).length === 0 ? merged : { ...merged, metadata };
 }
 
 function validateReward(reward: RewardResult, action: EnvironmentAction): void {

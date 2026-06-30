@@ -9,6 +9,13 @@ import {
   type VariantSummary,
 } from "@ignitionai/agent-trainer-core";
 import {
+  type AgentEnvironment,
+  defineEnvironmentEpisode,
+  type EnvironmentAction,
+  type EnvironmentState,
+  type Policy,
+} from "@ignitionai/agent-trainer-environment";
+import {
   appendExperimentHistory,
   defineExperiment,
   type ExperimentDefinition,
@@ -130,6 +137,45 @@ describe("parseCliArgs", () => {
     });
   });
 
+  it("parses environment episode run commands", () => {
+    expect(
+      parseCliArgs([
+        "environment",
+        "run",
+        "./episode.ts",
+        "--seed",
+        "0",
+        "--max-steps",
+        "4",
+        "--policy-id",
+        "cli-policy",
+        "--trajectory-id",
+        "cli-trajectory",
+        "--metadata-json",
+        '{"suite":"cli"}',
+        "--json",
+        "reports/trajectory.json",
+        "--markdown",
+        "reports/trajectory.md",
+        "--offline-records",
+      ]),
+    ).toEqual({
+      ok: true,
+      command: {
+        kind: "environment-run",
+        episodePath: "./episode.ts",
+        seed: 0,
+        maxSteps: 4,
+        policyId: "cli-policy",
+        trajectoryId: "cli-trajectory",
+        metadata: { suite: "cli" },
+        jsonOutputPath: "reports/trajectory.json",
+        markdownOutputPath: "reports/trajectory.md",
+        printOfflineRecords: true,
+      },
+    });
+  });
+
   it("rejects regression flags that cannot select a baseline", () => {
     expect(parseCliArgs(["eval", "run", "./experiment.ts", "--regression"])).toEqual({
       ok: false,
@@ -139,6 +185,11 @@ describe("parseCliArgs", () => {
     expect(parseCliArgs(["eval", "run", "./experiment.ts", "--baseline", "latest"])).toEqual({
       ok: false,
       message: "--baseline requires --history.",
+      exitCode: 1,
+    });
+    expect(parseCliArgs(["environment", "run", "./episode.ts", "--metadata-json", "[]"])).toEqual({
+      ok: false,
+      message: "--metadata-json must be a JSON object.",
       exitCode: 1,
     });
   });
@@ -448,6 +499,82 @@ describe("runCli", () => {
     expect(output.err.join("\n")).toContain("Regression gate failed:");
     expect(output.err.join("\n")).toContain("Variant strong-agent score dropped");
   });
+
+  it("runs an environment episode and writes trajectory reports", async () => {
+    const workspace = await mkdtemp(join(tmpdir(), "ignition-cli-environment-"));
+    const output = createOutput();
+
+    const exitCode = await runCli(
+      [
+        "environment",
+        "run",
+        "./episode.ts",
+        "--seed",
+        "9",
+        "--max-steps",
+        "2",
+        "--policy-id",
+        "cli-policy",
+        "--trajectory-id",
+        "cli-trajectory",
+        "--metadata-json",
+        '{"suite":"cli"}',
+        "--json",
+        "reports/trajectory.json",
+        "--markdown",
+        "reports/trajectory.md",
+        "--offline-records",
+      ],
+      {
+        cwd: workspace,
+        stdout: output.stdout,
+        stderr: output.stderr,
+        fileExists: (absolutePath) => absolutePath === join(workspace, "episode.ts"),
+        importModule: async () => ({ default: createCliEnvironmentEpisodeDefinition() }),
+      },
+    );
+
+    expect(exitCode).toBe(0);
+    expect(output.err).toEqual([]);
+    const stdout = output.out.join("\n");
+    expect(stdout).toContain("Environment episode: cli-environment-demo");
+    expect(stdout).toContain("Policy: cli-policy");
+    expect(stdout).toContain("1. answer - reward 1.000 - done yes");
+    expect(stdout).toContain("Total reward: 1.000");
+    expect(stdout).toContain("Trajectory steps: 1");
+    expect(stdout).toContain("Offline records: 1");
+    expect(stdout).toContain("Trajectory JSON report: reports/trajectory.json");
+    expect(stdout).toContain("Trajectory Markdown report: reports/trajectory.md");
+
+    const json = JSON.parse(await readFile(join(workspace, "reports", "trajectory.json"), "utf8"));
+    expect(json).toMatchObject({
+      schemaVersion: "ignition.trajectory-report.v1",
+      trajectory: {
+        id: "cli-trajectory",
+        policyId: "cli-policy",
+      },
+      summary: {
+        stepCount: 1,
+        totalReward: 1,
+      },
+      steps: [
+        {
+          state: {
+            observation: {
+              seed: 9,
+            },
+          },
+          action: {
+            name: "answer",
+          },
+        },
+      ],
+    });
+
+    const markdown = await readFile(join(workspace, "reports", "trajectory.md"), "utf8");
+    expect(markdown).toContain("# Trajectory report: cli-trajectory");
+    expect(markdown).toContain("| 0 | answer | 1.000 | yes |");
+  });
 });
 
 function createCliExperimentDefinition(
@@ -513,6 +640,57 @@ function createHistoryResult(strongScore: number): ExperimentResult {
     cases: [],
     failedCases: [],
   };
+}
+
+function createCliEnvironmentEpisodeDefinition() {
+  return defineEnvironmentEpisode({
+    name: "cli-environment-demo",
+    environment: () => new CliEpisodeEnvironment(),
+    policy: new FirstActionPolicy(),
+    options: {
+      metadata: { defaultOption: true },
+    },
+  });
+}
+
+class CliEpisodeEnvironment implements AgentEnvironment {
+  async reset(seed?: number): Promise<EnvironmentState> {
+    return {
+      id: "start",
+      observation: { seed: seed ?? 0 },
+    };
+  }
+
+  async actions(): Promise<EnvironmentAction[]> {
+    return [{ name: "answer", input: { mode: "direct" } }];
+  }
+
+  async step(state: EnvironmentState, action: EnvironmentAction) {
+    return {
+      state: {
+        id: "answered",
+        observation: {
+          seed: typeof state.observation.seed === "number" ? state.observation.seed : 0,
+          action: action.name,
+        },
+        done: true,
+      },
+      reward: {
+        name: "quality",
+        score: 1,
+        weight: 1,
+      },
+      done: true,
+    };
+  }
+}
+
+class FirstActionPolicy implements Policy {
+  async chooseAction(_state: EnvironmentState, actions: EnvironmentAction[]) {
+    const action = actions[0];
+    if (action === undefined) throw new Error("No action available.");
+    return action;
+  }
 }
 
 function variantSummary(input: {

@@ -69,6 +69,15 @@ See `examples/rag-environment-episode` for a complete mocked RAG episode that ru
 search -> rerank -> verify -> answer
 ```
 
+The same episode module can be run through the local CLI:
+
+```bash
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- environment run ./examples/rag-environment-episode/src/index.ts \
+  --json reports/rag-trajectory.json \
+  --markdown reports/rag-trajectory.md \
+  --offline-records
+```
+
 ## Experimental Fixed-Strategy Bandit
 
 Use `ExperimentalBanditStrategySelector` to choose among fixed, developer-supplied strategies and update their rewards from observed experiment outcomes.

@@ -240,7 +240,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 | context engineering example | done | `examples/context-engineering` | Yes | Mocked strategy comparison plus CLI module. |
 | exporters | done | `packages/exporters` | Yes | Stable JSON/Markdown export shape and local report bundle writer. |
 | typed experiment definitions | done | `packages/experiments/src/definition.ts` | Yes | Used by the CLI example. |
-| CLI runner | partial | `packages/cli` | Yes | Runs experiments, reports, bundles, local history, baseline selection and regression checks. |
+| CLI runner | partial | `packages/cli` | Yes | Runs experiments, reports, bundles, local history, baseline selection, regression checks and environment episode trajectory reports. |
 | regression gates | done | `packages/experiments/src/regression-gates.ts` | Yes | Tested comparison helpers plus a copyable CI example. |
 | alpha dogfood workflow | done | `examples/alpha-dogfood` | Yes | Deterministic IgnitionRAG-style document assistant evaluation with report exports and a regression gate. |
 | ecosystem adapters | partial | `packages/adapter-*` | No | Structural adapters exist with tests/docs and a grouped mocked example; deeper framework internals remain out of scope. |
@@ -250,9 +250,9 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 | IgnitionRAG evaluation bridge prototype | prototype | `examples/ignitionrag-evaluation-bridge` | No | Deterministic record mapping only; no database, hosted worker, auth or real provider calls. |
 | file-based history | done | `packages/experiments/src/history.ts` and `packages/cli` | Yes | JSONL local history helpers plus CLI list/show/record workflows. |
 | policy abstraction | partial | `packages/rl/src/policy.ts` | No | Deterministic static and score-based selection only; no training loop. |
-| environment episodes | partial | `packages/environment` | No | Tested episode runner with max-step safety, seed forwarding, final state and metadata. |
-| trajectory recorder | partial | `packages/rl/src/trajectory.ts` | No | Local state/action/reward/outcome records with deterministic summaries. |
-| trajectory reports | partial | `packages/rl/src/episode-trajectory.ts` | No | Environment episodes can become trajectories, Markdown reports and offline policy records. |
+| environment episodes | partial | `packages/environment` | No | Tested episode runner with max-step safety, seed forwarding, final state, metadata and reusable CLI-loadable episode definitions. |
+| trajectory recorder | partial | `packages/rl/src/trajectory.ts` | No | Local state/action/reward/outcome records with deterministic summaries and CLI report export support. |
+| trajectory reports | partial | `packages/rl/src/episode-trajectory.ts` | No | Environment episodes can become trajectories, Markdown reports, JSON reports and offline policy records. |
 | npm publishing policy | done | `docs/NPM_ALPHA_PUBLISHING.md` | Yes | Alpha publishing is manual-only with `--tag alpha`; future automation must use Trusted Publishing/OIDC and manual approval. |
 | bandit prototype | prototype | `packages/rl/src/strategy-bandit.ts` | No | Clearly experimental, fixed arms only, no PPO. |
 | contextual bandit prototype | prototype | `packages/rl/src/contextual-bandit.ts` | No | Deterministic fixed-feature scoring over task type, citation need, cost sensitivity, latency sensitivity and risk level. |
@@ -270,7 +270,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - IgnitionRAG integration is design-only.
 - Core still needs full experiment report schema validation before alpha-stable status.
 - Lightweight policy optimization remains blocked until dogfood or representative trajectory fixtures exist.
-- Environment episodes still need real dogfood data and CLI ergonomics before stable status.
+- Environment episodes still need real dogfood data before stable status.
 - Ecosystem adapters are minimal and structural.
 - CLI still lacks watch mode, remote execution and hosted history.
 - Bandit support is prototype-only.
