@@ -108,6 +108,17 @@ Write a timestamped local report bundle:
 bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/context-engineering/experiment.ts --bundle reports
 ```
 
+Record local experiment history and run a regression check against the latest baseline:
+
+```bash
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/context-engineering/experiment.ts \
+  --history .ignition/experiment-history.jsonl \
+  --baseline latest \
+  --regression \
+  --max-score-drop 0.03 \
+  --record-history
+```
+
 Run the sample CI regression gate:
 
 ```bash

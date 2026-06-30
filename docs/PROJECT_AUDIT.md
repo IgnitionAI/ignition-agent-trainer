@@ -75,12 +75,12 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 
 ### `@ignitionai/agent-trainer-cli`
 
-- Purpose: run typed experiment modules locally and write JSON/Markdown reports or report bundles.
+- Purpose: run typed experiment modules locally, write JSON/Markdown reports or report bundles, record local history and run baseline regression checks.
 - Main exports: `parseCliArgs`, `runCli`, `CliCommand`, `CliEnvironment`.
 - Stability level: stable for the current local CLI surface.
 - Tests present: yes.
 - Example present: yes, `examples/context-engineering/experiment.ts` through the CLI.
-- Known limitations: no watch mode, no persistent history flag, no baseline selection flag, no regression-gate command, no remote execution.
+- Known limitations: no watch mode, no hosted history, no remote execution and no provider-backed regression scoring.
 
 ### `@ignitionai/agent-trainer-core`
 

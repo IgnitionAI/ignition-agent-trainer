@@ -27,7 +27,7 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 | `@ignitionai/agent-trainer-adapter-langgraph` | ready | ready | ready | ready | partial | Structural adapter only; no persistence, streaming or graph internals. |
 | `@ignitionai/agent-trainer-adapter-mastra` | ready | ready | ready | ready | partial | Structural adapter only; no memory, tool or full Mastra coverage. |
 | `@ignitionai/agent-trainer-adapter-vercel-ai` | ready | ready | ready | ready | partial | Structural adapter only; no streaming, tools or live provider calls. |
-| `@ignitionai/agent-trainer-cli` | ready | ready | ready | ready | partial | Runs typed experiments and writes standalone reports or timestamped bundles; no history/baseline/regression flags yet. |
+| `@ignitionai/agent-trainer-cli` | ready | ready | ready | ready | partial | Runs typed experiments, writes reports/bundles, records local history, selects baselines and runs regression checks; no watch mode or remote execution. |
 | `@ignitionai/agent-trainer-core` | ready | ready | ready | ready | partial | Foundational helpers have dedicated tests; runtime schema validation remains outside the current helper surface. |
 | `@ignitionai/agent-trainer-environment` | ready | ready | ready | ready | partial | Tested episode runner with safety guards and a deterministic RAG episode example; no production runtime or optimization loop. |
 | `@ignitionai/agent-trainer-evals` | ready | ready | ready | ready | partial | Current rewards are tested; RAG presets and richer scoring are still missing. |
@@ -55,7 +55,6 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 
 ## Known Work After Internal Alpha
 
-- Add CLI history, baseline selection and regression command ergonomics after report bundles and CI examples.
 - Add deeper mocked examples for ecosystem adapters.
 - Dogfood the alpha inside IgnitionRAG and collect trajectory/reward evidence.
 - Add a lightweight policy optimization loop after real dogfood produces trajectory data.
