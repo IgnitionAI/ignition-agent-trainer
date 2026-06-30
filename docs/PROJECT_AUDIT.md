@@ -267,10 +267,11 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - No real LLM calls by default.
 - No hosted IgnitionRAG integration code.
 - IgnitionRAG integration is design-only.
-- Core needs dedicated tests before alpha-stable status.
+- Core still needs runtime schema validation before alpha-stable status.
+- Lightweight policy optimization remains blocked until dogfood or representative trajectory fixtures exist.
 - Environment episodes still need real dogfood data and CLI ergonomics before stable status.
 - Ecosystem adapters are minimal and structural.
-- CLI does not yet support history, baseline selection or fail-on-regression flags.
+- CLI still lacks watch mode, remote execution and hosted history.
 - Bandit support is prototype-only.
 - No GRPO model training.
 - No PPO optimization implementation.

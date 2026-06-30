@@ -8,6 +8,13 @@ Status values:
 - `current`: active PR branch.
 - `planned`: not started.
 
+Current snapshot:
+
+- Completed through PR #47.
+- No unblocked implementation PR is currently selected.
+- PR #48 is the next RL/product loop, but it stays blocked until dogfood or representative trajectory fixtures exist.
+- Useful unblocked maintenance can still happen as small focused PRs for docs, publish automation decisions or issues found while dogfooding.
+
 ## Stable PR sequence
 
 ### PR #5 - `docs: add autonomous implementation plan`
@@ -2912,7 +2919,7 @@ Next PR:
 
 Status:
 
-- current
+- completed
 
 Branch:
 

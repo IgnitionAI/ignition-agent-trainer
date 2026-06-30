@@ -38,7 +38,7 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 | `@ignitionai/agent-trainer-rl` | ready | ready | partial | ready | prototype | Deterministic policy helpers, trajectory recorder, fixed-strategy bandits, offline policy evaluation, GRPO-style selection and PPO interface skeletons are tested; deeper RL is intentionally absent. |
 | `@ignitionai/agent-trainer` | ready | ready | ready | ready | ready | Deterministic recommendation, candidate evaluation and grid search are tested. |
 
-## Verified Through PR #44
+## Verified Through PR #47
 
 - Package names use the `@ignitionai/*` scope.
 - Root and workspace package versions are aligned on `0.1.0-alpha.0`.
@@ -52,6 +52,8 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 - The alpha dogfood experiment runs locally and through the CLI.
 - The alpha dogfood regression gate passes against its committed baseline.
 - `@ignitionai/agent-trainer-core` has dedicated package-level tests for dataset helpers, adapter helpers and score helpers.
+- The CLI can record local experiment history, select a baseline and run regression checks.
+- Ecosystem adapters have a deterministic grouped example covering LangChain, LangGraph, Mastra and Vercel AI SDK-style shapes.
 
 ## Known Work After Internal Alpha
 
