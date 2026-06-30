@@ -94,11 +94,11 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 ### `@ignitionai/agent-trainer-environment`
 
 - Purpose: early state/action/reward/policy environment loop primitives.
-- Main exports: `runEpisode`, `AgentEnvironment`, `EnvironmentState`, `EnvironmentAction`, `Policy`, `EpisodeResult`.
-- Stability level: prototype.
-- Tests present: no.
-- Example present: no.
-- Known limitations: no tests, no rollout recorder, no production policy evaluation.
+- Main exports: `runEpisode`, `RunEpisodeOptions`, `AgentEnvironment`, `EnvironmentState`, `EnvironmentAction`, `Policy`, `EpisodeStep`, `EpisodeResult`.
+- Stability level: partial.
+- Tests present: yes.
+- Example present: yes, `examples/rag-environment-episode`.
+- Known limitations: no production environment implementation, no durable rollout store, no automatic policy optimization loop and no CLI integration for environment episodes.
 
 ### `@ignitionai/agent-trainer-evals`
 
@@ -148,10 +148,10 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 ### `@ignitionai/agent-trainer-rl`
 
 - Purpose: experimental RL-inspired utilities, deterministic policy selection helpers, fixed-strategy/contextual bandit prototypes, offline policy evaluation, GRPO-style candidate selection and PPO interface skeletons.
-- Main exports: `Policy`, `PolicyContext`, `PolicyDecision`, `createStaticPolicy`, `createScoreBasedPolicy`, `Trajectory`, `TrajectoryStep`, `recordTrajectory`, `summarizeTrajectory`, `EpsilonGreedyBandit`, `RandomPolicy`, `ExperimentalBanditStrategySelector`, `ContextualBanditStrategySelector`, `ContextFeatures`, `scoreContextMatch`, `evaluatePolicyOffline`, `PolicyEvaluationResult`, `selectGroupRelativeBest`, `rankCandidateGroup`, `GroupRelativeSelectionResult`, `PPOConfig`, `PPOTrainer`, `PPOTrainingBatch`, `PPOTrainingResult`, `UnimplementedPPOTrainer`, `createUnimplementedPPOTrainer`.
+- Main exports: `Policy`, `PolicyContext`, `PolicyDecision`, `createStaticPolicy`, `createScoreBasedPolicy`, `Trajectory`, `TrajectoryStep`, `recordTrajectory`, `summarizeTrajectory`, `recordEpisodeTrajectory`, `exportTrajectoryReport`, `toMarkdownTrajectoryReport`, `EpsilonGreedyBandit`, `RandomPolicy`, `ExperimentalBanditStrategySelector`, `ContextualBanditStrategySelector`, `ContextFeatures`, `scoreContextMatch`, `evaluatePolicyOffline`, `PolicyEvaluationResult`, `selectGroupRelativeBest`, `rankCandidateGroup`, `GroupRelativeSelectionResult`, `PPOConfig`, `PPOTrainer`, `PPOTrainingBatch`, `PPOTrainingResult`, `UnimplementedPPOTrainer`, `createUnimplementedPPOTrainer`.
 - Stability level: prototype.
-- Tests present: yes for policy helpers, trajectories, fixed-strategy bandit, contextual bandit, offline policy evaluation, GRPO-style selection and PPO skeletons.
-- Example present: no.
+- Tests present: yes for policy helpers, trajectories, environment episode trajectory conversion, fixed-strategy bandit, contextual bandit, offline policy evaluation, GRPO-style selection and PPO skeletons.
+- Example present: yes, `examples/rag-environment-episode`.
 - Known limitations: no PPO optimization, no GRPO model training, no production routing.
 
 ### `@ignitionai/agent-trainer`
@@ -210,6 +210,13 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Mocked or live: deterministic mocked records and adapters.
 - Product concept: bridge prototype proving `Dataset` and `AgentVariant` mapping without IgnitionRAG app code.
 
+### `examples/rag-environment-episode`
+
+- Demonstrates: modeling a RAG workflow as an environment episode with `search`, `rerank`, `verify` and `answer` actions.
+- Command: `bun run --filter './examples/rag-environment-episode' dev`.
+- Mocked or live: deterministic mocked environment.
+- Product concept: episode rewards, trajectory reporting and offline policy record creation before any training loop.
+
 ## Current Capabilities Matrix
 
 | Capability | Status | Package/File | Stable? | Notes |
@@ -235,7 +242,9 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 | IgnitionRAG evaluation bridge prototype | prototype | `examples/ignitionrag-evaluation-bridge` | No | Deterministic record mapping only; no database, hosted worker, auth or real provider calls. |
 | file-based history | done | `packages/experiments/src/history.ts` | Yes | JSONL local history helpers, no CLI flag yet. |
 | policy abstraction | partial | `packages/rl/src/policy.ts` | No | Deterministic static and score-based selection only; no training loop. |
+| environment episodes | partial | `packages/environment` | No | Tested episode runner with max-step safety, seed forwarding, final state and metadata. |
 | trajectory recorder | partial | `packages/rl/src/trajectory.ts` | No | Local state/action/reward/outcome records with deterministic summaries. |
+| trajectory reports | partial | `packages/rl/src/episode-trajectory.ts` | No | Environment episodes can become trajectories, Markdown reports and offline policy records. |
 | bandit prototype | prototype | `packages/rl/src/strategy-bandit.ts` | No | Clearly experimental, fixed arms only, no PPO. |
 | contextual bandit prototype | prototype | `packages/rl/src/contextual-bandit.ts` | No | Deterministic fixed-feature scoring over task type, citation need, cost sensitivity, latency sensitivity and risk level. |
 | offline policy evaluation | prototype | `packages/rl/src/offline-policy-evaluation.ts` | No | Deterministic replay over local records or observed trajectory steps; no live traffic path. |
@@ -250,7 +259,8 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - No real LLM calls by default.
 - No hosted IgnitionRAG integration code.
 - IgnitionRAG integration is design-only.
-- Core and environment need dedicated tests before alpha-stable status.
+- Core needs dedicated tests before alpha-stable status.
+- Environment episodes still need real dogfood data and CLI ergonomics before stable status.
 - Ecosystem adapters are minimal and structural.
 - CLI does not yet support history, baseline selection or fail-on-regression flags.
 - Bandit support is prototype-only.

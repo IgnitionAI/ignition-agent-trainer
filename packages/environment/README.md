@@ -1,8 +1,8 @@
 # @ignitionai/agent-trainer-environment
 
-Prototype state/action/reward environment loop primitives for future policy work.
+State/action/reward environment loop primitives for future policy work.
 
-Use this package only when experimenting with agent strategy environments. It is not a production RL runtime.
+Use this package when modeling deterministic agent strategy episodes before deeper RL or policy optimization. It is not a production RL runtime and it does not train models.
 
 ## Current API
 
@@ -17,17 +17,42 @@ Main exports:
 - episode types: `EpisodeStep`, `EpisodeResult`,
 - runner helper: `runEpisode`.
 
+`runEpisode(environment, policy, options)` supports:
+
+- `seed` passed to `environment.reset(seed)`,
+- `maxSteps` safety guard,
+- `policyId` and `metadata` copied onto the episode result.
+
+Episode steps include the previous state, action, next state, reward, done flag and optional step metadata. The result includes total reward, average reward and final state.
+
+## Example
+
+```ts
+const episode = await runEpisode(environment, policy, {
+  seed: 7,
+  maxSteps: 10,
+  policyId: "scripted-rag-policy",
+});
+```
+
+See `examples/rag-environment-episode` for a full deterministic sequence:
+
+```txt
+search -> rerank -> verify -> answer
+```
+
+That example records an episode trajectory through `@ignitionai/agent-trainer-rl` and converts it into offline policy records.
+
 ## Alpha Readiness Status
 
-This package is prototype-level.
+This package is partial alpha-level.
 
 Known gaps:
 
-- no dedicated tests,
-- no example,
-- no trajectory recorder,
-- no policy evaluation tooling,
-- no production environment implementation.
+- no production environment implementation,
+- no durable rollout store,
+- no automatic policy optimization loop,
+- no CLI integration for environment episodes.
 
 ## Non-goals
 

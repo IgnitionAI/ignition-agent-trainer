@@ -2596,7 +2596,7 @@ Next PR:
 
 Status:
 
-- current
+- completed
 
 Branch:
 
@@ -2657,6 +2657,72 @@ Definition of done:
 - CLI bin is `ignition-agent-trainer`,
 - docs show manual alpha publish order and external smoke test,
 - no npm publish happens in this PR.
+
+Next PR:
+
+- PR #43 - `feat: add tested environment episodes and trajectory rewards`
+
+### PR #43 - `feat: add tested environment episodes and trajectory rewards`
+
+Status:
+
+- current
+
+Branch:
+
+```txt
+feat/tested-environment-episodes
+```
+
+Goal:
+
+Make `@ignitionai/agent-trainer-environment` usable as a tested RL foundation before adding policy optimization or PPO.
+
+Scope:
+
+- enrich `runEpisode` with options, final state, average reward, metadata and safety guards,
+- add dedicated environment tests,
+- convert environment episodes to RL trajectories without making `environment` depend on `rl`,
+- export deterministic trajectory JSON/Markdown reports,
+- prove compatibility with offline policy evaluation,
+- add a deterministic RAG environment episode example.
+
+Out of scope:
+
+- PPO implementation,
+- GRPO training,
+- fine-tuning,
+- real provider calls,
+- production routing,
+- CLI optimization loop,
+- IgnitionRAG app integration.
+
+Required APIs / files:
+
+- `packages/environment`,
+- `packages/rl`,
+- `examples/rag-environment-episode`,
+- readiness and audit docs.
+
+Acceptance:
+
+```bash
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+bun run pack:check
+bun run --filter './examples/rag-environment-episode' dev
+```
+
+Definition of done:
+
+- `runEpisode(environment, policy)` remains compatible,
+- environment episodes have dedicated tests,
+- episode trajectories can become offline policy records,
+- trajectory report output is deterministic,
+- example documents `search -> rerank -> verify -> answer`,
+- docs state that PPO and training remain out of scope.
 
 ## Dogfood phase - IgnitionRAG
 
