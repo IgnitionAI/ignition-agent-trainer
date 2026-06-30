@@ -28,7 +28,7 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 | `@ignitionai/agent-trainer-adapter-mastra` | ready | ready | ready | ready | partial | Structural adapter only; no memory, tool or full Mastra coverage. |
 | `@ignitionai/agent-trainer-adapter-vercel-ai` | ready | ready | ready | ready | partial | Structural adapter only; no streaming, tools or live provider calls. |
 | `@ignitionai/agent-trainer-cli` | ready | ready | ready | ready | partial | Runs typed experiments and writes standalone reports or timestamped bundles; no history/baseline/regression flags yet. |
-| `@ignitionai/agent-trainer-core` | ready | ready | missing | ready | partial | Foundational types and helpers need dedicated tests before alpha-stable status. |
+| `@ignitionai/agent-trainer-core` | ready | ready | ready | ready | partial | Foundational helpers have dedicated tests; runtime schema validation remains outside the current helper surface. |
 | `@ignitionai/agent-trainer-environment` | ready | ready | ready | ready | partial | Tested episode runner with safety guards and a deterministic RAG episode example; no production runtime or optimization loop. |
 | `@ignitionai/agent-trainer-evals` | ready | ready | ready | ready | partial | Current rewards are tested; RAG presets and richer scoring are still missing. |
 | `@ignitionai/agent-trainer-experiments` | ready | ready | ready | ready | ready | Local runner, definitions, gates and JSONL history are tested and documented. |
@@ -38,7 +38,7 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 | `@ignitionai/agent-trainer-rl` | ready | ready | partial | ready | prototype | Deterministic policy helpers, trajectory recorder, fixed-strategy bandits, offline policy evaluation, GRPO-style selection and PPO interface skeletons are tested; deeper RL is intentionally absent. |
 | `@ignitionai/agent-trainer` | ready | ready | ready | ready | ready | Deterministic recommendation, candidate evaluation and grid search are tested. |
 
-## Verified Through PR #38
+## Verified Through PR #44
 
 - Package names use the `@ignitionai/*` scope.
 - Root and workspace package versions are aligned on `0.1.0-alpha.0`.
@@ -51,10 +51,10 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 - `bun install`, `bun run lint`, `bun run typecheck`, `bun run test` and `bun run build` pass locally.
 - The alpha dogfood experiment runs locally and through the CLI.
 - The alpha dogfood regression gate passes against its committed baseline.
+- `@ignitionai/agent-trainer-core` has dedicated package-level tests for dataset helpers, adapter helpers and score helpers.
 
 ## Known Work After Internal Alpha
 
-- Add dedicated tests for `@ignitionai/agent-trainer-core`.
 - Add CLI history/baseline/regression ergonomics after report bundles and CI examples.
 - Decide package publishing policy before any npm publication.
 - Add deeper examples for ecosystem adapters.

@@ -25,11 +25,10 @@ Main exports:
 
 ## Alpha Readiness Status
 
-This package is foundational but still partial for alpha readiness.
+This package is foundational and covered by dedicated package-level tests for the current helper surface.
 
 Known gaps:
 
-- no dedicated package-level tests yet,
 - no runtime schema validation for serialized reports,
 - no compatibility policy beyond the current monorepo usage.
 

@@ -87,9 +87,9 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Purpose: shared dataset, adapter, trace, reward, run and experiment result types plus small helpers.
 - Main exports: `createDataset`, `createMockAdapter`, `normalizeRunResult`, `toAgentInput`, `clampScore`, `weightedAverage`, shared interfaces.
 - Stability level: partial.
-- Tests present: no dedicated package tests.
+- Tests present: yes.
 - Example present: yes, used by all current examples.
-- Known limitations: no dedicated package tests, no schema serialization helpers beyond TypeScript types.
+- Known limitations: no schema serialization helpers beyond TypeScript types.
 
 ### `@ignitionai/agent-trainer-environment`
 
