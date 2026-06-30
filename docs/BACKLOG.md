@@ -10,9 +10,9 @@ Status values:
 
 Current snapshot:
 
-- Completed through PR #49.
-- PR #50 is the current CLI/environment ergonomics PR.
-- The dogfood-driven policy optimization loop stays blocked until dogfood or representative trajectory fixtures exist.
+- Completed through PR #50.
+- No unblocked implementation PR is currently selected.
+- PR #51, the dogfood-driven policy optimization loop, stays blocked until dogfood or representative trajectory fixtures exist.
 
 ## Stable PR sequence
 
@@ -3098,7 +3098,7 @@ Next PR:
 
 Status:
 
-- current
+- completed
 
 Branch:
 
