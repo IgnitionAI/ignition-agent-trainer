@@ -10,9 +10,9 @@ Status values:
 
 Current snapshot:
 
-- Completed through PR #47.
-- PR #48 is the current unblocked core validation PR.
-- PR #49 and PR #50 are the next planned release-policy and CLI/environment ergonomics PRs.
+- Completed through PR #48.
+- PR #49 is the current release-policy PR.
+- PR #50 is the next planned CLI/environment ergonomics PR.
 - The dogfood-driven policy optimization loop stays blocked until dogfood or representative trajectory fixtures exist.
 
 ## Stable PR sequence
@@ -2978,7 +2978,7 @@ Next PR:
 
 Status:
 
-- current
+- completed
 
 Branch:
 
@@ -3041,7 +3041,7 @@ Next PR:
 
 Status:
 
-- planned
+- current
 
 Branch:
 

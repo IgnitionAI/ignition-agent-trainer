@@ -1,8 +1,44 @@
 # npm Alpha Publishing
 
-This document defines the manual npm alpha publishing process for `v0.1.0-alpha.1`.
+This document defines the npm alpha publishing policy and manual publishing process for `v0.1.0-alpha.1`.
 
 The goal is to validate Ignition Agent Trainer as a real external dependency before dogfooding it inside IgnitionRAG. Do not publish these packages as `latest`.
+
+## Publishing Policy
+
+Current decision:
+
+- `v0.1.0-alpha.x` publishing is manual only.
+- This repository must not contain a GitHub Actions workflow that can publish to npm automatically.
+- Alpha packages must be published with the `alpha` dist-tag.
+- Never run `npm publish` without `--tag alpha` for an alpha or prerelease version.
+- Do not create or store long-lived `NPM_TOKEN` secrets for this repo.
+- Do not use granular access tokens for alpha publication unless a future security review explicitly changes this policy.
+- Manual publishers must use an npm account with 2FA enabled and publish interactively with OTP when npm requests it.
+- If package-level npm settings are configured after first publish, prefer requiring 2FA for publishing/settings and disallowing token-based publish for the manual-alpha phase.
+
+Future automation decision:
+
+- A publish workflow may be added only in a dedicated future PR.
+- Any future GitHub Actions publish workflow must use npm Trusted Publishing / OIDC, not long-lived npm tokens.
+- Any future publish workflow must use a protected GitHub environment or equivalent manual approval gate.
+- Any future prerelease publish workflow must pass `--tag alpha` or another explicit prerelease tag.
+- Any future stable publish workflow must be a separate explicit release process and may use `latest` only for a stable version.
+- Any future automation PR must include a dry-run or pack verification path and must prove it cannot publish from ordinary pushes.
+
+Provenance policy:
+
+- Manual local alpha publishing does not claim CI provenance.
+- If npm Trusted Publishing is introduced later, provenance must be enabled through the trusted-publisher flow and verified after publish.
+- Do not add `--provenance` to local manual publish commands.
+
+Official npm references for this policy:
+
+- [npm publish docs](https://docs.npmjs.com/cli/v11/commands/npm-publish/) document that `npm publish` uses `latest` by default unless `--tag` is provided.
+- [npm dist-tag docs](https://docs.npmjs.com/cli/v11/commands/npm-dist-tag/) recommend using tags such as prerelease tags for unstable versions.
+- [npm Trusted Publishing docs](https://docs.npmjs.com/trusted-publishers/) describe OIDC-based publishing without long-lived npm tokens.
+- [npm provenance docs](https://docs.npmjs.com/generating-provenance-statements/) note that Trusted Publishing generates provenance automatically.
+- [npm 2FA docs](https://docs.npmjs.com/configuring-two-factor-authentication/) describe the current 2FA/token requirement for publishing.
 
 ## Package Names
 
@@ -76,6 +112,8 @@ Confirm npm authentication:
 npm whoami
 ```
 
+Use an npm account that belongs to the IgnitionAI npm organization, has publish access to the packages below, and has 2FA enabled. Keep OTP entry interactive unless npm requires `--otp <code>` for the local environment.
+
 Publish in dependency order:
 
 ```bash
@@ -91,7 +129,7 @@ cd ../adapter-ignitionrag && npm publish --access public --tag alpha
 cd ../cli && npm publish --access public --tag alpha
 ```
 
-Do not publish with the `latest` dist-tag.
+Do not publish with the `latest` dist-tag. The explicit `--tag alpha` flag is mandatory because `npm publish` otherwise updates `latest` by default.
 
 ## Post-Publish Verification
 
@@ -131,4 +169,4 @@ bunx --package @ignitionai/agent-trainer-cli@alpha ignition-agent-trainer eval r
 
 ## Later Automation
 
-GitHub Actions publishing with npm provenance is intentionally out of scope for `v0.1.0-alpha.1`. Add it only after the manual alpha has been consumed successfully from IgnitionRAG.
+GitHub Actions publishing with npm provenance is intentionally disabled for `v0.1.0-alpha.1`. Add it only after the manual alpha has been consumed successfully from IgnitionRAG, and only through a dedicated PR that follows the policy above.
