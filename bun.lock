@@ -205,8 +205,10 @@
       "dependencies": {
         "@ignitionai/agent-trainer": "0.1.0-alpha.1",
         "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
+        "@ignitionai/agent-trainer-environment": "0.1.0-alpha.1",
         "@ignitionai/agent-trainer-experiments": "0.1.0-alpha.1",
         "@ignitionai/agent-trainer-exporters": "0.1.0-alpha.1",
+        "@ignitionai/agent-trainer-rl": "0.1.0-alpha.1",
       },
       "devDependencies": {
         "tsup": "latest",

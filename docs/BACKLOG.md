@@ -10,9 +10,8 @@ Status values:
 
 Current snapshot:
 
-- Completed through PR #48.
-- PR #49 is the current release-policy PR.
-- PR #50 is the next planned CLI/environment ergonomics PR.
+- Completed through PR #49.
+- PR #50 is the current CLI/environment ergonomics PR.
 - The dogfood-driven policy optimization loop stays blocked until dogfood or representative trajectory fixtures exist.
 
 ## Stable PR sequence
@@ -3041,7 +3040,7 @@ Next PR:
 
 Status:
 
-- current
+- completed
 
 Branch:
 
@@ -3099,7 +3098,7 @@ Next PR:
 
 Status:
 
-- planned
+- current
 
 Branch:
 

@@ -5,7 +5,11 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, isAbsolute, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { recommendVariant, type VariantRecommendation } from "@ignitionai/agent-trainer";
-import type { ExperimentResult } from "@ignitionai/agent-trainer-core";
+import type { ExperimentResult, Metadata } from "@ignitionai/agent-trainer-core";
+import type {
+  EnvironmentEpisodeDefinition,
+  RunEpisodeOptions,
+} from "@ignitionai/agent-trainer-environment";
 import {
   appendExperimentHistory,
   compareExperimentResults,
@@ -21,6 +25,13 @@ import {
   toMarkdownReport,
   writeReportBundle,
 } from "@ignitionai/agent-trainer-exporters";
+import {
+  createOfflinePolicyRecordsFromTrajectories,
+  exportTrajectoryReport,
+  recordEpisodeTrajectory,
+  summarizeTrajectory,
+  toMarkdownTrajectoryReport,
+} from "@ignitionai/agent-trainer-rl";
 
 export interface EvalRunCommand {
   kind: "eval-run";
@@ -50,7 +61,24 @@ export interface EvalHistoryShowCommand {
   experimentName?: string;
 }
 
-export type CliCommand = EvalRunCommand | EvalHistoryListCommand | EvalHistoryShowCommand;
+export interface EnvironmentRunCommand {
+  kind: "environment-run";
+  episodePath: string;
+  seed?: number;
+  maxSteps?: number;
+  policyId?: string;
+  trajectoryId?: string;
+  metadata?: Metadata;
+  jsonOutputPath?: string;
+  markdownOutputPath?: string;
+  printOfflineRecords?: boolean;
+}
+
+export type CliCommand =
+  | EvalRunCommand
+  | EvalHistoryListCommand
+  | EvalHistoryShowCommand
+  | EnvironmentRunCommand;
 
 export type ParseCliArgsResult =
   | { ok: true; command: CliCommand }
@@ -82,6 +110,7 @@ Usage:
   ignition-agent-trainer eval run <experiment.ts> [--json <report.json>] [--markdown <report.md>] [--bundle <reports-dir>]
   ignition-agent-trainer eval history list <history.jsonl> [--experiment <name>] [--limit <count>]
   ignition-agent-trainer eval history show <history.jsonl> <entry-id|latest> [--experiment <name>]
+  ignition-agent-trainer environment run <episode.ts> [--json <report.json>] [--markdown <report.md>]
 
 Options:
   --json <path>                         Write a JSON experiment report.
@@ -98,6 +127,12 @@ Options:
   --regression-markdown <path>          Write regression comparison Markdown.
   --experiment <name>                   Filter history entries by experiment name.
   --limit <count>                       Limit history list output.
+  --seed <integer>                      Seed passed to environment.reset(seed).
+  --max-steps <count>                   Maximum environment episode steps.
+  --policy-id <id>                      Policy id copied onto the episode result.
+  --trajectory-id <id>                  Trajectory id used for exported reports.
+  --metadata-json <json>                Metadata object merged into the episode options.
+  --offline-records                     Print offline policy record count.
   -h, --help                            Show this help message.`;
 
 export function parseCliArgs(args: string[]): ParseCliArgsResult {
@@ -107,6 +142,10 @@ export function parseCliArgs(args: string[]): ParseCliArgsResult {
 
   if (args[0] === "-h" || args[0] === "--help") {
     return { ok: false, message: usage, exitCode: 0 };
+  }
+
+  if (args[0] === "environment") {
+    return parseEnvironmentCommand(args);
   }
 
   if (args[0] !== "eval") {
@@ -308,6 +347,11 @@ async function runCommand(command: CliCommand, env: ResolvedCliEnvironment): Pro
     return;
   }
 
+  if (command.kind === "environment-run") {
+    await runEnvironmentEpisode(command, env);
+    return;
+  }
+
   if (command.kind !== "eval-run") {
     throw new Error(`Unsupported command: ${(command as { kind: string }).kind}`);
   }
@@ -327,7 +371,7 @@ async function loadExperimentDefinition(
   experimentPath: string,
   env: ResolvedCliEnvironment,
 ): Promise<ExperimentDefinition> {
-  const absolutePath = await resolveExistingExperimentPath(experimentPath, env);
+  const absolutePath = await resolveExistingModulePath(experimentPath, env);
   if (absolutePath === null) {
     throw new Error(`Experiment file not found: ${experimentPath}`);
   }
@@ -349,17 +393,17 @@ async function loadExperimentDefinition(
   return definition;
 }
 
-async function resolveExistingExperimentPath(
-  experimentPath: string,
+async function resolveExistingModulePath(
+  modulePath: string,
   env: ResolvedCliEnvironment,
 ): Promise<string | null> {
-  if (isAbsolute(experimentPath)) {
-    return (await env.fileExists(experimentPath)) ? experimentPath : null;
+  if (isAbsolute(modulePath)) {
+    return (await env.fileExists(modulePath)) ? modulePath : null;
   }
 
   let currentDirectory = env.cwd;
   while (true) {
-    const candidate = resolve(currentDirectory, experimentPath);
+    const candidate = resolve(currentDirectory, modulePath);
     if (await env.fileExists(candidate)) return candidate;
 
     const parentDirectory = dirname(currentDirectory);
@@ -376,6 +420,46 @@ function readExperimentDefinition(module: unknown): ExperimentDefinition | null 
   if (typeof candidate.run !== "function") return null;
   if (typeof candidate.create !== "function") return null;
   return candidate as unknown as ExperimentDefinition;
+}
+
+async function loadEnvironmentEpisodeDefinition(
+  episodePath: string,
+  env: ResolvedCliEnvironment,
+): Promise<EnvironmentEpisodeDefinition> {
+  const absolutePath = await resolveExistingModulePath(episodePath, env);
+  if (absolutePath === null) {
+    throw new Error(`Environment episode file not found: ${episodePath}`);
+  }
+
+  let module: unknown;
+  try {
+    module = await env.importModule(pathToFileURL(absolutePath).href);
+  } catch (error) {
+    throw new Error(
+      `Failed to load environment episode file ${episodePath}: ${errorMessage(error)}`,
+    );
+  }
+
+  const definition = readEnvironmentEpisodeDefinition(module);
+  if (definition === null) {
+    throw new Error(
+      `Environment episode file must default export an EnvironmentEpisodeDefinition from defineEnvironmentEpisode(): ${episodePath}`,
+    );
+  }
+
+  return definition;
+}
+
+function readEnvironmentEpisodeDefinition(module: unknown): EnvironmentEpisodeDefinition | null {
+  if (!isRecord(module)) return null;
+  const candidate = module.default;
+  if (!isRecord(candidate)) return null;
+  if (candidate.kind !== "ignition.environment-episode-definition") return null;
+  if (typeof candidate.name !== "string") return null;
+  if (typeof candidate.createEnvironment !== "function") return null;
+  if (typeof candidate.createPolicy !== "function") return null;
+  if (typeof candidate.run !== "function") return null;
+  return candidate as unknown as EnvironmentEpisodeDefinition;
 }
 
 function printExperimentSummary(
@@ -575,6 +659,80 @@ async function printHistoryEntry(
   }
 }
 
+async function runEnvironmentEpisode(
+  command: EnvironmentRunCommand,
+  env: ResolvedCliEnvironment,
+): Promise<void> {
+  const definition = await loadEnvironmentEpisodeDefinition(command.episodePath, env);
+  const episodeOptions: RunEpisodeOptions = {};
+  if (command.seed !== undefined) episodeOptions.seed = command.seed;
+  if (command.maxSteps !== undefined) episodeOptions.maxSteps = command.maxSteps;
+  if (command.policyId !== undefined) episodeOptions.policyId = command.policyId;
+  if (command.metadata !== undefined) episodeOptions.metadata = command.metadata;
+
+  const episode = await definition.run(episodeOptions);
+  const trajectoryId = command.trajectoryId ?? definition.name;
+  const trajectory = recordEpisodeTrajectory(episode, {
+    id: trajectoryId,
+    metadata: {
+      source: "cli",
+      episodePath: command.episodePath,
+      ...(command.metadata ?? {}),
+    },
+  });
+  const summary = summarizeTrajectory(trajectory);
+  const report = exportTrajectoryReport(trajectory);
+  const offlineRecords = createOfflinePolicyRecordsFromTrajectories([trajectory], {
+    experimentName: definition.name,
+  });
+
+  printEnvironmentEpisodeSummary(definition.name, episode, summary, env.stdout);
+
+  if (command.printOfflineRecords === true) {
+    env.stdout(`Offline records: ${offlineRecords.length}`);
+  }
+
+  if (command.jsonOutputPath !== undefined) {
+    await writeReport(command.jsonOutputPath, `${JSON.stringify(report, null, 2)}\n`, env);
+    env.stdout(`Trajectory JSON report: ${command.jsonOutputPath}`);
+  }
+
+  if (command.markdownOutputPath !== undefined) {
+    await writeReport(command.markdownOutputPath, toMarkdownTrajectoryReport(report), env);
+    env.stdout(`Trajectory Markdown report: ${command.markdownOutputPath}`);
+  }
+}
+
+function printEnvironmentEpisodeSummary(
+  name: string,
+  episode: Awaited<ReturnType<EnvironmentEpisodeDefinition["run"]>>,
+  summary: ReturnType<typeof summarizeTrajectory>,
+  write: (line: string) => void,
+): void {
+  write(`Environment episode: ${name}`);
+  write(`Policy: ${episode.policyId ?? "n/a"}`);
+  write(`Done: ${episode.done ? "yes" : "no"}`);
+  write("");
+  write("Steps:");
+  if (episode.steps.length === 0) {
+    write("No steps were recorded.");
+  } else {
+    for (const [index, step] of episode.steps.entries()) {
+      const reward = step.reward.score * step.reward.weight;
+      write(
+        `${index + 1}. ${step.action.name} - reward ${reward.toFixed(3)} - done ${
+          step.done ? "yes" : "no"
+        }`,
+      );
+    }
+  }
+  write("");
+  write(`Total reward: ${episode.totalReward.toFixed(3)}`);
+  write(`Average reward: ${episode.averageReward.toFixed(3)}`);
+  write(`Trajectory: ${summary.trajectoryId}`);
+  write(`Trajectory steps: ${summary.stepCount}`);
+}
+
 async function writeReport(
   outputPath: string,
   contents: string,
@@ -676,6 +834,112 @@ function parseHistoryCommand(args: string[]): ParseCliArgsResult {
   return { ok: true, command };
 }
 
+function parseEnvironmentCommand(args: string[]): ParseCliArgsResult {
+  if (args[1] !== "run") {
+    return {
+      ok: false,
+      message:
+        "Missing environment action. Expected: ignition-agent-trainer environment run <episode.ts>",
+      exitCode: 1,
+      showUsage: true,
+    };
+  }
+
+  const episodePath = args[2];
+  if (episodePath === undefined || episodePath.startsWith("-")) {
+    return {
+      ok: false,
+      message:
+        "Missing episode path. Expected: ignition-agent-trainer environment run <episode.ts>",
+      exitCode: 1,
+      showUsage: true,
+    };
+  }
+
+  const command: EnvironmentRunCommand = {
+    kind: "environment-run",
+    episodePath,
+  };
+
+  for (let index = 3; index < args.length; index += 1) {
+    const arg = args[index];
+    if (arg === undefined) break;
+
+    if (arg === "--seed") {
+      const parsed = parseIntegerOption(args[index + 1], "--seed", { min: 0 });
+      if (!parsed.ok) return parsed;
+      command.seed = parsed.value;
+      index += 1;
+      continue;
+    }
+
+    if (arg === "--max-steps") {
+      const parsed = parseIntegerOption(args[index + 1], "--max-steps");
+      if (!parsed.ok) return parsed;
+      command.maxSteps = parsed.value;
+      index += 1;
+      continue;
+    }
+
+    if (arg === "--policy-id") {
+      const value = args[index + 1];
+      if (value === undefined || value.startsWith("-")) {
+        return { ok: false, message: "Missing value for --policy-id.", exitCode: 1 };
+      }
+      command.policyId = value;
+      index += 1;
+      continue;
+    }
+
+    if (arg === "--trajectory-id") {
+      const value = args[index + 1];
+      if (value === undefined || value.startsWith("-")) {
+        return { ok: false, message: "Missing value for --trajectory-id.", exitCode: 1 };
+      }
+      command.trajectoryId = value;
+      index += 1;
+      continue;
+    }
+
+    if (arg === "--metadata-json") {
+      const parsed = parseMetadataJsonOption(args[index + 1], "--metadata-json");
+      if (!parsed.ok) return parsed;
+      command.metadata = parsed.value;
+      index += 1;
+      continue;
+    }
+
+    if (arg === "--json") {
+      const value = args[index + 1];
+      if (value === undefined || value.startsWith("-")) {
+        return { ok: false, message: "Missing value for --json.", exitCode: 1 };
+      }
+      command.jsonOutputPath = value;
+      index += 1;
+      continue;
+    }
+
+    if (arg === "--markdown") {
+      const value = args[index + 1];
+      if (value === undefined || value.startsWith("-")) {
+        return { ok: false, message: "Missing value for --markdown.", exitCode: 1 };
+      }
+      command.markdownOutputPath = value;
+      index += 1;
+      continue;
+    }
+
+    if (arg === "--offline-records") {
+      command.printOfflineRecords = true;
+      continue;
+    }
+
+    return { ok: false, message: `Unknown option: ${arg}`, exitCode: 1 };
+  }
+
+  return { ok: true, command };
+}
+
 function validateEvalRunCommand(command: EvalRunCommand): ParseCliArgsResult | null {
   if (command.recordHistory === true && command.historyPath === undefined) {
     return { ok: false, message: "--record-history requires --history.", exitCode: 1 };
@@ -709,13 +973,37 @@ function parseNumberOption(
 function parseIntegerOption(
   value: string | undefined,
   optionName: string,
+  options: { min?: number } = {},
 ): { ok: true; value: number } | { ok: false; message: string; exitCode: number } {
   const parsed = parseNumberOption(value, optionName);
   if (!parsed.ok) return parsed;
-  if (!Number.isInteger(parsed.value) || parsed.value < 1) {
+  const min = options.min ?? 1;
+  if (!Number.isInteger(parsed.value) || parsed.value < min) {
     return { ok: false, message: `Invalid value for ${optionName}: ${value}`, exitCode: 1 };
   }
   return parsed;
+}
+
+function parseMetadataJsonOption(
+  value: string | undefined,
+  optionName: string,
+): { ok: true; value: Metadata } | { ok: false; message: string; exitCode: number } {
+  if (value === undefined || value.startsWith("-")) {
+    return { ok: false, message: `Missing value for ${optionName}.`, exitCode: 1 };
+  }
+  try {
+    const parsed = JSON.parse(value) as unknown;
+    if (!isRecord(parsed) || Array.isArray(parsed)) {
+      return { ok: false, message: `${optionName} must be a JSON object.`, exitCode: 1 };
+    }
+    return { ok: true, value: parsed };
+  } catch (error) {
+    return {
+      ok: false,
+      message: `Invalid JSON for ${optionName}: ${errorMessage(error)}`,
+      exitCode: 1,
+    };
+  }
 }
 
 function selectHistoryEntry(

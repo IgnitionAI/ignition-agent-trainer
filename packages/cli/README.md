@@ -114,6 +114,35 @@ bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/cont
 
 Use `--variant <id>` one or more times when only specific variants should be checked.
 
+## Run Environment Episodes
+
+Use `environment run` for deterministic `@ignitionai/agent-trainer-environment` episode modules:
+
+```bash
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- environment run ./examples/rag-environment-episode/src/index.ts \
+  --seed 7 \
+  --max-steps 10 \
+  --policy-id scripted-rag-policy \
+  --trajectory-id rag-environment-episode \
+  --json reports/rag-trajectory.json \
+  --markdown reports/rag-trajectory.md \
+  --offline-records
+```
+
+The episode file must default export an `EnvironmentEpisodeDefinition` created with `defineEnvironmentEpisode()`:
+
+```ts
+import { defineEnvironmentEpisode } from "@ignitionai/agent-trainer-environment";
+
+export default defineEnvironmentEpisode({
+  name: "rag-environment-episode",
+  environment: () => environment,
+  policy: () => policy,
+});
+```
+
+The command prints step rewards, total reward, average reward and trajectory summary. `--json` writes the stable `ignition.trajectory-report.v1` shape. `--markdown` writes the Markdown trajectory report. `--offline-records` prints how many offline policy records can be created from the trajectory.
+
 ## Non-goals
 
-The CLI does not implement watch mode, remote execution, hosted dashboards, auth, provider keys, hosted history or provider-backed regression scoring.
+The CLI does not implement watch mode, remote execution, hosted dashboards, auth, provider keys, hosted history, policy optimization, model training or provider-backed regression scoring.
