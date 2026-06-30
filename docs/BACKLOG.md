@@ -2666,7 +2666,7 @@ Next PR:
 
 Status:
 
-- current
+- completed
 
 Branch:
 
@@ -2723,6 +2723,67 @@ Definition of done:
 - trajectory report output is deterministic,
 - example documents `search -> rerank -> verify -> answer`,
 - docs state that PPO and training remain out of scope.
+
+Next PR:
+
+- PR #44 - `test: add core package coverage`
+
+### PR #44 - `test: add core package coverage`
+
+Status:
+
+- current
+
+Branch:
+
+```txt
+test/core-package-coverage
+```
+
+Goal:
+
+Add dedicated package-level tests for `@ignitionai/agent-trainer-core` before relying on the public alpha surface in dogfood work.
+
+Scope:
+
+- test dataset creation and validation through public exports,
+- test agent input conversion and mock adapter behavior through public exports,
+- test run-result normalization,
+- test score clamping and weighted averages,
+- update readiness and audit docs.
+
+Out of scope:
+
+- public API changes,
+- runtime schema validation,
+- report serialization,
+- provider calls,
+- CLI changes,
+- IgnitionRAG integration.
+
+Required APIs / files:
+
+- `packages/core/src/index.test.ts`,
+- `packages/core/README.md`,
+- readiness and audit docs.
+
+Acceptance:
+
+```bash
+bun test packages/core/src/index.test.ts
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+bun run pack:check
+```
+
+Definition of done:
+
+- core helpers are covered through the public barrel export,
+- no implementation detail mocks are introduced,
+- package readiness no longer says core tests are missing,
+- docs keep runtime schema validation out of scope.
 
 ## Dogfood phase - IgnitionRAG
 
