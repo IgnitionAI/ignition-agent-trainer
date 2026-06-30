@@ -11,6 +11,7 @@ import type {
   Trace,
   UsageMetrics,
 } from "./types";
+import { assertRunResult, assertUsageMetrics } from "./validation";
 
 export type MockAdapterHandler =
   | AgentAdapterResult
@@ -26,6 +27,9 @@ export function createMockAdapter(
   handler: MockAdapterHandler,
   options: MockAdapterOptions = {},
 ): AgentAdapter {
+  if (options.trace !== undefined) assertRunResult({ output: "", trace: options.trace });
+  if (options.usage !== undefined) assertUsageMetrics(options.usage);
+
   const adapter: AgentAdapter = {
     async run(input, context) {
       const value = typeof handler === "function" ? await handler(input, context) : handler;
@@ -56,12 +60,14 @@ export function toAgentInput(item: DatasetItem): AgentInput {
 
 export function normalizeRunResult(value: AgentAdapterResult): RunResult {
   if (isRunResultLike(value)) {
-    return {
+    const result = {
       output: value.output,
       trace: value.trace ?? { steps: [] },
       ...(value.usage !== undefined ? { usage: value.usage } : {}),
       ...(value.metadata !== undefined ? { metadata: value.metadata } : {}),
     };
+    assertRunResult(result);
+    return result;
   }
 
   return {
