@@ -125,6 +125,12 @@ Run the sample CI regression gate:
 bun run --filter './examples/ci-regression-gate' dev
 ```
 
+Run mocked ecosystem adapter examples:
+
+```bash
+bun run --filter './examples/ecosystem-adapters' dev
+```
+
 Run the alpha dogfood document-assistant experiment:
 
 ```bash

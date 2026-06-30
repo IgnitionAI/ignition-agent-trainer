@@ -23,10 +23,10 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 |---|---|---|---|---|---|---|
 | `@ignitionai/agent-trainer-adapter-callable` | ready | ready | ready | ready | ready | Generic callable adapter has docs, tests and an example. |
 | `@ignitionai/agent-trainer-adapter-ignitionrag` | ready | ready | ready | ready | partial | Type-level contract only; no runtime IgnitionRAG integration. |
-| `@ignitionai/agent-trainer-adapter-langchain` | ready | ready | ready | ready | partial | Structural adapter only; no dedicated example or deep framework coverage. |
-| `@ignitionai/agent-trainer-adapter-langgraph` | ready | ready | ready | ready | partial | Structural adapter only; no persistence, streaming or graph internals. |
-| `@ignitionai/agent-trainer-adapter-mastra` | ready | ready | ready | ready | partial | Structural adapter only; no memory, tool or full Mastra coverage. |
-| `@ignitionai/agent-trainer-adapter-vercel-ai` | ready | ready | ready | ready | partial | Structural adapter only; no streaming, tools or live provider calls. |
+| `@ignitionai/agent-trainer-adapter-langchain` | ready | ready | ready | ready | partial | Structural adapter with mocked example coverage; no deep LangChain internals. |
+| `@ignitionai/agent-trainer-adapter-langgraph` | ready | ready | ready | ready | partial | Structural adapter with mocked example coverage; no persistence, streaming or graph internals. |
+| `@ignitionai/agent-trainer-adapter-mastra` | ready | ready | ready | ready | partial | Structural adapter with mocked example coverage; no memory, tool or full Mastra coverage. |
+| `@ignitionai/agent-trainer-adapter-vercel-ai` | ready | ready | ready | ready | partial | Structural adapter with mocked example coverage; no streaming, tools or live provider calls. |
 | `@ignitionai/agent-trainer-cli` | ready | ready | ready | ready | partial | Runs typed experiments, writes reports/bundles, records local history, selects baselines and runs regression checks; no watch mode or remote execution. |
 | `@ignitionai/agent-trainer-core` | ready | ready | ready | ready | partial | Foundational helpers have dedicated tests; runtime schema validation remains outside the current helper surface. |
 | `@ignitionai/agent-trainer-environment` | ready | ready | ready | ready | partial | Tested episode runner with safety guards and a deterministic RAG episode example; no production runtime or optimization loop. |
@@ -55,7 +55,6 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 
 ## Known Work After Internal Alpha
 
-- Add deeper mocked examples for ecosystem adapters.
 - Dogfood the alpha inside IgnitionRAG and collect trajectory/reward evidence.
 - Add a lightweight policy optimization loop after real dogfood produces trajectory data.
 - Decide any next-step publishing automation policy before a future public release workflow.
