@@ -62,6 +62,20 @@
         "@ignitionai/agent-trainer-preset-rag": "workspace:*",
       },
     },
+    "examples/ecosystem-adapters": {
+      "name": "ecosystem-adapters",
+      "version": "0.0.0",
+      "dependencies": {
+        "@ignitionai/agent-trainer-adapter-langchain": "workspace:*",
+        "@ignitionai/agent-trainer-adapter-langgraph": "workspace:*",
+        "@ignitionai/agent-trainer-adapter-mastra": "workspace:*",
+        "@ignitionai/agent-trainer-adapter-vercel-ai": "workspace:*",
+        "@ignitionai/agent-trainer-core": "workspace:*",
+        "@ignitionai/agent-trainer-evals": "workspace:*",
+        "@ignitionai/agent-trainer-experiments": "workspace:*",
+        "vitest": "latest",
+      },
+    },
     "examples/ignitionrag-evaluation-bridge": {
       "name": "ignitionrag-evaluation-bridge",
       "version": "0.0.0",
@@ -575,6 +589,8 @@
     "debug": ["debug@4.4.3", "", { "dependencies": { "ms": "^2.1.3" } }, "sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA=="],
 
     "detect-libc": ["detect-libc@2.1.2", "", {}, "sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ=="],
+
+    "ecosystem-adapters": ["ecosystem-adapters@workspace:examples/ecosystem-adapters"],
 
     "es-module-lexer": ["es-module-lexer@2.1.0", "", {}, "sha512-n27zTYMjYu1aj4MjCWzSP7G9r75utsaoc8m61weK+W8JMBGGQybd43GstCXZ3WNmSFtGT9wi59qQTW6mhTR5LQ=="],
 

@@ -31,6 +31,10 @@ const variant = langChainAdapter({
 
 The adapter uses `@ignitionai/agent-trainer-adapter-callable` internally, so thrown runnable errors flow through the standard experiment failure path.
 
+## Example
+
+See `examples/ecosystem-adapters` for a runnable mocked LangChain adapter wired into `createExperiment()` with trace, usage and metadata mapping.
+
 ## Mapping
 
 Customize input and output conversion with `mapInput` and `mapOutput`:

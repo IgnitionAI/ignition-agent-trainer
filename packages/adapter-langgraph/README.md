@@ -39,6 +39,10 @@ The default input shape is message-oriented:
 
 Customize input and output conversion with `mapInput` and `mapOutput`.
 
+## Example
+
+See `examples/ecosystem-adapters` for a runnable mocked LangGraph adapter wired into `createExperiment()` with trace, usage and metadata mapping.
+
 ## Non-goals
 
 This adapter does not persist graph state, stream events, call real providers, inspect graph internals or adapt LangChain/Mastra/Vercel AI SDK behavior.

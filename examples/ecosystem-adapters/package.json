@@ -1,0 +1,20 @@
+{
+  "name": "ecosystem-adapters",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun src/index.ts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@ignitionai/agent-trainer-adapter-langchain": "workspace:*",
+    "@ignitionai/agent-trainer-adapter-langgraph": "workspace:*",
+    "@ignitionai/agent-trainer-adapter-mastra": "workspace:*",
+    "@ignitionai/agent-trainer-adapter-vercel-ai": "workspace:*",
+    "@ignitionai/agent-trainer-core": "workspace:*",
+    "@ignitionai/agent-trainer-evals": "workspace:*",
+    "@ignitionai/agent-trainer-experiments": "workspace:*",
+    "vitest": "latest"
+  }
+}

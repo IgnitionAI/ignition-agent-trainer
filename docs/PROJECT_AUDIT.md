@@ -43,7 +43,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Main exports: `createLangChainAdapter`, `langChainAdapter`, `LangChainRunnableLike`.
 - Stability level: partial.
 - Tests present: yes.
-- Example present: no dedicated example.
+- Example present: yes, `examples/ecosystem-adapters`.
 - Known limitations: does not require or inspect LangChain internals, does not stream, does not call providers, and only expects `invoke()`.
 
 ### `@ignitionai/agent-trainer-adapter-langgraph`
@@ -52,7 +52,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Main exports: `createLangGraphAdapter`, `langGraphAdapter`, `LangGraphLike`.
 - Stability level: partial.
 - Tests present: yes.
-- Example present: no dedicated example.
+- Example present: yes, `examples/ecosystem-adapters`.
 - Known limitations: does not persist graph state, stream events, inspect graph internals or call providers.
 
 ### `@ignitionai/agent-trainer-adapter-mastra`
@@ -61,7 +61,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Main exports: `createMastraAdapter`, `mastraAdapter`, `MastraAgentLike`.
 - Stability level: partial.
 - Tests present: yes.
-- Example present: no dedicated example.
+- Example present: yes, `examples/ecosystem-adapters`.
 - Known limitations: only supports `generate()` or `run()` style objects, no tools, memory, persistence or full Mastra API coverage.
 
 ### `@ignitionai/agent-trainer-adapter-vercel-ai`
@@ -70,7 +70,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Main exports: `createVercelAiAdapter`, `vercelAiAdapter`, `VercelAiGenerateLike`.
 - Stability level: partial.
 - Tests present: yes.
-- Example present: no dedicated example.
+- Example present: yes, `examples/ecosystem-adapters`.
 - Known limitations: no real provider calls, no auth, no streaming, no tool integration and no prompt generation.
 
 ### `@ignitionai/agent-trainer-cli`
@@ -187,6 +187,14 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 - Mocked or live: mocked.
 - Product concept: context engineering strategy comparison and CLI-ready typed experiments.
 
+### `examples/ecosystem-adapters`
+
+- Demonstrates: LangChain, LangGraph, Mastra and Vercel AI SDK-style adapters wired into `createExperiment()`.
+- Command: `bun run --filter './examples/ecosystem-adapters' dev`.
+- Test command: `bun test examples/ecosystem-adapters/src/example.test.ts`.
+- Mocked or live: deterministic mocked framework objects.
+- Product concept: adapter portability with trace, usage and metadata preserved through standard experiment results.
+
 ### `examples/ci-regression-gate`
 
 - Demonstrates: comparing a current experiment result against a committed baseline in CI.
@@ -221,7 +229,7 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 
 | Capability | Status | Package/File | Stable? | Notes |
 |---|---|---|---|---|
-| core primitives | partial | `packages/core` | No | Core types and helpers exist, but package lacks dedicated tests. |
+| core primitives | partial | `packages/core` | No | Core types and helpers have dedicated tests; runtime schema validation remains out of scope. |
 | IgnitionRAG adapter contract | partial | `packages/adapter-ignitionrag` | No | Type-level contract only; no runtime IgnitionRAG integration. |
 | evals/rewards | partial | `packages/evals` | No | Tests and README exist, but reward set is intentionally small. |
 | RAG presets | partial | `packages/preset-rag` | No | Deterministic presets compose text, citation, latency, cost and tool-use rewards. |
@@ -232,15 +240,15 @@ If a package exists but is intentionally narrow, minimal or untested, it is part
 | context engineering example | done | `examples/context-engineering` | Yes | Mocked strategy comparison plus CLI module. |
 | exporters | done | `packages/exporters` | Yes | Stable JSON/Markdown export shape and local report bundle writer. |
 | typed experiment definitions | done | `packages/experiments/src/definition.ts` | Yes | Used by the CLI example. |
-| CLI runner | partial | `packages/cli` | Yes | Current command works; history, baselines and regression gates are not CLI flags yet. |
+| CLI runner | partial | `packages/cli` | Yes | Runs experiments, reports, bundles, local history, baseline selection and regression checks. |
 | regression gates | done | `packages/experiments/src/regression-gates.ts` | Yes | Tested comparison helpers plus a copyable CI example. |
 | alpha dogfood workflow | done | `examples/alpha-dogfood` | Yes | Deterministic IgnitionRAG-style document assistant evaluation with report exports and a regression gate. |
-| ecosystem adapters | partial | `packages/adapter-*` | No | Structural adapters exist with tests/docs, but dedicated examples and deeper framework coverage are missing. |
+| ecosystem adapters | partial | `packages/adapter-*` | No | Structural adapters exist with tests/docs and a grouped mocked example; deeper framework internals remain out of scope. |
 | simple search optimization | done | `packages/trainer/src/search.ts` | Yes | Deterministic grid search over manual parameter grids. |
 | IgnitionRAG design | done | `docs/10-ignitionrag-integration-design.md` | Yes | Design-only; no IgnitionRAG runtime integration. |
 | IgnitionRAG Evaluation Center checklist | done | `docs/IGNITIONRAG_EVALUATION_CENTER_CHECKLIST.md` | Yes | Actionable checklist only; no IgnitionRAG app code, migrations or frontend. |
 | IgnitionRAG evaluation bridge prototype | prototype | `examples/ignitionrag-evaluation-bridge` | No | Deterministic record mapping only; no database, hosted worker, auth or real provider calls. |
-| file-based history | done | `packages/experiments/src/history.ts` | Yes | JSONL local history helpers, no CLI flag yet. |
+| file-based history | done | `packages/experiments/src/history.ts` and `packages/cli` | Yes | JSONL local history helpers plus CLI list/show/record workflows. |
 | policy abstraction | partial | `packages/rl/src/policy.ts` | No | Deterministic static and score-based selection only; no training loop. |
 | environment episodes | partial | `packages/environment` | No | Tested episode runner with max-step safety, seed forwarding, final state and metadata. |
 | trajectory recorder | partial | `packages/rl/src/trajectory.ts` | No | Local state/action/reward/outcome records with deterministic summaries. |

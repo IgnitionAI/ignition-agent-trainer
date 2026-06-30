@@ -31,6 +31,10 @@ const variant = mastraAdapter({
 
 The adapter uses `@ignitionai/agent-trainer-adapter-callable` internally, so thrown agent errors flow through the standard experiment failure path.
 
+## Example
+
+See `examples/ecosystem-adapters` for a runnable mocked Mastra adapter wired into `createExperiment()` with trace, usage and metadata mapping.
+
 ## Mapping
 
 Customize input and output conversion with `mapInput` and `mapOutput`:
