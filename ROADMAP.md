@@ -10,6 +10,34 @@ The long-term idea is inspired by reinforcement learning, but the product path s
 Evals → Experiments → Optimization → Environment → RL
 ```
 
+## Current status after PR #44
+
+Completed:
+
+- Public alpha package surface under `@ignitionai/agent-trainer-*`.
+- Local experiments, reports, report bundles, regression gates and CI validation.
+- RAG presets, strategy presets and IgnitionRAG adapter/bridge contracts.
+- Policy, trajectory, contextual bandit and offline policy evaluation foundations.
+- Tested environment episodes with trajectory reports.
+- Dedicated core package tests.
+- npm alpha publication at `0.1.0-alpha.1`.
+
+Next open-source work:
+
+1. Improve CLI ergonomics for history, baseline selection and regression checks.
+2. Add deeper mocked examples for ecosystem adapters.
+3. Dogfood the alpha in IgnitionRAG and collect real trajectory findings.
+4. Add a lightweight policy optimization loop only after useful dogfood trajectories exist.
+
+Still out of scope:
+
+- PPO implementation,
+- GRPO training,
+- model fine-tuning,
+- production routing,
+- real provider calls in core examples,
+- hosted SaaS runtime.
+
 ---
 
 ## Phase 0 — Research and design

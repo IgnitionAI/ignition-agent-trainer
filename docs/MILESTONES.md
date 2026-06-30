@@ -296,13 +296,13 @@ docs/ALPHA_VALIDATION_PLAN.md
 Current status:
 
 ```txt
-PR #36 through PR #43 are complete. The internal v0.1.0-alpha.0 tag, npm v0.1.0-alpha.1 publication, and tested environment episode foundation are complete.
+PR #36 through PR #44 are complete. The internal v0.1.0-alpha.0 tag, npm v0.1.0-alpha.1 publication, tested environment episode foundation, trajectory reports and dedicated core tests are complete.
 ```
 
 Next phase:
 
 ```txt
-Close the remaining core test coverage gap, then dogfood the alpha inside IgnitionRAG and return to this repository only for concrete framework gaps found during use.
+Keep open-source work focused on developer ergonomics: CLI history/baseline/regression workflows, deeper adapter examples, then dogfood the alpha inside IgnitionRAG and return for concrete framework gaps found during use.
 ```
 
 Explicit non-goals:

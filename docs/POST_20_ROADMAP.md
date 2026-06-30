@@ -111,6 +111,20 @@ PR #35 must add interfaces only. It must not implement PPO optimization, neural 
 
 ## Completion Status
 
-The Post-#20 sequence is complete through PR #35 once the PPO interface skeletons PR is merged.
+The Post-#20 sequence is complete through PR #35, and the follow-up alpha hardening work is complete through PR #44.
 
-Remaining RL work belongs to a future phase and must be scoped separately.
+Completed follow-up work:
+
+- npm alpha publishing readiness,
+- tested environment episodes and trajectory rewards,
+- deterministic trajectory reports,
+- offline policy evaluation compatibility from environment episodes,
+- dedicated core package tests.
+
+Next open-source work is practical developer ergonomics first:
+
+1. CLI history, baseline and regression workflows.
+2. Deeper mocked examples for ecosystem adapters.
+3. Dogfood-driven policy optimization once IgnitionRAG produces useful trajectories.
+
+Remaining RL work still belongs to a future phase and must be scoped from real dogfood evidence, not from PPO-first assumptions.

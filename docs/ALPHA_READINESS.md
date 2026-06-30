@@ -55,10 +55,11 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 
 ## Known Work After Internal Alpha
 
-- Add CLI history/baseline/regression ergonomics after report bundles and CI examples.
-- Decide package publishing policy before any npm publication.
-- Add deeper examples for ecosystem adapters.
+- Add CLI history, baseline selection and regression command ergonomics after report bundles and CI examples.
+- Add deeper mocked examples for ecosystem adapters.
+- Dogfood the alpha inside IgnitionRAG and collect trajectory/reward evidence.
 - Add a lightweight policy optimization loop after real dogfood produces trajectory data.
+- Decide any next-step publishing automation policy before a future public release workflow.
 
 ## Explicit Non-goals
 
