@@ -1,4 +1,4 @@
-import type { VariantSummary } from "@ignitionai/core";
+import type { VariantSummary } from "@ignitionai/agent-trainer-core";
 
 export interface ParetoOptions {
   minScore?: number;

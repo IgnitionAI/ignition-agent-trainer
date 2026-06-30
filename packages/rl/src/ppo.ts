@@ -1,4 +1,4 @@
-import type { JsonRecord, JsonValue, MaybePromise, Metadata } from "@ignitionai/core";
+import type { JsonRecord, JsonValue, MaybePromise, Metadata } from "@ignitionai/agent-trainer-core";
 import type { Trajectory } from "./trajectory";
 
 export const PPO_NOT_IMPLEMENTED_MESSAGE =

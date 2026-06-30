@@ -65,7 +65,7 @@ Generated artifacts are not committed.
 ## Run Through The CLI
 
 ```bash
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood
 ```
 
 ## Run The Regression Gate

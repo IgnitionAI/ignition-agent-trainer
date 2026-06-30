@@ -8,7 +8,7 @@ import type {
   RunResult,
   Trace,
   UsageMetrics,
-} from "@ignitionai/core";
+} from "@ignitionai/agent-trainer-core";
 
 export interface CallableAdapterRunInput {
   input: string;

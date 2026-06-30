@@ -130,7 +130,7 @@ A developer should be able to review the Markdown report without opening source 
 The expected CLI shape for the dogfood experiment is:
 
 ```bash
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --json reports/alpha-dogfood/report.json --markdown reports/alpha-dogfood/report.md --bundle reports/alpha-dogfood
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --json reports/alpha-dogfood/report.json --markdown reports/alpha-dogfood/report.md --bundle reports/alpha-dogfood
 ```
 
 The exact paths may change in PR #37, but the final command must:
@@ -218,7 +218,7 @@ bun run typecheck
 bun run test
 bun run build
 bun run --filter './examples/alpha-dogfood' dev
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood
 ```
 
 Definition of done:

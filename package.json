@@ -1,6 +1,6 @@
 {
   "name": "ignition-agent-trainer",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.1",
   "private": true,
   "description": "Evaluation, experimentation and optimization layer for TypeScript AI agents.",
   "license": "MIT",
@@ -17,7 +17,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "biome check .",
     "format": "biome format --write .",
-    "ci": "bun run typecheck && bun run test && bun run build"
+    "ci": "bun run typecheck && bun run test && bun run build && bun run pack:check",
+    "pack:check": "bun run build && node scripts/check-npm-pack-readiness.mjs"
   },
   "devDependencies": {
     "@biomejs/biome": "latest",

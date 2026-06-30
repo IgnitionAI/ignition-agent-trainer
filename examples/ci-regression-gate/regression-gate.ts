@@ -1,13 +1,13 @@
 #!/usr/bin/env bun
 
 import { pathToFileURL } from "node:url";
-import type { ExperimentResult } from "@ignitionai/core";
+import type { ExperimentResult } from "@ignitionai/agent-trainer-core";
 import {
   assertNoRegression,
   type RegressionGateComparison,
   RegressionGateError,
   type RegressionGateOptions,
-} from "@ignitionai/experiments";
+} from "@ignitionai/agent-trainer-experiments";
 import experiment from "../context-engineering/experiment";
 import baselineFixture from "./baseline.context-engineering.json";
 

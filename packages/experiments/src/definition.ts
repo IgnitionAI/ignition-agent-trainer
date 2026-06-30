@@ -1,4 +1,4 @@
-import type { ExperimentReport } from "@ignitionai/core";
+import type { ExperimentReport } from "@ignitionai/agent-trainer-core";
 import { createExperiment, type Experiment, type ExperimentConfig } from "./experiment";
 
 export interface ExperimentDefinition extends ExperimentConfig {

@@ -98,7 +98,7 @@ Reward composition:
 
 Execution:
 
-- call `createExperiment()` from `@ignitionai/experiments`,
+- call `createExperiment()` from `@ignitionai/agent-trainer-experiments`,
 - run one dataset against the selected variant or variant set,
 - keep concurrency conservative until workflow execution is well understood,
 - record failed cases without aborting the full run,

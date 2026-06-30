@@ -1,4 +1,4 @@
-# @ignitionai/environment
+# @ignitionai/agent-trainer-environment
 
 Prototype state/action/reward environment loop primitives for future policy work.
 
@@ -7,7 +7,7 @@ Use this package only when experimenting with agent strategy environments. It is
 ## Current API
 
 ```ts
-import { runEpisode } from "@ignitionai/environment";
+import { runEpisode } from "@ignitionai/agent-trainer-environment";
 ```
 
 Main exports:

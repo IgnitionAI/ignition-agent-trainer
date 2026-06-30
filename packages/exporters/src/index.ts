@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import type { ExperimentResult, Metadata, VariantSummary } from "@ignitionai/core";
+import type { ExperimentResult, Metadata, VariantSummary } from "@ignitionai/agent-trainer-core";
 
 export interface ExperimentResultExportOptions {
   generatedAt?: string | Date;

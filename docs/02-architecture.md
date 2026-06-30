@@ -31,7 +31,7 @@ Trainer / optimizer
 
 ## Packages
 
-### `@ignitionai/core`
+### `@ignitionai/agent-trainer-core`
 
 Owns shared types:
 
@@ -43,7 +43,7 @@ Owns shared types:
 - reward result,
 - experiment result.
 
-### `@ignitionai/evals`
+### `@ignitionai/agent-trainer-evals`
 
 Scorers and reward functions:
 
@@ -54,11 +54,11 @@ Scorers and reward functions:
 - cost,
 - latency.
 
-### `@ignitionai/experiments`
+### `@ignitionai/agent-trainer-experiments`
 
 Runs variants over datasets and creates reports.
 
-### `@ignitionai/trainer`
+### `@ignitionai/agent-trainer`
 
 Optimizes candidates:
 
@@ -67,11 +67,11 @@ Optimizes candidates:
 - retrieval configs,
 - routing strategies.
 
-### `@ignitionai/environment`
+### `@ignitionai/agent-trainer-environment`
 
 Defines state/action/reward loops for multi-step agent behavior.
 
-### `@ignitionai/rl`
+### `@ignitionai/agent-trainer-rl`
 
 Contains actual policy optimization algorithms.
 
@@ -79,10 +79,10 @@ Contains actual policy optimization algorithms.
 
 Framework-specific wrappers:
 
-- `@ignitionai/adapter-langchain`,
-- `@ignitionai/adapter-langgraph`,
-- `@ignitionai/adapter-mastra`,
-- `@ignitionai/adapter-vercel-ai`.
+- `@ignitionai/agent-trainer-adapter-langchain`,
+- `@ignitionai/agent-trainer-adapter-langgraph`,
+- `@ignitionai/agent-trainer-adapter-mastra`,
+- `@ignitionai/agent-trainer-adapter-vercel-ai`.
 
 ## Trace model
 

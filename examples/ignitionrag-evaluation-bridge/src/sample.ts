@@ -1,4 +1,4 @@
-import type { IgnitionRagCollectionReference } from "@ignitionai/adapter-ignitionrag";
+import type { IgnitionRagCollectionReference } from "@ignitionai/agent-trainer-adapter-ignitionrag";
 import {
   createBridgeExperiment,
   createIgnitionRagExecutionRequest,

@@ -31,7 +31,7 @@ Evals → Experiments → Optimization → Environment → RL
 
 ---
 
-## Phase 1 — `@ignitionai/evals`
+## Phase 1 — `@ignitionai/agent-trainer-evals`
 
 **Goal:** measure one agent on one dataset.
 
@@ -67,7 +67,7 @@ cost: $0.03
 
 ---
 
-## Phase 2 — `@ignitionai/experiments`
+## Phase 2 — `@ignitionai/agent-trainer-experiments`
 
 **Goal:** compare multiple agent strategies.
 
@@ -98,7 +98,7 @@ C wins on quality, B wins on quality/cost tradeoff.
 
 ---
 
-## Phase 3 — `@ignitionai/trainer`
+## Phase 3 — `@ignitionai/agent-trainer`
 
 **Goal:** optimize prompts and workflows without model fine-tuning.
 
@@ -117,7 +117,7 @@ Given 20 prompt candidates, select top 3 against a private business dataset.
 
 ---
 
-## Phase 4 — `@ignitionai/environment`
+## Phase 4 — `@ignitionai/agent-trainer-environment`
 
 **Goal:** represent an agent as an environment with state, actions and rewards.
 
@@ -148,7 +148,7 @@ and receive a reward at each step or at the end of the episode.
 
 ---
 
-## Phase 5 — `@ignitionai/rl`
+## Phase 5 — `@ignitionai/agent-trainer-rl`
 
 **Goal:** introduce actual policy optimization once the environment abstraction is stable.
 

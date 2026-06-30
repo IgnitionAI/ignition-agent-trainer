@@ -1,4 +1,4 @@
-import type { DatasetItem, RunResult } from "@ignitionai/core";
+import type { DatasetItem, RunResult } from "@ignitionai/agent-trainer-core";
 import { describe, expect, it } from "vitest";
 import { agenticRagPreset, citationQualityPreset, ragQualityPreset } from "./index";
 

@@ -1,11 +1,11 @@
-# @ignitionai/adapter-langgraph
+# @ignitionai/agent-trainer-adapter-langgraph
 
 Minimal structural adapter for LangGraph-like graph objects.
 
 This package does not require `@langchain/langgraph` at runtime. It only expects a graph-like object with an `invoke()` method:
 
 ```ts
-import { createLangGraphAdapter } from "@ignitionai/adapter-langgraph";
+import { createLangGraphAdapter } from "@ignitionai/agent-trainer-adapter-langgraph";
 
 const adapter = createLangGraphAdapter({
   name: "support-graph",
@@ -20,7 +20,7 @@ const adapter = createLangGraphAdapter({
 Use `langGraphAdapter()` when you want an `AgentVariant` directly:
 
 ```ts
-import { langGraphAdapter } from "@ignitionai/adapter-langgraph";
+import { langGraphAdapter } from "@ignitionai/agent-trainer-adapter-langgraph";
 
 const variant = langGraphAdapter({
   id: "verified-rag-graph",

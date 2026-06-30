@@ -34,7 +34,7 @@ RL concepts map to agent context engineering as follows:
 |---|---|
 | State | JSON-compatible task context, retrieved context, trace state, cost so far, latency so far and risk/citation requirements. |
 | Action | A fixed strategy, workflow, prompt candidate, tool choice, retrieval setting or next orchestration step. |
-| Reward | Deterministic score from `@ignitionai/evals`, experiment summaries, cost/latency penalties and domain-specific metrics. |
+| Reward | Deterministic score from `@ignitionai/agent-trainer-evals`, experiment summaries, cost/latency penalties and domain-specific metrics. |
 | Policy | A deterministic selector that chooses among fixed candidates or actions. |
 | Trajectory | Local state/action/reward/outcome records from one or more decisions. |
 | Environment | The agent runtime, tools, dataset cases and reward rules used to produce observations and rewards. |

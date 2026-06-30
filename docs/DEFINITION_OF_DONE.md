@@ -31,7 +31,7 @@ Runtime feature PRs must include:
 - no auth,
 - no billing.
 
-Runtime feature PRs should prefer small public APIs that compose with the existing `@ignitionai/core`, `@ignitionai/evals`, `@ignitionai/experiments`, `@ignitionai/trainer` and adapter packages.
+Runtime feature PRs should prefer small public APIs that compose with the existing `@ignitionai/agent-trainer-core`, `@ignitionai/agent-trainer-evals`, `@ignitionai/agent-trainer-experiments`, `@ignitionai/agent-trainer` and adapter packages.
 
 ## Documentation PR requirements
 

@@ -1,5 +1,5 @@
-import { createDataset } from "@ignitionai/core";
-import { containsAll } from "@ignitionai/evals";
+import { createDataset } from "@ignitionai/agent-trainer-core";
+import { containsAll } from "@ignitionai/agent-trainer-evals";
 import { describe, expect, it } from "vitest";
 import {
   createCandidateVariants,

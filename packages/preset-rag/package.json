@@ -1,6 +1,6 @@
 {
-  "name": "@ignitionai/preset-rag",
-  "version": "0.1.0-alpha.0",
+  "name": "@ignitionai/agent-trainer-preset-rag",
+  "version": "0.1.0-alpha.1",
   "description": "Reusable RAG evaluation presets for Ignition Agent Trainer.",
   "license": "MIT",
   "type": "module",
@@ -26,8 +26,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ignitionai/core": "workspace:*",
-    "@ignitionai/evals": "workspace:*"
+    "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
+    "@ignitionai/agent-trainer-evals": "0.1.0-alpha.1"
   },
   "devDependencies": {
     "tsup": "latest",
@@ -35,5 +35,9 @@
     "vitest": "latest"
   },
   "peerDependencies": {},
-  "peerDependenciesMeta": {}
+  "peerDependenciesMeta": {},
+  "publishConfig": {
+    "access": "public",
+    "tag": "alpha"
+  }
 }

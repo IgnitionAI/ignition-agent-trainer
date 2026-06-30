@@ -330,7 +330,7 @@ Exact package(s) likely affected:
 
 Explicit do not implement:
 
-- no `ignition eval run` command,
+- no `ignition-agent-trainer eval run` command,
 - no file watcher,
 - no exporters changes unless integration types require a tiny adjustment,
 - no live API calls.
@@ -384,7 +384,7 @@ Implement a basic local CLI command for running typed experiment files.
 Scope:
 
 - create or complete `packages/cli`,
-- implement the command `ignition eval run ./path/to/experiment.ts`,
+- implement the command `ignition-agent-trainer eval run ./path/to/experiment.ts`,
 - dynamically load a typed experiment definition,
 - run the experiment,
 - print leaderboard,
@@ -441,7 +441,7 @@ Acceptance:
 bun run typecheck
 bun run test
 bun run build
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/context-engineering/experiment.ts
 ```
 
 Adjust the exact command only if package scripts require it, and document the final command.
@@ -583,7 +583,7 @@ Runnable-like support:
 }
 ```
 
-The adapter must use `@ignitionai/adapter-callable` internally.
+The adapter must use `@ignitionai/agent-trainer-adapter-callable` internally.
 
 Exact package(s) likely affected:
 
@@ -647,7 +647,7 @@ Scope:
 - add or complete `packages/adapter-langgraph`,
 - support graph-like objects with an `invoke` method,
 - map graph output into the standard adapter output shape,
-- use `@ignitionai/adapter-callable` internally,
+- use `@ignitionai/agent-trainer-adapter-callable` internally,
 - add tests with fake graph objects.
 
 Out of scope:
@@ -725,7 +725,7 @@ Scope:
 - add or complete `packages/adapter-mastra`,
 - support Mastra-like agent objects through structural typing,
 - normalize text/object outputs,
-- use `@ignitionai/adapter-callable` internally,
+- use `@ignitionai/agent-trainer-adapter-callable` internally,
 - add tests with fake Mastra-like objects.
 
 Out of scope:
@@ -803,7 +803,7 @@ Scope:
 - add or complete `packages/adapter-vercel-ai`,
 - support function-style calls that return text or structured output,
 - normalize outputs and usage metadata when provided,
-- use `@ignitionai/adapter-callable` internally,
+- use `@ignitionai/agent-trainer-adapter-callable` internally,
 - add tests with fake functions.
 
 Out of scope:
@@ -1309,7 +1309,7 @@ Out of scope:
 
 Required APIs / files:
 
-- package/API location should follow existing `@ignitionai/rl` or trainer boundaries,
+- package/API location should follow existing `@ignitionai/agent-trainer-rl` or trainer boundaries,
 - prototype docs must label the feature experimental.
 
 Exact package(s) likely affected:
@@ -1967,7 +1967,7 @@ Out of scope:
 
 Required APIs / files:
 
-- contextual bandit prototype APIs under `@ignitionai/rl`,
+- contextual bandit prototype APIs under `@ignitionai/agent-trainer-rl`,
 - examples of task type, citation need, cost sensitivity, latency sensitivity and risk level features.
 
 Acceptance:
@@ -2347,7 +2347,7 @@ bun run typecheck
 bun run test
 bun run build
 bun run --filter './examples/alpha-dogfood' dev
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/alpha-dogfood/experiment.ts --bundle reports/alpha-dogfood
 ```
 
 Definition of done:
@@ -2530,7 +2530,7 @@ Next PR:
 
 Status:
 
-- current
+- completed
 
 Branch:
 
@@ -2587,6 +2587,76 @@ Definition of done:
 Next phase:
 
 - Freeze framework abstraction work until real IgnitionRAG dogfooding produces concrete findings.
+
+Next PR:
+
+- PR #42 - `chore: prepare npm alpha publishing readiness`
+
+### PR #42 - `chore: prepare npm alpha publishing readiness`
+
+Status:
+
+- current
+
+Branch:
+
+```txt
+chore/npm-alpha-publishing-readiness
+```
+
+Goal:
+
+Prepare the alpha packages for a real npm `alpha` publish before IgnitionRAG dogfooding.
+
+Scope:
+
+- rename public package names to the `@ignitionai/agent-trainer-*` surface,
+- avoid the existing npm `@ignitionai/core` package collision,
+- bump alpha package versions to `0.1.0-alpha.1`,
+- add public alpha `publishConfig` for the dogfood dependency closure,
+- keep optional adapters and strategy presets private,
+- replace publishable internal dependencies with exact `0.1.0-alpha.1` versions,
+- add `pack:check`,
+- add npm alpha publishing docs.
+
+Out of scope:
+
+- npm publication during the PR,
+- GitHub Actions publishing automation,
+- runtime feature work,
+- frontend,
+- database,
+- production IgnitionRAG integration,
+- PPO implementation,
+- GRPO training.
+
+Required APIs / files:
+
+- package manifests,
+- TypeScript imports and path aliases,
+- CLI bin name,
+- CI command path,
+- npm alpha publishing docs.
+
+Acceptance:
+
+```bash
+bun install
+bun run lint
+bun run typecheck
+bun run test
+bun run build
+bun run pack:check
+```
+
+Definition of done:
+
+- packed publishable manifests do not contain `workspace:*`,
+- publishable packages have public alpha `publishConfig`,
+- private packages cannot be published accidentally,
+- CLI bin is `ignition-agent-trainer`,
+- docs show manual alpha publish order and external smoke test,
+- no npm publish happens in this PR.
 
 ## Dogfood phase - IgnitionRAG
 

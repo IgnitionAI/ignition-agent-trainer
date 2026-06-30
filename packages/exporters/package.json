@@ -1,6 +1,6 @@
 {
-  "name": "@ignitionai/exporters",
-  "version": "0.1.0-alpha.0",
+  "name": "@ignitionai/agent-trainer-exporters",
+  "version": "0.1.0-alpha.1",
   "description": "JSON and Markdown report exporters for Ignition Agent Trainer experiment results.",
   "license": "MIT",
   "type": "module",
@@ -26,7 +26,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ignitionai/core": "workspace:*"
+    "@ignitionai/agent-trainer-core": "0.1.0-alpha.1"
   },
   "devDependencies": {
     "tsup": "latest",
@@ -34,5 +34,9 @@
     "vitest": "latest"
   },
   "peerDependencies": {},
-  "peerDependenciesMeta": {}
+  "peerDependenciesMeta": {},
+  "publishConfig": {
+    "access": "public",
+    "tag": "alpha"
+  }
 }

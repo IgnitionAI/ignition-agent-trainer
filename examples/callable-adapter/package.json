@@ -7,10 +7,10 @@
     "dev": "bun src/index.ts"
   },
   "dependencies": {
-    "@ignitionai/adapter-callable": "workspace:*",
-    "@ignitionai/core": "workspace:*",
-    "@ignitionai/evals": "workspace:*",
-    "@ignitionai/experiments": "workspace:*",
-    "@ignitionai/trainer": "workspace:*"
+    "@ignitionai/agent-trainer": "workspace:*",
+    "@ignitionai/agent-trainer-adapter-callable": "workspace:*",
+    "@ignitionai/agent-trainer-core": "workspace:*",
+    "@ignitionai/agent-trainer-evals": "workspace:*",
+    "@ignitionai/agent-trainer-experiments": "workspace:*"
   }
 }

@@ -14,7 +14,7 @@ jobs:
         run: bun run --filter './examples/ci-regression-gate' dev
       - name: Export current report bundle
         if: always()
-        run: bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts --bundle reports
+        run: bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/context-engineering/experiment.ts --bundle reports
       - name: Upload report bundle
         if: always()
         uses: actions/upload-artifact@v4

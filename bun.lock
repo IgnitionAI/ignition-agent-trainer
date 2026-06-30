@@ -16,68 +16,68 @@
       "name": "alpha-dogfood",
       "version": "0.0.0",
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
-        "@ignitionai/evals": "workspace:*",
-        "@ignitionai/experiments": "workspace:*",
-        "@ignitionai/exporters": "workspace:*",
-        "@ignitionai/trainer": "workspace:*",
+        "@ignitionai/agent-trainer": "workspace:*",
+        "@ignitionai/agent-trainer-core": "workspace:*",
+        "@ignitionai/agent-trainer-evals": "workspace:*",
+        "@ignitionai/agent-trainer-experiments": "workspace:*",
+        "@ignitionai/agent-trainer-exporters": "workspace:*",
       },
     },
     "examples/basic-eval": {
       "name": "basic-eval",
       "version": "0.0.0",
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
-        "@ignitionai/evals": "workspace:*",
-        "@ignitionai/experiments": "workspace:*",
-        "@ignitionai/trainer": "workspace:*",
+        "@ignitionai/agent-trainer": "workspace:*",
+        "@ignitionai/agent-trainer-core": "workspace:*",
+        "@ignitionai/agent-trainer-evals": "workspace:*",
+        "@ignitionai/agent-trainer-experiments": "workspace:*",
       },
     },
     "examples/callable-adapter": {
       "name": "callable-adapter",
       "version": "0.0.0",
       "dependencies": {
-        "@ignitionai/adapter-callable": "workspace:*",
-        "@ignitionai/core": "workspace:*",
-        "@ignitionai/evals": "workspace:*",
-        "@ignitionai/experiments": "workspace:*",
-        "@ignitionai/trainer": "workspace:*",
+        "@ignitionai/agent-trainer": "workspace:*",
+        "@ignitionai/agent-trainer-adapter-callable": "workspace:*",
+        "@ignitionai/agent-trainer-core": "workspace:*",
+        "@ignitionai/agent-trainer-evals": "workspace:*",
+        "@ignitionai/agent-trainer-experiments": "workspace:*",
       },
     },
     "examples/ci-regression-gate": {
       "name": "ci-regression-gate",
       "version": "0.0.0",
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
-        "@ignitionai/experiments": "workspace:*",
+        "@ignitionai/agent-trainer-core": "workspace:*",
+        "@ignitionai/agent-trainer-experiments": "workspace:*",
       },
     },
     "examples/context-engineering": {
       "name": "context-engineering",
       "version": "0.0.0",
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
-        "@ignitionai/experiments": "workspace:*",
-        "@ignitionai/preset-rag": "workspace:*",
-        "@ignitionai/trainer": "workspace:*",
+        "@ignitionai/agent-trainer": "workspace:*",
+        "@ignitionai/agent-trainer-core": "workspace:*",
+        "@ignitionai/agent-trainer-experiments": "workspace:*",
+        "@ignitionai/agent-trainer-preset-rag": "workspace:*",
       },
     },
     "examples/ignitionrag-evaluation-bridge": {
       "name": "ignitionrag-evaluation-bridge",
       "version": "0.0.0",
       "dependencies": {
-        "@ignitionai/adapter-ignitionrag": "workspace:*",
-        "@ignitionai/core": "workspace:*",
-        "@ignitionai/experiments": "workspace:*",
-        "@ignitionai/preset-rag": "workspace:*",
-        "@ignitionai/trainer": "workspace:*",
+        "@ignitionai/agent-trainer": "workspace:*",
+        "@ignitionai/agent-trainer-adapter-ignitionrag": "workspace:*",
+        "@ignitionai/agent-trainer-core": "workspace:*",
+        "@ignitionai/agent-trainer-experiments": "workspace:*",
+        "@ignitionai/agent-trainer-preset-rag": "workspace:*",
       },
     },
     "packages/adapter-callable": {
-      "name": "@ignitionai/adapter-callable",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-adapter-callable",
+      "version": "0.1.0-alpha.1",
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
+        "@ignitionai/agent-trainer-core": "workspace:*",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -86,11 +86,11 @@
       },
     },
     "packages/adapter-ignitionrag": {
-      "name": "@ignitionai/adapter-ignitionrag",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-adapter-ignitionrag",
+      "version": "0.1.0-alpha.1",
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
-        "@ignitionai/exporters": "workspace:*",
+        "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
+        "@ignitionai/agent-trainer-exporters": "0.1.0-alpha.1",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -99,11 +99,11 @@
       },
     },
     "packages/adapter-langchain": {
-      "name": "@ignitionai/adapter-langchain",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-adapter-langchain",
+      "version": "0.1.0-alpha.1",
       "dependencies": {
-        "@ignitionai/adapter-callable": "workspace:*",
-        "@ignitionai/core": "workspace:*",
+        "@ignitionai/agent-trainer-adapter-callable": "workspace:*",
+        "@ignitionai/agent-trainer-core": "workspace:*",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -118,11 +118,11 @@
       ],
     },
     "packages/adapter-langgraph": {
-      "name": "@ignitionai/adapter-langgraph",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-adapter-langgraph",
+      "version": "0.1.0-alpha.1",
       "dependencies": {
-        "@ignitionai/adapter-callable": "workspace:*",
-        "@ignitionai/core": "workspace:*",
+        "@ignitionai/agent-trainer-adapter-callable": "workspace:*",
+        "@ignitionai/agent-trainer-core": "workspace:*",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -137,11 +137,11 @@
       ],
     },
     "packages/adapter-mastra": {
-      "name": "@ignitionai/adapter-mastra",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-adapter-mastra",
+      "version": "0.1.0-alpha.1",
       "dependencies": {
-        "@ignitionai/adapter-callable": "workspace:*",
-        "@ignitionai/core": "workspace:*",
+        "@ignitionai/agent-trainer-adapter-callable": "workspace:*",
+        "@ignitionai/agent-trainer-core": "workspace:*",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -156,11 +156,11 @@
       ],
     },
     "packages/adapter-vercel-ai": {
-      "name": "@ignitionai/adapter-vercel-ai",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-adapter-vercel-ai",
+      "version": "0.1.0-alpha.1",
       "dependencies": {
-        "@ignitionai/adapter-callable": "workspace:*",
-        "@ignitionai/core": "workspace:*",
+        "@ignitionai/agent-trainer-adapter-callable": "workspace:*",
+        "@ignitionai/agent-trainer-core": "workspace:*",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -175,16 +175,16 @@
       ],
     },
     "packages/cli": {
-      "name": "@ignitionai/cli",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-cli",
+      "version": "0.1.0-alpha.1",
       "bin": {
-        "ignition": "./dist/index.js",
+        "ignition-agent-trainer": "./dist/index.js",
       },
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
-        "@ignitionai/experiments": "workspace:*",
-        "@ignitionai/exporters": "workspace:*",
-        "@ignitionai/trainer": "workspace:*",
+        "@ignitionai/agent-trainer": "0.1.0-alpha.1",
+        "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
+        "@ignitionai/agent-trainer-experiments": "0.1.0-alpha.1",
+        "@ignitionai/agent-trainer-exporters": "0.1.0-alpha.1",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -193,8 +193,8 @@
       },
     },
     "packages/core": {
-      "name": "@ignitionai/core",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-core",
+      "version": "0.1.0-alpha.1",
       "devDependencies": {
         "tsup": "latest",
         "typescript": "latest",
@@ -202,10 +202,10 @@
       },
     },
     "packages/environment": {
-      "name": "@ignitionai/environment",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-environment",
+      "version": "0.1.0-alpha.1",
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
+        "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -214,10 +214,10 @@
       },
     },
     "packages/evals": {
-      "name": "@ignitionai/evals",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-evals",
+      "version": "0.1.0-alpha.1",
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
+        "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -226,11 +226,11 @@
       },
     },
     "packages/experiments": {
-      "name": "@ignitionai/experiments",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-experiments",
+      "version": "0.1.0-alpha.1",
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
-        "@ignitionai/evals": "workspace:*",
+        "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
+        "@ignitionai/agent-trainer-evals": "0.1.0-alpha.1",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -239,10 +239,10 @@
       },
     },
     "packages/exporters": {
-      "name": "@ignitionai/exporters",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-exporters",
+      "version": "0.1.0-alpha.1",
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
+        "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -251,11 +251,11 @@
       },
     },
     "packages/preset-rag": {
-      "name": "@ignitionai/preset-rag",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-preset-rag",
+      "version": "0.1.0-alpha.1",
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
-        "@ignitionai/evals": "workspace:*",
+        "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
+        "@ignitionai/agent-trainer-evals": "0.1.0-alpha.1",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -264,10 +264,10 @@
       },
     },
     "packages/preset-strategies": {
-      "name": "@ignitionai/preset-strategies",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-preset-strategies",
+      "version": "0.1.0-alpha.1",
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
+        "@ignitionai/agent-trainer-core": "workspace:*",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -276,11 +276,11 @@
       },
     },
     "packages/rl": {
-      "name": "@ignitionai/rl",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer-rl",
+      "version": "0.1.0-alpha.1",
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
-        "@ignitionai/environment": "workspace:*",
+        "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
+        "@ignitionai/agent-trainer-environment": "0.1.0-alpha.1",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -289,12 +289,12 @@
       },
     },
     "packages/trainer": {
-      "name": "@ignitionai/trainer",
-      "version": "0.1.0-alpha.0",
+      "name": "@ignitionai/agent-trainer",
+      "version": "0.1.0-alpha.1",
       "dependencies": {
-        "@ignitionai/core": "workspace:*",
-        "@ignitionai/experiments": "workspace:*",
-        "@ignitionai/rl": "workspace:*",
+        "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
+        "@ignitionai/agent-trainer-experiments": "0.1.0-alpha.1",
+        "@ignitionai/agent-trainer-rl": "0.1.0-alpha.1",
       },
       "devDependencies": {
         "tsup": "latest",
@@ -380,37 +380,37 @@
 
     "@esbuild/win32-x64": ["@esbuild/win32-x64@0.27.7", "", { "os": "win32", "cpu": "x64" }, "sha512-56hiAJPhwQ1R4i+21FVF7V8kSD5zZTdHcVuRFMW0hn753vVfQN8xlx4uOPT4xoGH0Z/oVATuR82AiqSTDIpaHg=="],
 
-    "@ignitionai/adapter-callable": ["@ignitionai/adapter-callable@workspace:packages/adapter-callable"],
+    "@ignitionai/agent-trainer": ["@ignitionai/agent-trainer@workspace:packages/trainer"],
 
-    "@ignitionai/adapter-ignitionrag": ["@ignitionai/adapter-ignitionrag@workspace:packages/adapter-ignitionrag"],
+    "@ignitionai/agent-trainer-adapter-callable": ["@ignitionai/agent-trainer-adapter-callable@workspace:packages/adapter-callable"],
 
-    "@ignitionai/adapter-langchain": ["@ignitionai/adapter-langchain@workspace:packages/adapter-langchain"],
+    "@ignitionai/agent-trainer-adapter-ignitionrag": ["@ignitionai/agent-trainer-adapter-ignitionrag@workspace:packages/adapter-ignitionrag"],
 
-    "@ignitionai/adapter-langgraph": ["@ignitionai/adapter-langgraph@workspace:packages/adapter-langgraph"],
+    "@ignitionai/agent-trainer-adapter-langchain": ["@ignitionai/agent-trainer-adapter-langchain@workspace:packages/adapter-langchain"],
 
-    "@ignitionai/adapter-mastra": ["@ignitionai/adapter-mastra@workspace:packages/adapter-mastra"],
+    "@ignitionai/agent-trainer-adapter-langgraph": ["@ignitionai/agent-trainer-adapter-langgraph@workspace:packages/adapter-langgraph"],
 
-    "@ignitionai/adapter-vercel-ai": ["@ignitionai/adapter-vercel-ai@workspace:packages/adapter-vercel-ai"],
+    "@ignitionai/agent-trainer-adapter-mastra": ["@ignitionai/agent-trainer-adapter-mastra@workspace:packages/adapter-mastra"],
 
-    "@ignitionai/cli": ["@ignitionai/cli@workspace:packages/cli"],
+    "@ignitionai/agent-trainer-adapter-vercel-ai": ["@ignitionai/agent-trainer-adapter-vercel-ai@workspace:packages/adapter-vercel-ai"],
 
-    "@ignitionai/core": ["@ignitionai/core@workspace:packages/core"],
+    "@ignitionai/agent-trainer-cli": ["@ignitionai/agent-trainer-cli@workspace:packages/cli"],
 
-    "@ignitionai/environment": ["@ignitionai/environment@workspace:packages/environment"],
+    "@ignitionai/agent-trainer-core": ["@ignitionai/agent-trainer-core@workspace:packages/core"],
 
-    "@ignitionai/evals": ["@ignitionai/evals@workspace:packages/evals"],
+    "@ignitionai/agent-trainer-environment": ["@ignitionai/agent-trainer-environment@workspace:packages/environment"],
 
-    "@ignitionai/experiments": ["@ignitionai/experiments@workspace:packages/experiments"],
+    "@ignitionai/agent-trainer-evals": ["@ignitionai/agent-trainer-evals@workspace:packages/evals"],
 
-    "@ignitionai/exporters": ["@ignitionai/exporters@workspace:packages/exporters"],
+    "@ignitionai/agent-trainer-experiments": ["@ignitionai/agent-trainer-experiments@workspace:packages/experiments"],
 
-    "@ignitionai/preset-rag": ["@ignitionai/preset-rag@workspace:packages/preset-rag"],
+    "@ignitionai/agent-trainer-exporters": ["@ignitionai/agent-trainer-exporters@workspace:packages/exporters"],
 
-    "@ignitionai/preset-strategies": ["@ignitionai/preset-strategies@workspace:packages/preset-strategies"],
+    "@ignitionai/agent-trainer-preset-rag": ["@ignitionai/agent-trainer-preset-rag@workspace:packages/preset-rag"],
 
-    "@ignitionai/rl": ["@ignitionai/rl@workspace:packages/rl"],
+    "@ignitionai/agent-trainer-preset-strategies": ["@ignitionai/agent-trainer-preset-strategies@workspace:packages/preset-strategies"],
 
-    "@ignitionai/trainer": ["@ignitionai/trainer@workspace:packages/trainer"],
+    "@ignitionai/agent-trainer-rl": ["@ignitionai/agent-trainer-rl@workspace:packages/rl"],
 
     "@jridgewell/gen-mapping": ["@jridgewell/gen-mapping@0.3.13", "", { "dependencies": { "@jridgewell/sourcemap-codec": "^1.5.0", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA=="],
 

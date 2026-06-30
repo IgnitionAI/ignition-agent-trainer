@@ -6,10 +6,15 @@ import type {
   RewardFunction,
   RunContext,
   RunResult,
-} from "@ignitionai/core";
-import { createDataset } from "@ignitionai/core";
-import { compositeReward, containsAll, costPenalty, latencyPenalty } from "@ignitionai/evals";
-import { defineExperiment } from "@ignitionai/experiments";
+} from "@ignitionai/agent-trainer-core";
+import { createDataset } from "@ignitionai/agent-trainer-core";
+import {
+  compositeReward,
+  containsAll,
+  costPenalty,
+  latencyPenalty,
+} from "@ignitionai/agent-trainer-evals";
+import { defineExperiment } from "@ignitionai/agent-trainer-experiments";
 
 export type AlphaStrategyName =
   | "direct-answer"

@@ -26,14 +26,14 @@ Ignition Agent Trainer stays as the open-source TypeScript evaluation engine. Ig
 
 Package responsibilities:
 
-- `@ignitionai/core`: shared dataset, variant, trace, usage and report types.
-- `@ignitionai/evals`: reusable reward functions for correctness, citations, latency and cost.
-- `@ignitionai/experiments`: deterministic experiment execution and aggregation.
-- `@ignitionai/exporters`: JSON and Markdown report generation.
-- `@ignitionai/cli`: local and CI experiment execution.
-- `@ignitionai/trainer`: deterministic ranking, recommendations, candidate evaluation and grid search.
-- `@ignitionai/adapter-*`: wrappers for external TypeScript agent frameworks.
-- `@ignitionai/rl`: experimental only after the deterministic product loop is stable.
+- `@ignitionai/agent-trainer-core`: shared dataset, variant, trace, usage and report types.
+- `@ignitionai/agent-trainer-evals`: reusable reward functions for correctness, citations, latency and cost.
+- `@ignitionai/agent-trainer-experiments`: deterministic experiment execution and aggregation.
+- `@ignitionai/agent-trainer-exporters`: JSON and Markdown report generation.
+- `@ignitionai/agent-trainer-cli`: local and CI experiment execution.
+- `@ignitionai/agent-trainer`: deterministic ranking, recommendations, candidate evaluation and grid search.
+- `@ignitionai/agent-trainer-adapter-*`: wrappers for external TypeScript agent frameworks.
+- `@ignitionai/agent-trainer-rl`: experimental only after the deterministic product loop is stable.
 
 IgnitionRAG should not fork these primitives. It should call them from backend workers or local development workflows and persist their normalized outputs.
 
@@ -104,7 +104,7 @@ Regression checks make experiments useful in CI and release gates.
 
 IgnitionRAG should support two paths:
 
-- local developer path: run `ignition eval run ./experiment.ts` and compare the result against a baseline,
+- local developer path: run `ignition-agent-trainer eval run ./experiment.ts` and compare the result against a baseline,
 - hosted path: run a saved experiment before publishing a workflow revision.
 
 Gate examples:

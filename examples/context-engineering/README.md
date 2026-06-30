@@ -27,7 +27,7 @@ In this project, context engineering means improving an agent by changing what t
 - cost and latency budgets.
 
 The reward functions measure whether those changes improve the final behavior.
-This example uses `@ignitionai/preset-rag` to compose required text, citation, latency and cost rewards.
+This example uses `@ignitionai/agent-trainer-preset-rag` to compose required text, citation, latency and cost rewards.
 
 ## IgnitionRAG Mapping
 
@@ -56,13 +56,13 @@ bun run --filter './examples/context-engineering' dev
 Run the same typed experiment through the local CLI:
 
 ```bash
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/context-engineering/experiment.ts
 ```
 
 Write JSON and Markdown reports:
 
 ```bash
-bun run --filter '@ignitionai/cli' dev -- eval run ./examples/context-engineering/experiment.ts \
+bun run --filter '@ignitionai/agent-trainer-cli' dev -- eval run ./examples/context-engineering/experiment.ts \
   --json reports/context-engineering.json \
   --markdown reports/context-engineering.md
 ```

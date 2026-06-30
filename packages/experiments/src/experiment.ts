@@ -11,8 +11,8 @@ import type {
   RunError,
   RunResult,
   VariantSummary,
-} from "@ignitionai/core";
-import { normalizeRunResult, toAgentInput, weightedAverage } from "@ignitionai/core";
+} from "@ignitionai/agent-trainer-core";
+import { normalizeRunResult, toAgentInput, weightedAverage } from "@ignitionai/agent-trainer-core";
 
 export interface ExperimentOptions {
   concurrency?: number;

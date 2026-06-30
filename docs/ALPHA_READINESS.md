@@ -21,22 +21,22 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 
 | Package | Manifest metadata | README | Tests | Build output verified | Alpha status | Notes |
 |---|---|---|---|---|---|---|
-| `@ignitionai/adapter-callable` | ready | ready | ready | ready | ready | Generic callable adapter has docs, tests and an example. |
-| `@ignitionai/adapter-ignitionrag` | ready | ready | ready | ready | partial | Type-level contract only; no runtime IgnitionRAG integration. |
-| `@ignitionai/adapter-langchain` | ready | ready | ready | ready | partial | Structural adapter only; no dedicated example or deep framework coverage. |
-| `@ignitionai/adapter-langgraph` | ready | ready | ready | ready | partial | Structural adapter only; no persistence, streaming or graph internals. |
-| `@ignitionai/adapter-mastra` | ready | ready | ready | ready | partial | Structural adapter only; no memory, tool or full Mastra coverage. |
-| `@ignitionai/adapter-vercel-ai` | ready | ready | ready | ready | partial | Structural adapter only; no streaming, tools or live provider calls. |
-| `@ignitionai/cli` | ready | ready | ready | ready | partial | Runs typed experiments and writes standalone reports or timestamped bundles; no history/baseline/regression flags yet. |
-| `@ignitionai/core` | ready | ready | missing | ready | partial | Foundational types and helpers need dedicated tests before alpha-stable status. |
-| `@ignitionai/environment` | ready | ready | missing | ready | prototype | Early environment loop only; no recorder, policy evaluation or tests yet. |
-| `@ignitionai/evals` | ready | ready | ready | ready | partial | Current rewards are tested; RAG presets and richer scoring are still missing. |
-| `@ignitionai/experiments` | ready | ready | ready | ready | ready | Local runner, definitions, gates and JSONL history are tested and documented. |
-| `@ignitionai/exporters` | ready | ready | ready | ready | ready | JSON/Markdown report shape and local report bundles are tested. |
-| `@ignitionai/preset-rag` | ready | ready | ready | ready | partial | RAG presets compose existing deterministic rewards; no live retrieval or model-graded scoring. |
-| `@ignitionai/preset-strategies` | ready | ready | ready | ready | partial | Strategy registry provides deterministic mocked variants; no real retrieval, reranking or provider calls. |
-| `@ignitionai/rl` | ready | ready | partial | ready | prototype | Deterministic policy helpers, trajectory recorder, fixed-strategy bandits, offline policy evaluation, GRPO-style selection and PPO interface skeletons are tested; deeper RL is intentionally absent. |
-| `@ignitionai/trainer` | ready | ready | ready | ready | ready | Deterministic recommendation, candidate evaluation and grid search are tested. |
+| `@ignitionai/agent-trainer-adapter-callable` | ready | ready | ready | ready | ready | Generic callable adapter has docs, tests and an example. |
+| `@ignitionai/agent-trainer-adapter-ignitionrag` | ready | ready | ready | ready | partial | Type-level contract only; no runtime IgnitionRAG integration. |
+| `@ignitionai/agent-trainer-adapter-langchain` | ready | ready | ready | ready | partial | Structural adapter only; no dedicated example or deep framework coverage. |
+| `@ignitionai/agent-trainer-adapter-langgraph` | ready | ready | ready | ready | partial | Structural adapter only; no persistence, streaming or graph internals. |
+| `@ignitionai/agent-trainer-adapter-mastra` | ready | ready | ready | ready | partial | Structural adapter only; no memory, tool or full Mastra coverage. |
+| `@ignitionai/agent-trainer-adapter-vercel-ai` | ready | ready | ready | ready | partial | Structural adapter only; no streaming, tools or live provider calls. |
+| `@ignitionai/agent-trainer-cli` | ready | ready | ready | ready | partial | Runs typed experiments and writes standalone reports or timestamped bundles; no history/baseline/regression flags yet. |
+| `@ignitionai/agent-trainer-core` | ready | ready | missing | ready | partial | Foundational types and helpers need dedicated tests before alpha-stable status. |
+| `@ignitionai/agent-trainer-environment` | ready | ready | missing | ready | prototype | Early environment loop only; no recorder, policy evaluation or tests yet. |
+| `@ignitionai/agent-trainer-evals` | ready | ready | ready | ready | partial | Current rewards are tested; RAG presets and richer scoring are still missing. |
+| `@ignitionai/agent-trainer-experiments` | ready | ready | ready | ready | ready | Local runner, definitions, gates and JSONL history are tested and documented. |
+| `@ignitionai/agent-trainer-exporters` | ready | ready | ready | ready | ready | JSON/Markdown report shape and local report bundles are tested. |
+| `@ignitionai/agent-trainer-preset-rag` | ready | ready | ready | ready | partial | RAG presets compose existing deterministic rewards; no live retrieval or model-graded scoring. |
+| `@ignitionai/agent-trainer-preset-strategies` | ready | ready | ready | ready | partial | Strategy registry provides deterministic mocked variants; no real retrieval, reranking or provider calls. |
+| `@ignitionai/agent-trainer-rl` | ready | ready | partial | ready | prototype | Deterministic policy helpers, trajectory recorder, fixed-strategy bandits, offline policy evaluation, GRPO-style selection and PPO interface skeletons are tested; deeper RL is intentionally absent. |
+| `@ignitionai/agent-trainer` | ready | ready | ready | ready | ready | Deterministic recommendation, candidate evaluation and grid search are tested. |
 
 ## Verified Through PR #38
 
@@ -54,8 +54,8 @@ All packages declare `license: MIT`, matching the root `LICENSE` file.
 
 ## Known Work After Internal Alpha
 
-- Add dedicated tests for `@ignitionai/core`.
-- Add dedicated tests for `@ignitionai/environment` or keep it explicitly prototype-only.
+- Add dedicated tests for `@ignitionai/agent-trainer-core`.
+- Add dedicated tests for `@ignitionai/agent-trainer-environment` or keep it explicitly prototype-only.
 - Add CLI history/baseline/regression ergonomics after report bundles and CI examples.
 - Decide package publishing policy before any npm publication.
 - Add deeper examples for ecosystem adapters.

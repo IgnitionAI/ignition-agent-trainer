@@ -1,11 +1,11 @@
-# @ignitionai/adapter-langchain
+# @ignitionai/agent-trainer-adapter-langchain
 
 Minimal structural adapter for LangChain Runnable-like objects.
 
 This package does not require `langchain` at runtime. It only expects an object with an `invoke()` method:
 
 ```ts
-import { createLangChainAdapter } from "@ignitionai/adapter-langchain";
+import { createLangChainAdapter } from "@ignitionai/agent-trainer-adapter-langchain";
 
 const adapter = createLangChainAdapter({
   name: "support-runnable",
@@ -20,7 +20,7 @@ const adapter = createLangChainAdapter({
 Use `langChainAdapter()` when you want an `AgentVariant` directly:
 
 ```ts
-import { langChainAdapter } from "@ignitionai/adapter-langchain";
+import { langChainAdapter } from "@ignitionai/agent-trainer-adapter-langchain";
 
 const variant = langChainAdapter({
   id: "langchain-rag",
@@ -29,7 +29,7 @@ const variant = langChainAdapter({
 });
 ```
 
-The adapter uses `@ignitionai/adapter-callable` internally, so thrown runnable errors flow through the standard experiment failure path.
+The adapter uses `@ignitionai/agent-trainer-adapter-callable` internally, so thrown runnable errors flow through the standard experiment failure path.
 
 ## Mapping
 

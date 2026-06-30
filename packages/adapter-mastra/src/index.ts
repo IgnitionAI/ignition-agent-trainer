@@ -2,14 +2,14 @@ import {
   type CallableAdapterRunInput,
   type CallableAdapterRunResult,
   createCallableAdapter,
-} from "@ignitionai/adapter-callable";
+} from "@ignitionai/agent-trainer-adapter-callable";
 import type {
   AgentOutput,
   AgentVariant,
   DatasetItem,
   MaybePromise,
   Metadata,
-} from "@ignitionai/core";
+} from "@ignitionai/agent-trainer-core";
 
 export interface MastraAgentLike {
   generate?: (input: unknown, options?: unknown) => MaybePromise<unknown>;

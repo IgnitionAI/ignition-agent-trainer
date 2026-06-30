@@ -1,7 +1,7 @@
 import { mkdtemp, readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { ExperimentResult } from "@ignitionai/core";
+import type { ExperimentResult } from "@ignitionai/agent-trainer-core";
 import { describe, expect, it } from "vitest";
 import { exportExperimentResult, toJsonReport, toMarkdownReport, writeReportBundle } from "./index";
 

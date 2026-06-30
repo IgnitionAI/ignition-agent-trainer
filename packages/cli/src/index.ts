@@ -4,15 +4,15 @@ import { existsSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, isAbsolute, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import type { ExperimentResult } from "@ignitionai/core";
-import type { ExperimentDefinition } from "@ignitionai/experiments";
+import { recommendVariant, type VariantRecommendation } from "@ignitionai/agent-trainer";
+import type { ExperimentResult } from "@ignitionai/agent-trainer-core";
+import type { ExperimentDefinition } from "@ignitionai/agent-trainer-experiments";
 import {
   type ExperimentResultExportOptions,
   toJsonReport,
   toMarkdownReport,
   writeReportBundle,
-} from "@ignitionai/exporters";
-import { recommendVariant, type VariantRecommendation } from "@ignitionai/trainer";
+} from "@ignitionai/agent-trainer-exporters";
 
 export interface EvalRunCommand {
   kind: "eval-run";
@@ -51,7 +51,7 @@ interface ResolvedCliEnvironment {
 const usage = `Ignition Agent Trainer CLI
 
 Usage:
-  ignition eval run <experiment.ts> [--json <report.json>] [--markdown <report.md>] [--bundle <reports-dir>]
+  ignition-agent-trainer eval run <experiment.ts> [--json <report.json>] [--markdown <report.md>] [--bundle <reports-dir>]
 
 Options:
   --json <path>       Write a JSON experiment report.
@@ -81,7 +81,7 @@ export function parseCliArgs(args: string[]): ParseCliArgsResult {
   if (experimentPath === undefined || experimentPath.startsWith("-")) {
     return {
       ok: false,
-      message: "Missing experiment path. Expected: ignition eval run <experiment.ts>",
+      message: "Missing experiment path. Expected: ignition-agent-trainer eval run <experiment.ts>",
       exitCode: 1,
       showUsage: true,
     };

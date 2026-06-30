@@ -19,7 +19,7 @@ As a developer, I want to compare two RAG workflows on a dataset so that I know 
 ## CLI target
 
 ```bash
-ignition eval run \
+ignition-agent-trainer eval run \
   --dataset ./datasets/contracts.json \
   --variant ./variants/simple-rag.ts \
   --variant ./variants/rag-rerank-verify.ts \

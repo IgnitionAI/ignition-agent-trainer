@@ -7,9 +7,9 @@
     "dev": "bun src/index.ts"
   },
   "dependencies": {
-    "@ignitionai/core": "workspace:*",
-    "@ignitionai/experiments": "workspace:*",
-    "@ignitionai/preset-rag": "workspace:*",
-    "@ignitionai/trainer": "workspace:*"
+    "@ignitionai/agent-trainer": "workspace:*",
+    "@ignitionai/agent-trainer-core": "workspace:*",
+    "@ignitionai/agent-trainer-experiments": "workspace:*",
+    "@ignitionai/agent-trainer-preset-rag": "workspace:*"
   }
 }

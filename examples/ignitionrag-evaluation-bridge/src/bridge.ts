@@ -2,7 +2,7 @@ import type {
   IgnitionRagCollectionReference,
   IgnitionRagExperimentExecutionRequest,
   IgnitionRagExperimentVariantReference,
-} from "@ignitionai/adapter-ignitionrag";
+} from "@ignitionai/agent-trainer-adapter-ignitionrag";
 import type {
   AgentAdapter,
   AgentInput,
@@ -13,10 +13,10 @@ import type {
   JsonValue,
   Metadata,
   RunContext,
-} from "@ignitionai/core";
-import { createDataset } from "@ignitionai/core";
-import { defineExperiment, type ExperimentDefinition } from "@ignitionai/experiments";
-import { ragQualityPreset } from "@ignitionai/preset-rag";
+} from "@ignitionai/agent-trainer-core";
+import { createDataset } from "@ignitionai/agent-trainer-core";
+import { defineExperiment, type ExperimentDefinition } from "@ignitionai/agent-trainer-experiments";
+import { ragQualityPreset } from "@ignitionai/agent-trainer-preset-rag";
 
 export interface IgnitionRagEvaluationDatasetRecord {
   id: string;

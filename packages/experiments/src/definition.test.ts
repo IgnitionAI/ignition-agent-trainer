@@ -1,6 +1,6 @@
-import { createDataset, createMockAdapter } from "@ignitionai/core";
-import { containsAll } from "@ignitionai/evals";
-import type { ExperimentConfig } from "@ignitionai/experiments";
+import { createDataset, createMockAdapter } from "@ignitionai/agent-trainer-core";
+import { containsAll } from "@ignitionai/agent-trainer-evals";
+import type { ExperimentConfig } from "@ignitionai/agent-trainer-experiments";
 import { describe, expect, it } from "vitest";
 import { defineExperiment } from "./definition";
 

@@ -1,4 +1,4 @@
-# @ignitionai/experiments
+# @ignitionai/agent-trainer-experiments
 
 Experiment runner and typed experiment definitions for Ignition Agent Trainer.
 
@@ -7,7 +7,7 @@ Use this package to compare agent variants over a dataset with rewards and produ
 ## Run an Experiment Directly
 
 ```ts
-import { createExperiment } from "@ignitionai/experiments";
+import { createExperiment } from "@ignitionai/agent-trainer-experiments";
 
 const result = await createExperiment({
   name: "support-agent-eval",
@@ -22,7 +22,7 @@ const result = await createExperiment({
 `defineExperiment()` wraps the same config in a typed, importable module shape. This prepares experiments for future CLI loading without implementing the CLI in this package.
 
 ```ts
-import { defineExperiment } from "@ignitionai/experiments";
+import { defineExperiment } from "@ignitionai/agent-trainer-experiments";
 
 export default defineExperiment({
   name: "context-engineering-strategies",
@@ -44,7 +44,7 @@ The returned `ExperimentDefinition` includes:
 Use `compareExperimentResults()` when you want an inspectable comparison, and `assertNoRegression()` when CI should fail on meaningful regressions.
 
 ```ts
-import { assertNoRegression, compareExperimentResults } from "@ignitionai/experiments";
+import { assertNoRegression, compareExperimentResults } from "@ignitionai/agent-trainer-experiments";
 
 const baseline = await baselineExperiment.run();
 const current = await currentExperiment.run();
@@ -82,7 +82,7 @@ import {
   compareExperimentResults,
   getLatestExperimentResult,
   readExperimentHistory,
-} from "@ignitionai/experiments";
+} from "@ignitionai/agent-trainer-experiments";
 
 const historyPath = ".ignition/experiment-history.jsonl";
 const history = await readExperimentHistory(historyPath);

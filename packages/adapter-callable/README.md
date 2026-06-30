@@ -1,11 +1,11 @@
-# @ignitionai/adapter-callable
+# @ignitionai/agent-trainer-adapter-callable
 
 Generic callable adapter for Ignition Agent Trainer.
 
 Use this package when you already have an agent-like TypeScript function and want to evaluate it with the standard dataset, rewards, experiment and trainer loop.
 
 ```ts
-import { createCallableAdapter } from "@ignitionai/adapter-callable";
+import { createCallableAdapter } from "@ignitionai/agent-trainer-adapter-callable";
 
 const adapter = createCallableAdapter({
   name: "support-agent-v1",
@@ -18,11 +18,11 @@ const adapter = createCallableAdapter({
 });
 ```
 
-The adapter conforms to the shared `AgentAdapter` interface from `@ignitionai/core`, so it can be used as a normal experiment variant.
+The adapter conforms to the shared `AgentAdapter` interface from `@ignitionai/agent-trainer-core`, so it can be used as a normal experiment variant.
 
 ## What It Bridges
 
-`@ignitionai/adapter-callable` is the first generic bridge from real user code into Ignition Agent Trainer:
+`@ignitionai/agent-trainer-adapter-callable` is the first generic bridge from real user code into Ignition Agent Trainer:
 
 - custom functions,
 - local service wrappers,

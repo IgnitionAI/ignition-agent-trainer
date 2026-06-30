@@ -73,7 +73,18 @@ Do not add more RL abstractions, PPO, GRPO training, real provider calls, databa
 
 After the IgnitionRAG bridge prototype and `v0.1.0-alpha.0` release notes are complete, Codex must stop adding framework abstractions by default.
 
-The next phase is dogfooding inside IgnitionRAG:
+The only allowed bridge before dogfooding is npm alpha publishing readiness:
+
+```txt
+PR #42 packaging readiness
+-> tag v0.1.0-alpha.1 after merge
+-> manual npm publish with dist-tag alpha
+-> external install smoke test
+```
+
+PR #42 must not publish to npm during the PR and must not add runtime features.
+
+After the npm alpha is published, the next phase is dogfooding inside IgnitionRAG:
 
 ```txt
 IgnitionRAG Evaluation Center prototype

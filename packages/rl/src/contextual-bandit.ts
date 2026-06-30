@@ -1,4 +1,4 @@
-import type { Metadata } from "@ignitionai/core";
+import type { Metadata } from "@ignitionai/agent-trainer-core";
 
 export type ContextFeatureValue = string | number | boolean;
 

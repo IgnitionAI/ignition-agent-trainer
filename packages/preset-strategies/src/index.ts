@@ -5,7 +5,7 @@ import type {
   RunContext,
   RunResult,
   UsageMetrics,
-} from "@ignitionai/core";
+} from "@ignitionai/agent-trainer-core";
 
 export interface StrategyPresetVariantOptions {
   id?: string;

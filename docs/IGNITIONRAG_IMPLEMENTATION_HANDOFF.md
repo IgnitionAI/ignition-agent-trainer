@@ -29,22 +29,22 @@ Do not copy internal package implementation into IgnitionRAG. Consume package AP
 
 | Package | IgnitionRAG usage |
 |---|---|
-| `@ignitionai/core` | Shared `Dataset`, `DatasetItem`, `AgentVariant`, `ExperimentResult`, trace, usage and metadata types. |
-| `@ignitionai/evals` | Low-level deterministic rewards such as required text, citations, latency, cost and tool usage. |
-| `@ignitionai/preset-rag` | RAG reward presets for Evaluation Center and Experiment Lab defaults. |
-| `@ignitionai/preset-strategies` | Deterministic strategy presets for early mocked and local comparisons. |
-| `@ignitionai/adapter-ignitionrag` | Type-level boundary for collection, workflow, agent, experiment request and report result shapes. |
-| `@ignitionai/experiments` | `createExperiment()`, `defineExperiment()`, regression gates and local history primitives. |
-| `@ignitionai/exporters` | JSON, Markdown and local report bundle output. |
-| `@ignitionai/trainer` | Deterministic recommendation and objective ranking helpers. |
-| `@ignitionai/cli` | Local developer and CI reference implementation. |
+| `@ignitionai/agent-trainer-core` | Shared `Dataset`, `DatasetItem`, `AgentVariant`, `ExperimentResult`, trace, usage and metadata types. |
+| `@ignitionai/agent-trainer-evals` | Low-level deterministic rewards such as required text, citations, latency, cost and tool usage. |
+| `@ignitionai/agent-trainer-preset-rag` | RAG reward presets for Evaluation Center and Experiment Lab defaults. |
+| `@ignitionai/agent-trainer-preset-strategies` | Deterministic strategy presets for early mocked and local comparisons. |
+| `@ignitionai/agent-trainer-adapter-ignitionrag` | Type-level boundary for collection, workflow, agent, experiment request and report result shapes. |
+| `@ignitionai/agent-trainer-experiments` | `createExperiment()`, `defineExperiment()`, regression gates and local history primitives. |
+| `@ignitionai/agent-trainer-exporters` | JSON, Markdown and local report bundle output. |
+| `@ignitionai/agent-trainer` | Deterministic recommendation and objective ranking helpers. |
+| `@ignitionai/agent-trainer-cli` | Local developer and CI reference implementation. |
 
 ## API Boundary
 
 IgnitionRAG should implement an adapter that satisfies:
 
 ```ts
-import type { IgnitionRagAdapterContract } from "@ignitionai/adapter-ignitionrag";
+import type { IgnitionRagAdapterContract } from "@ignitionai/agent-trainer-adapter-ignitionrag";
 ```
 
 The adapter receives an `IgnitionRagExperimentExecutionRequest` and returns an `IgnitionRagExperimentExecutionResult`.
@@ -59,10 +59,10 @@ Boundary summary:
 | Workflow snapshot loading | IgnitionRAG |
 | Agent/workflow execution | IgnitionRAG adapter |
 | Reward composition | Agent Trainer packages |
-| Experiment aggregation | `@ignitionai/experiments` |
-| Report serialization | `@ignitionai/exporters` |
+| Experiment aggregation | `@ignitionai/agent-trainer-experiments` |
+| Report serialization | `@ignitionai/agent-trainer-exporters` |
 | Hosted report storage | IgnitionRAG |
-| Recommendation display | IgnitionRAG UI using `@ignitionai/trainer` output |
+| Recommendation display | IgnitionRAG UI using `@ignitionai/agent-trainer` output |
 
 ## Feature 1: Evaluation Center
 
@@ -78,10 +78,10 @@ Initial flow:
 2. User selects or imports an evaluation dataset.
 3. IgnitionRAG maps stored cases into `DatasetItem[]`.
 4. IgnitionRAG creates one executable `AgentVariant`.
-5. IgnitionRAG composes rewards with `ragQualityPreset()` or explicit `@ignitionai/evals` rewards.
+5. IgnitionRAG composes rewards with `ragQualityPreset()` or explicit `@ignitionai/agent-trainer-evals` rewards.
 6. IgnitionRAG calls `createExperiment()`.
 7. IgnitionRAG stores the returned `ExperimentResult`.
-8. IgnitionRAG exports JSON or Markdown with `@ignitionai/exporters`.
+8. IgnitionRAG exports JSON or Markdown with `@ignitionai/agent-trainer-exporters`.
 
 Minimum output:
 
@@ -119,7 +119,7 @@ Implementation flow:
 5. Display leaderboard, reward averages, failed cases, cost and latency.
 6. Export a report bundle with `writeReportBundle()` for debugging or CI artifacts.
 
-Use `@ignitionai/preset-strategies` only for mocked defaults, demos or local comparisons. Real IgnitionRAG variants should come from saved workflow snapshots.
+Use `@ignitionai/agent-trainer-preset-strategies` only for mocked defaults, demos or local comparisons. Real IgnitionRAG variants should come from saved workflow snapshots.
 
 ## Feature 3: Context Engineering Recommendations
 
@@ -134,7 +134,7 @@ Initial recommendations should use:
 - `recommendVariant()`,
 - `selectBestVariant()`,
 - `rankVariants()`,
-- objective helpers from `@ignitionai/trainer`.
+- objective helpers from `@ignitionai/agent-trainer`.
 
 Recommended UI output:
 

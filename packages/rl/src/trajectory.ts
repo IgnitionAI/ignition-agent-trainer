@@ -1,4 +1,4 @@
-import type { JsonRecord, JsonValue, Metadata } from "@ignitionai/core";
+import type { JsonRecord, JsonValue, Metadata } from "@ignitionai/agent-trainer-core";
 
 export interface TrajectoryStep {
   index: number;

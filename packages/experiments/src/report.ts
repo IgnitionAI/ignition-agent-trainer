@@ -1,4 +1,4 @@
-import type { ExperimentReport } from "@ignitionai/core";
+import type { ExperimentReport } from "@ignitionai/agent-trainer-core";
 
 export function reportToJson(report: ExperimentReport): string {
   return JSON.stringify(report, null, 2);

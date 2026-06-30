@@ -1,6 +1,6 @@
 import { appendFile, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
-import type { ExperimentResult, Metadata } from "@ignitionai/core";
+import type { ExperimentResult, Metadata } from "@ignitionai/agent-trainer-core";
 
 export const EXPERIMENT_HISTORY_ENTRY_SCHEMA_VERSION = "ignition.experiment-history-entry.v1";
 
