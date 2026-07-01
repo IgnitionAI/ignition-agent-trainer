@@ -1,6 +1,6 @@
 # npm Alpha Publishing
 
-This document defines the npm alpha publishing policy and manual publishing process for `v0.1.0-alpha.1`.
+This document defines the npm alpha publishing policy and manual publishing process for `v0.1.0-alpha.x`.
 
 The goal is to validate Ignition Agent Trainer as a real external dependency before dogfooding it inside IgnitionRAG. Do not publish these packages as `latest`.
 
@@ -95,13 +95,13 @@ bun run pack:check
 
 ## Tag
 
-Create the tag only after the npm-readiness PR is merged:
+Create the tag only after the release commit is on `main` and all pre-publish checks pass. Replace the version with the alpha being published:
 
 ```bash
 git checkout main
 git pull --ff-only origin main
-git tag -a v0.1.0-alpha.1 -m "v0.1.0-alpha.1"
-git push origin v0.1.0-alpha.1
+git tag -a v0.1.0-alpha.2 -m "v0.1.0-alpha.2"
+git push origin v0.1.0-alpha.2
 ```
 
 ## Manual Publish
@@ -169,4 +169,4 @@ bunx --package @ignitionai/agent-trainer-cli@alpha ignition-agent-trainer eval r
 
 ## Later Automation
 
-GitHub Actions publishing with npm provenance is intentionally disabled for `v0.1.0-alpha.1`. Add it only after the manual alpha has been consumed successfully from IgnitionRAG, and only through a dedicated PR that follows the policy above.
+GitHub Actions publishing with npm provenance is intentionally disabled for manual alpha releases. Add it only after the manual alpha has been consumed successfully from IgnitionRAG, and only through a dedicated PR that follows the policy above.

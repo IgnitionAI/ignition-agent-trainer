@@ -1,6 +1,6 @@
 {
   "name": "@ignitionai/agent-trainer-adapter-vercel-ai",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Minimal structural Vercel AI SDK adapter for Ignition Agent Trainer.",
   "license": "MIT",
   "type": "module",

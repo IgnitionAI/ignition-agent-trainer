@@ -1,6 +1,6 @@
 {
   "name": "@ignitionai/agent-trainer-core",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Shared primitives for Ignition Agent Trainer datasets, adapters, traces, rewards and reports.",
   "license": "MIT",
   "type": "module",

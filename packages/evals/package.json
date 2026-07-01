@@ -1,6 +1,6 @@
 {
   "name": "@ignitionai/agent-trainer-evals",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Reward functions and trace helpers for Ignition Agent Trainer evaluations.",
   "license": "MIT",
   "type": "module",
@@ -26,7 +26,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ignitionai/agent-trainer-core": "0.1.0-alpha.1"
+    "@ignitionai/agent-trainer-core": "0.1.0-alpha.2"
   },
   "devDependencies": {
     "tsup": "latest",

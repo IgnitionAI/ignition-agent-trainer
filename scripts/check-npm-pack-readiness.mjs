@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 
 const rootDirectory = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const packagesDirectory = join(rootDirectory, "packages");
-const expectedVersion = "0.1.0-alpha.1";
+const expectedVersion = "0.1.0-alpha.2";
 
 const publishablePackages = new Map([
   ["core", "@ignitionai/agent-trainer-core"],

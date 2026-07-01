@@ -1,6 +1,6 @@
 {
   "name": "@ignitionai/agent-trainer-environment",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Tested state/action/reward environment episode primitives for Ignition Agent Trainer.",
   "license": "MIT",
   "type": "module",
@@ -26,7 +26,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ignitionai/agent-trainer-core": "0.1.0-alpha.1"
+    "@ignitionai/agent-trainer-core": "0.1.0-alpha.2"
   },
   "devDependencies": {
     "tsup": "latest",

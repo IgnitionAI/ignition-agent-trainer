@@ -1,6 +1,6 @@
 {
   "name": "@ignitionai/agent-trainer-cli",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Local CLI for running typed Ignition Agent Trainer experiments.",
   "license": "MIT",
   "type": "module",
@@ -30,12 +30,12 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ignitionai/agent-trainer": "0.1.0-alpha.1",
-    "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
-    "@ignitionai/agent-trainer-environment": "0.1.0-alpha.1",
-    "@ignitionai/agent-trainer-experiments": "0.1.0-alpha.1",
-    "@ignitionai/agent-trainer-exporters": "0.1.0-alpha.1",
-    "@ignitionai/agent-trainer-rl": "0.1.0-alpha.1"
+    "@ignitionai/agent-trainer": "0.1.0-alpha.2",
+    "@ignitionai/agent-trainer-core": "0.1.0-alpha.2",
+    "@ignitionai/agent-trainer-environment": "0.1.0-alpha.2",
+    "@ignitionai/agent-trainer-experiments": "0.1.0-alpha.2",
+    "@ignitionai/agent-trainer-exporters": "0.1.0-alpha.2",
+    "@ignitionai/agent-trainer-rl": "0.1.0-alpha.2"
   },
   "devDependencies": {
     "tsup": "latest",

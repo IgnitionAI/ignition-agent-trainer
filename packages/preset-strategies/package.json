@@ -1,6 +1,6 @@
 {
   "name": "@ignitionai/agent-trainer-preset-strategies",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Reusable strategy preset registry for Ignition Agent Trainer experiments.",
   "license": "MIT",
   "type": "module",

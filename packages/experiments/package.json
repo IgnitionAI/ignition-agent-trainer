@@ -1,6 +1,6 @@
 {
   "name": "@ignitionai/agent-trainer-experiments",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Experiment runner, definitions, regression gates and local history for Ignition Agent Trainer.",
   "license": "MIT",
   "type": "module",
@@ -26,8 +26,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ignitionai/agent-trainer-core": "0.1.0-alpha.1",
-    "@ignitionai/agent-trainer-evals": "0.1.0-alpha.1"
+    "@ignitionai/agent-trainer-core": "0.1.0-alpha.2",
+    "@ignitionai/agent-trainer-evals": "0.1.0-alpha.2"
   },
   "devDependencies": {
     "tsup": "latest",
