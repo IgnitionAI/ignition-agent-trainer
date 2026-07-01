@@ -22,6 +22,8 @@ export interface ExportRecommendation {
   reasons?: string[];
   tradeoffs?: string[];
   confidence?: string;
+  comparisonAvailable?: boolean;
+  recommendationKind?: "baseline" | "comparison";
   alternatives?: ExportRecommendationAlternative[];
   metadata?: Metadata;
 }
@@ -141,9 +143,41 @@ export function exportExperimentResult(
     rewardSummaries: rewardSummaries(result.leaderboard),
   };
 
-  if (options.recommendation != null) exportResult.recommendation = options.recommendation;
+  if (options.recommendation != null) {
+    exportResult.recommendation = normalizeRecommendation(
+      options.recommendation,
+      result.leaderboard.length,
+    );
+  }
   if (options.metadata !== undefined) exportResult.metadata = options.metadata;
   return exportResult;
+}
+
+function normalizeRecommendation(
+  recommendation: ExportRecommendation,
+  variantCount: number,
+): ExportRecommendation {
+  const comparisonAvailable =
+    recommendation.comparisonAvailable ??
+    (recommendation.recommendationKind === "baseline" ? false : variantCount > 1);
+  const recommendationKind =
+    recommendation.recommendationKind ?? (comparisonAvailable ? "comparison" : "baseline");
+
+  if (comparisonAvailable) {
+    return {
+      ...recommendation,
+      comparisonAvailable,
+      recommendationKind,
+    };
+  }
+
+  return {
+    ...recommendation,
+    summary: recommendation.summary ?? baselineSummary(recommendation.winner),
+    confidence: recommendation.confidence ?? "low",
+    comparisonAvailable,
+    recommendationKind,
+  };
 }
 
 export function toJsonReport(
@@ -361,11 +395,19 @@ ${rows}`;
 }
 
 function recommendationMarkdown(recommendation: ExportRecommendation): string {
-  const lines = [
-    "## Recommendation",
-    "",
-    `Winner: ${recommendation.winner} (${formatScore(recommendation.score)})`,
-  ];
+  const isBaseline =
+    recommendation.comparisonAvailable === false ||
+    recommendation.recommendationKind === "baseline";
+  const lines = ["## Recommendation", ""];
+
+  if (isBaseline) {
+    lines.push(`Baseline: ${recommendation.winner} (${formatScore(recommendation.score)})`);
+    if (recommendation.summary === undefined) {
+      lines.push("", baselineSummary(recommendation.winner));
+    }
+  } else {
+    lines.push(`Winner: ${recommendation.winner} (${formatScore(recommendation.score)})`);
+  }
 
   if (recommendation.summary !== undefined) lines.push("", recommendation.summary);
   if (recommendation.confidence !== undefined)
@@ -378,6 +420,10 @@ function recommendationMarkdown(recommendation: ExportRecommendation): string {
   }
 
   return lines.join("\n");
+}
+
+function baselineSummary(variantName: string): string {
+  return `Baseline measured for ${variantName}. No alternative variants were evaluated, so no comparative winner is available.`;
 }
 
 function markdownCell(value: string): string {
