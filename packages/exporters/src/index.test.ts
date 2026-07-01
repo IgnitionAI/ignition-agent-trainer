@@ -90,6 +90,52 @@ const result: ExperimentResult = {
   ],
 };
 
+const singleVariantResult: ExperimentResult = {
+  name: "single-agent-baseline",
+  startedAt: "2026-01-01T00:00:00.000Z",
+  endedAt: "2026-01-01T00:01:00.000Z",
+  leaderboard: [
+    {
+      variantId: "current-agent",
+      name: "current-agent",
+      score: 0.82,
+      totalCases: 2,
+      failedCases: 0,
+      averageLatencyMs: 420,
+      totalCostUsd: 0.003,
+      rewardAverages: { answer_quality: 0.82 },
+    },
+  ],
+  cases: [
+    {
+      caseId: "case-1",
+      variantId: "current-agent",
+      variantName: "current-agent",
+      output: "answer",
+      trace: { steps: [] },
+      rewards: [{ name: "answer_quality", score: 0.82, weight: 1 }],
+      score: 0.82,
+      usage: { latencyMs: 420, costUsd: 0.003 },
+    },
+  ],
+  failedCases: [],
+};
+
+const legacyBaselineRecommendation = {
+  winner: "current-agent",
+  score: 0.82,
+};
+
+const baselineRecommendation = {
+  winner: "current-agent",
+  score: 0.82,
+  summary:
+    "Baseline measured for current-agent. No alternative variants were evaluated, so no comparative winner is available.",
+  confidence: "low",
+  comparisonAvailable: false,
+  recommendationKind: "baseline" as const,
+};
+
 describe("exportExperimentResult", () => {
   it("exports a stable report shape with dataset, variants, leaderboard and reward summaries", () => {
     const report = exportExperimentResult(result, {
@@ -140,6 +186,8 @@ describe("exportExperimentResult", () => {
       score: 0.91,
       summary: "Use verification for better answer quality.",
       confidence: "medium",
+      comparisonAvailable: true,
+      recommendationKind: "comparison",
     });
   });
 
@@ -174,6 +222,22 @@ describe("report serializers", () => {
     expect(parsed.leaderboard[0].name).toBe("RAG + Verify");
   });
 
+  it("serializes single-variant baseline recommendation metadata in JSON", () => {
+    const json = toJsonReport(singleVariantResult, {
+      generatedAt: "2026-01-01T00:02:00.000Z",
+      recommendation: legacyBaselineRecommendation,
+    });
+    const parsed = JSON.parse(json);
+    const wording = JSON.stringify(parsed.recommendation);
+
+    expect(parsed.recommendation).toEqual(baselineRecommendation);
+    expect(parsed.recommendation.comparisonAvailable).toBe(false);
+    expect(parsed.recommendation.recommendationKind).toBe("baseline");
+    expect(wording).not.toMatch(/Use current-agent/i);
+    expect(wording).not.toMatch(/highest overall score/i);
+    expect(wording).not.toMatch(/best variant/i);
+  });
+
   it("serializes a Markdown summary with leaderboard and recommendation", () => {
     const markdown = toMarkdownReport(result, {
       generatedAt: "2026-01-01T00:02:00.000Z",
@@ -182,6 +246,8 @@ describe("report serializers", () => {
         score: 0.91,
         reasons: ["Best answer quality."],
         tradeoffs: ["Higher latency."],
+        comparisonAvailable: true,
+        recommendationKind: "comparison",
       },
     });
 
@@ -189,7 +255,27 @@ describe("report serializers", () => {
     expect(markdown).toContain("| 1 | RAG + Verify | 0.910 | 2 | 0 | 900ms | $0.0123 |");
     expect(markdown).toContain("## Reward summaries");
     expect(markdown).toContain("## Recommendation");
+    expect(markdown).toContain("Winner: RAG + Verify (0.910)");
+    expect(markdown).not.toContain("Baseline: RAG + Verify");
     expect(markdown).toContain("- Best answer quality.");
+  });
+
+  it("serializes single-variant baseline Markdown without comparative winner wording", () => {
+    const markdown = toMarkdownReport(singleVariantResult, {
+      generatedAt: "2026-01-01T00:02:00.000Z",
+      recommendation: legacyBaselineRecommendation,
+    });
+
+    expect(markdown).toContain("# Experiment report: single-agent-baseline");
+    expect(markdown).toContain("## Recommendation");
+    expect(markdown).toContain("Baseline: current-agent (0.820)");
+    expect(markdown).toContain("Baseline measured for current-agent.");
+    expect(markdown).toContain("No alternative variants were evaluated");
+    expect(markdown).toContain("Confidence: low");
+    expect(markdown).not.toContain("Winner:");
+    expect(markdown).not.toMatch(/Use current-agent/i);
+    expect(markdown).not.toMatch(/highest overall score/i);
+    expect(markdown).not.toMatch(/best variant/i);
   });
 });
 

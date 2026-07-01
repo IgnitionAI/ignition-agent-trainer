@@ -51,10 +51,61 @@ describe("trainer recommendations", () => {
     const recommendation = recommendVariant(result);
 
     expect(recommendation?.winner).toBe("rag-with-verification");
-    expect(recommendation?.summary).toContain("rag-with-verification");
+    expect(recommendation?.summary).toBe(
+      "Use rag-with-verification because it achieved the highest overall score.",
+    );
+    expect(recommendation?.comparisonAvailable).toBe(true);
+    expect(recommendation?.recommendationKind).toBe("comparison");
     expect(recommendation?.reasons.length).toBeGreaterThan(0);
     expect(recommendation?.tradeoffs.join(" ")).toContain("slower");
     expect(recommendation?.alternatives[0]?.variant).toBe("rag-basic");
+  });
+
+  it("treats a single variant as a baseline measurement instead of a comparative win", () => {
+    const result = experiment([
+      variant({
+        name: "current-agent",
+        score: 0.82,
+        totalCases: 12,
+        rewardAverages: { answer_quality: 0.82, citations: 0.75 },
+      }),
+    ]);
+
+    const recommendation = recommendVariant(result);
+    const explanation = explainTradeoffs(result);
+    const wording = [
+      recommendation?.summary,
+      ...(recommendation?.reasons ?? []),
+      ...(recommendation?.tradeoffs ?? []),
+    ].join(" ");
+
+    expect(recommendation).toMatchObject({
+      winner: "current-agent",
+      score: 0.82,
+      summary:
+        "Baseline measured for current-agent. No alternative variants were evaluated, so no comparative winner is available.",
+      confidence: "low",
+      comparisonAvailable: false,
+      recommendationKind: "baseline",
+      alternatives: [],
+      metadata: {
+        variantId: "current-agent",
+        totalCases: 12,
+        comparisonAvailable: false,
+        recommendationKind: "baseline",
+      },
+    });
+    expect(explanation).toMatchObject({
+      winner: "current-agent",
+      comparisonAvailable: false,
+      recommendationKind: "baseline",
+      alternatives: [],
+    });
+    expect(wording).not.toMatch(/Use current-agent/i);
+    expect(wording).not.toMatch(/highest overall score/i);
+    expect(wording).not.toMatch(/ranked first/i);
+    expect(wording).not.toMatch(/best variant/i);
+    expect(wording).not.toMatch(/recommended winning strategy/i);
   });
 
   it("uses low confidence when scores are too close", () => {

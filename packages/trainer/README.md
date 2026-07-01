@@ -5,8 +5,10 @@ Deterministic recommendation primitives for Ignition Agent Trainer experiment re
 The trainer package does not train model weights today. It interprets an `ExperimentResult` and answers:
 
 ```txt
-Which variant won?
-Why did it win?
+Was a comparison available?
+Which variant won when alternatives were evaluated?
+What baseline was measured when only one variant was evaluated?
+Why did the recommendation choose that wording?
 What are the tradeoffs?
 How confident are we?
 Which alternatives are close?
@@ -39,13 +41,29 @@ const combinations = generateParameterCombinations({
 
 `recommendVariant()` returns a structured recommendation with:
 
-- winner name,
+- winner name for comparative runs, or the measured baseline variant name for single-variant runs,
 - score,
 - summary,
 - reasons,
 - tradeoffs,
 - confidence,
+- `comparisonAvailable`,
+- `recommendationKind`,
 - alternatives.
+
+When an experiment has only one variant, the recommendation is intentionally non-comparative:
+
+```ts
+const recommendation = recommendVariant(singleVariantResult);
+
+recommendation?.comparisonAvailable; // false
+recommendation?.recommendationKind; // "baseline"
+recommendation?.confidence; // "low"
+recommendation?.summary;
+// "Baseline measured for current-agent. No alternative variants were evaluated, so no comparative winner is available."
+```
+
+Consumers should treat this as a baseline measurement, not as a winning strategy. Add another variant before showing winner, best variant or promotion language.
 
 Optimization primitives are deterministic and support four objectives:
 
@@ -131,6 +149,12 @@ The trainer layer turns a leaderboard into a product-facing decision:
 
 ```txt
 Experiment result -> Recommendation -> Strategy selection
+```
+
+For single-variant evaluation runs, the trainer layer turns the leaderboard into a baseline summary instead:
+
+```txt
+Experiment result -> Baseline measurement -> Compare against alternatives later
 ```
 
 ## Not RL Yet

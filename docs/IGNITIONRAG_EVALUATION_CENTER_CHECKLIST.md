@@ -40,7 +40,7 @@ The first version may evaluate one workflow at a time. Multi-variant Experiment 
 | `groundedness_like` | deterministic grounding proxy | custom reward or future preset |
 | latency and cost rewards | operational quality metrics | `latencyPenalty()`, `costPenalty()` |
 | leaderboard | report summary | `ExperimentResult.leaderboard` |
-| recommendation | deterministic best strategy explanation | `recommendVariant()` |
+| recommendation | deterministic baseline or comparison explanation | `recommendVariant()` |
 | JSON/Markdown report | durable report artifact | `toJsonReport()`, `toMarkdownReport()` |
 | regression gate | publish or release guard | `compareExperimentResults()`, `assertNoRegression()` |
 
@@ -114,7 +114,8 @@ Reports:
 
 Recommendations:
 
-- use `recommendVariant()` only when multiple variants are present,
+- use `recommendVariant()` for baseline and comparative runs, but respect `comparisonAvailable`,
+- show single-variant runs as a baseline measurement, not as a winner,
 - show reasons, tradeoffs and confidence,
 - do not mutate prompts or workflows from recommendations in the Evaluation Center.
 

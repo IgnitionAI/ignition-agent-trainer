@@ -51,6 +51,13 @@ The exported report includes:
 - recommendation when provided,
 - metadata when provided.
 
+Recommendations may be comparative or baseline-only:
+
+- `comparisonAvailable: true` and `recommendationKind: "comparison"` keep the normal winner wording.
+- `comparisonAvailable: false` or `recommendationKind: "baseline"` render Markdown as a baseline measurement instead of a winner.
+
+When recommendation metadata is omitted, exporters infer the semantics from the report variant count. Single-variant reports say that no alternative variants were evaluated and keep confidence low or explicitly non-comparative.
+
 ## Report Bundles
 
 `writeReportBundle()` creates a local folder named from the experiment and generation timestamp:

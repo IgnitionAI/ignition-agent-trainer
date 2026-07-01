@@ -1,6 +1,7 @@
 import type { ExperimentResult, VariantSummary } from "@ignitionai/agent-trainer-core";
 
 export type RecommendationConfidence = "low" | "medium" | "high";
+export type RecommendationKind = "baseline" | "comparison";
 
 export interface VariantAlternative {
   variant: string;
@@ -15,6 +16,8 @@ export interface VariantRecommendation {
   reasons: string[];
   tradeoffs: string[];
   confidence: RecommendationConfidence;
+  comparisonAvailable?: boolean;
+  recommendationKind?: RecommendationKind;
   alternatives: VariantAlternative[];
   metadata?: Record<string, unknown>;
 }
@@ -32,6 +35,8 @@ export interface TradeoffExplanation {
   reasons: string[];
   tradeoffs: string[];
   alternatives: VariantAlternative[];
+  comparisonAvailable?: boolean;
+  recommendationKind?: RecommendationKind;
   scoreGap?: number;
   metadata?: Record<string, unknown>;
 }
@@ -62,19 +67,27 @@ export function recommendVariant(
   const resolvedOptions = { ...defaultOptions, ...options };
   const explanation = explainTradeoffs(result, resolvedOptions);
   if (explanation === null) return null;
+  const comparisonAvailable = explanation.comparisonAvailable ?? true;
+  const recommendationKind = explanation.recommendationKind ?? "comparison";
 
   return {
     winner: winner.name,
     score: winner.score,
-    summary: `Use ${winner.name} because it achieved the highest overall score.`,
+    summary: comparisonAvailable
+      ? `Use ${winner.name} because it achieved the highest overall score.`
+      : baselineSummary(winner.name),
     reasons: explanation.reasons,
     tradeoffs: explanation.tradeoffs,
     confidence: inferConfidence(result, explanation.scoreGap, resolvedOptions),
+    comparisonAvailable,
+    recommendationKind,
     alternatives: explanation.alternatives,
     metadata: {
       variantId: winner.variantId,
       totalCases: winner.totalCases,
       scoreGap: explanation.scoreGap,
+      comparisonAvailable,
+      recommendationKind,
     },
   };
 }
@@ -87,6 +100,7 @@ export function explainTradeoffs(
   const leaderboard = sortLeaderboard(result.leaderboard);
   const winner = leaderboard[0];
   if (winner === undefined) return null;
+  if (leaderboard.length === 1) return baselineExplanation(winner);
 
   const runnerUp = leaderboard[1];
   const scoreGap = runnerUp === undefined ? undefined : winner.score - runnerUp.score;
@@ -101,10 +115,38 @@ export function explainTradeoffs(
     reasons,
     tradeoffs,
     alternatives,
+    comparisonAvailable: true,
+    recommendationKind: "comparison",
     ...(scoreGap !== undefined ? { scoreGap } : {}),
     metadata: {
       variantId: winner.variantId,
       totalCases: winner.totalCases,
+      comparisonAvailable: true,
+      recommendationKind: "comparison",
+    },
+  };
+}
+
+function baselineSummary(variantName: string): string {
+  return `Baseline measured for ${variantName}. No alternative variants were evaluated, so no comparative winner is available.`;
+}
+
+function baselineExplanation(variant: VariantSummary): TradeoffExplanation {
+  return {
+    winner: variant.name,
+    reasons: [
+      `Baseline measured for ${variant.name}.`,
+      "No alternative variants were evaluated, so no comparative winner is available.",
+    ],
+    tradeoffs: ["Add at least one alternative variant before making comparative strategy claims."],
+    alternatives: [],
+    comparisonAvailable: false,
+    recommendationKind: "baseline",
+    metadata: {
+      variantId: variant.variantId,
+      totalCases: variant.totalCases,
+      comparisonAvailable: false,
+      recommendationKind: "baseline",
     },
   };
 }
