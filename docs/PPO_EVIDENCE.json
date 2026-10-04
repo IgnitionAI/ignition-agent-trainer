@@ -41,13 +41,7 @@
       "sha256": "9da26db7fd5ae035beb9b493bddb52c4c04e0dd5a09a84d3eadfc4b4742735d4",
       "protocol": {
         "corpusVersion": "robust-orders.v1",
-        "seeds": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
+        "seeds": [1, 2, 3, 4, 5],
         "maxSteps": 4,
         "maxLookupAttempts": 2,
         "trainingEpisodes": 400,
@@ -93,13 +87,7 @@
     "features-evaluation.json": {
       "sha256": "8b1f73c6cb504b5c4aabb118bd8a3aec17e55077f04d15e38a210c7e9d2b8af3",
       "protocol": {
-        "seeds": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
+        "seeds": [1, 2, 3, 4, 5],
         "episodeCount": 2000,
         "alphaLinear": 0.01,
         "alphaTabular": 0.3,
