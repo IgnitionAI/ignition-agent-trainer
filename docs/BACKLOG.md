@@ -11,8 +11,8 @@ Status values:
 Current snapshot:
 
 - Completed through PR #50.
-- No unblocked implementation PR is currently selected.
-- PR #51, the dogfood-driven policy optimization loop, stays blocked until dogfood or representative trajectory fixtures exist.
+- PR #51 is in local implementation on `feat/dogfood-policy-optimization-loop`.
+- IgnitionRAG integration testing was confirmed by the user. The user authorized a standalone synthetic ReAct scenario in place of unavailable dogfood exports.
 
 ## Stable PR sequence
 
@@ -3160,7 +3160,7 @@ Next PR:
 
 Status:
 
-- planned, blocked until dogfood trajectories exist
+- current, local implementation; merge and remote checks pending
 
 Branch:
 
@@ -3174,7 +3174,8 @@ Turn real or representative dogfood trajectories into a lightweight policy compa
 
 Precondition:
 
-- IgnitionRAG dogfood must produce useful trajectory/reward data, or this repo must get committed representative fixtures derived from that dogfood.
+- Original prerequisite: useful IgnitionRAG trajectory/reward data or fixtures derived from dogfood.
+- User-authorized alternative: execute a standalone deterministic ReAct agent on synthetic orders and collect observed rollouts. These fixtures are not represented as IgnitionRAG dogfood data.
 
 Scope:
 
@@ -3219,6 +3220,43 @@ Definition of done:
 - selection output explains why one policy wins,
 - no model training is introduced,
 - docs explicitly say this is lightweight policy optimization, not PPO.
+
+### Next PR - `feat: learn ReAct tool actions from episode rewards`
+
+Status:
+
+- planned; follows review of the policy-selection loop
+
+Goal:
+
+Learn which available tool action to take from the observed state, instead of
+selecting among complete hand-written strategies.
+
+Scope:
+
+- add a small tabular Q-learning policy for discrete environment actions,
+- use an explicit state encoder that excludes expected answers and hidden catalog data,
+- train with seeded epsilon-greedy exploration and terminal correctness/tool-cost rewards,
+- update Q values with discounted next-state value and zero bootstrap at terminal states,
+- freeze the policy before evaluation on separate order tasks,
+- report baseline versus learned reward, answer success rate and tool-call count,
+- keep the deterministic ReAct controller as an independent reference baseline.
+
+Acceptance:
+
+- seeded training is reproducible,
+- evaluation cannot update Q values,
+- the learned policy uses lookup then calculation when required,
+- unseen prices and quantities are solved using tool observations,
+- terminal updates, action availability and max-step failures are tested,
+- lint, typecheck, tests, build and package checks pass.
+
+Out of scope:
+
+- PPO, neural training, LLM weight updates, live routing and provider calls.
+
+This follow-up is proposed work; the current offline bandit report does not
+claim to have learned individual tool decisions.
 
 ## Dogfood phase - IgnitionRAG
 
