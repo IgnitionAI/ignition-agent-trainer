@@ -1,5 +1,6 @@
 import { createHash, createHmac } from "node:crypto";
 import type { JsonRecord } from "@ignitionai/agent-trainer-core";
+import { redactTrajectoryFields } from "./trajectory-fields";
 
 export type AllowedObservationFields = Readonly<
   Record<string, "number" | "boolean" | readonly string[]>
@@ -148,34 +149,20 @@ function readTransition(input: unknown, options: TrajectoryImportOptions): Impor
   const costUsd = optionalMetric(usage.costUsd);
   const latencyMs = optionalMetric(usage.latencyMs);
   return {
-    state: redact(record(step.state), options.observationFields),
+    state: redactTrajectoryFields(record(step.state), options.observationFields),
     action: {
       name,
-      input: redact(action.input === undefined ? {} : record(action.input), options.argumentFields),
+      input: redactTrajectoryFields(
+        action.input === undefined ? {} : record(action.input),
+        options.argumentFields,
+      ),
     },
-    observation: redact(record(step.observation), options.observationFields),
+    observation: redactTrajectoryFields(record(step.observation), options.observationFields),
     reward: finite(step.reward),
     done: step.done,
     ...(costUsd !== undefined ? { costUsd } : {}),
     ...(latencyMs !== undefined ? { latencyMs } : {}),
   };
-}
-
-function redact(input: Record<string, unknown>, fields: AllowedObservationFields): JsonRecord {
-  const output: JsonRecord = {};
-  for (const [name, kind] of Object.entries(fields)) {
-    if (name === "__proto__" || name === "constructor" || name === "prototype")
-      throw new Error("Unsafe observation field name.");
-    const value = input[name];
-    if (kind === "number" && typeof value === "number" && !Number.isFinite(value))
-      throw new Error("Allowed numeric observation must be finite.");
-    if (kind === "number" && typeof value === "number" && Number.isFinite(value))
-      output[name] = value;
-    else if (kind === "boolean" && typeof value === "boolean") output[name] = value;
-    else if (Array.isArray(kind) && typeof value === "string" && kind.includes(value))
-      output[name] = value;
-  }
-  return output;
 }
 
 function record(input: unknown): Record<string, unknown> {

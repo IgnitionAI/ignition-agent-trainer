@@ -27,6 +27,7 @@ export interface ObservedComparisonOptions {
   minimumPairs: number;
   minimumQualityGain: number;
   maximumToolIncrease: number;
+  actionKinds: Readonly<Record<string, "tool" | "control">>;
 }
 
 /** Paired observed outcomes, never a counterfactual estimate from unchosen actions. */
@@ -41,9 +42,23 @@ export function compareObservedTrajectoryPolicies(
     !Number.isFinite(options.minimumQualityGain) ||
     options.minimumQualityGain <= 0 ||
     !Number.isFinite(options.maximumToolIncrease) ||
-    options.maximumToolIncrease < 0
+    options.maximumToolIncrease < 0 ||
+    !options.actionKinds ||
+    typeof options.actionKinds !== "object" ||
+    Array.isArray(options.actionKinds)
   )
     throw new Error("Invalid observed policy comparison protocol.");
+  const observedNames = data.episodes.flatMap((episode) =>
+    episode.transitions.map((step) => step.action.name),
+  );
+  if (
+    observedNames.some(
+      (name) =>
+        !Object.hasOwn(options.actionKinds, name) ||
+        !["tool", "control"].includes(options.actionKinds[name] ?? ""),
+    )
+  )
+    throw new Error("Every observed action requires an explicit tool/control classification.");
   const baseline = observedByTask(data.episodes, options.baselinePolicyId);
   const learned = observedByTask(data.episodes, options.learnedPolicyId);
   const paired = [];
@@ -65,7 +80,7 @@ export function compareObservedTrajectoryPolicies(
       taskId: a.taskId,
       snapshotId: a.workflowSnapshotId,
       qualityDelta: b.qualityScore - a.qualityScore,
-      toolDelta: toolCount(b) - toolCount(a),
+      toolDelta: toolCount(b, options.actionKinds) - toolCount(a, options.actionKinds),
       costDelta:
         measuredTotal(b, "costUsd") !== null && measuredTotal(a, "costUsd") !== null
           ? Number(measuredTotal(b, "costUsd")) - Number(measuredTotal(a, "costUsd"))
@@ -124,10 +139,11 @@ function observedByTask(episodes: readonly ImportedEpisode[], policyId: string) 
   return groups;
 }
 
-function toolCount(episode: ImportedEpisode): number {
-  return episode.transitions.filter(
-    (step) => !["answer", "abstain", "clarify"].includes(step.action.name),
-  ).length;
+function toolCount(
+  episode: ImportedEpisode,
+  actionKinds: ObservedComparisonOptions["actionKinds"],
+): number {
+  return episode.transitions.filter((step) => actionKinds[step.action.name] === "tool").length;
 }
 
 function measuredTotal(episode: ImportedEpisode, field: "costUsd" | "latencyMs"): number | null {

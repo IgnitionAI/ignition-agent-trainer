@@ -2,6 +2,19 @@
 
 ## Observed IgnitionRAG trajectory evidence
 
+`recordIgnitionRagEpisode(environment, policy, options)` executes an environment
+and returns allowlisted pre-action states, chosen actions, observed rewards and
+post-action observations. Supply stable task/snapshot ids, an independent
+`evaluateQuality` callback and an explicit field/action allowlist. Step latency
+is measured wall time; USD cost stays unavailable unless `readMeasuredCost`
+returns an actual provider measurement. Budget exhaustion records truncation;
+tool exceptions reject recording. Assemble episodes into the v1 export envelope
+with verified provenance. This does not authenticate an environment or create
+the missing IgnitionRAG runtime binding.
+
+`compareObservedTrajectoryPolicies` requires `actionKinds` to classify every
+observed action as `tool` or `control`; action names never imply tool counts.
+
 `importIgnitionRagTrajectories(unknownExport, options)` validates versioned
 episode/transition exports, pseudonymizes ids with a private stable salt and
 retains only explicitly authorized numeric, boolean or enumerated-string fields.

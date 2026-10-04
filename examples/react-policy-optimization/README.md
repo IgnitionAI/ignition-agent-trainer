@@ -1,5 +1,16 @@
 # ReAct policy optimization
 
+To execute the trajectory recorder against the synthetic order environment:
+
+```bash
+bun examples/react-policy-optimization/src/record-trajectories.ts /tmp/recorded-trajectories
+```
+
+This records actual demo transitions with allowlisted fields and measured wall
+latency; cost remains unavailable. It compares two written demo controllers and
+declares synthetic evidence. See the [binding requirements](../../docs/TRAJECTORY_EVIDENCE.md)
+before using it with a real IgnitionRAG environment.
+
 ## Observed trajectory import contract
 
 ```bash

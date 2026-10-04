@@ -14,3 +14,4 @@ export * from "./strategy-bandit";
 export * from "./trajectory";
 export * from "./trajectory-evidence";
 export * from "./trajectory-import";
+export * from "./trajectory-recorder";

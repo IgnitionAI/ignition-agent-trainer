@@ -54,6 +54,41 @@ Do not reconstruct unobserved state, action choices or transition rewards from
 an answer-only report. If the runtime lacks these fields, a separate IgnitionRAG
 instrumentation PR is needed before using these records for learning.
 
+## Executed episode recording
+
+`recordIgnitionRagEpisode(environment, policy, options)` executes a supplied
+`AgentEnvironment` through `runLearningEpisode` and returns the episode portion
+of the export envelope. It snapshots allowlisted observations and object
+arguments before a mutable tool executes, then records only the returned reward,
+observation and terminal status. The step budget produces explicit truncation.
+Exceptions fail the recording; they never manufacture a successful episode.
+`evaluateQuality` must evaluate the executed result using the pinned quality
+definition independently of total reward. `readMeasuredCost` may return a
+provider-measured USD cost; omitting it leaves cost unavailable. Step latency is
+measured wall time around `environment.step`, including its overhead, rather
+than a provider-only latency. Caller-supplied provenance and `evidenceMode`
+remain declarations requiring an independent check.
+
+## Missing IgnitionRAG binding
+
+The inspected IgnitionRAG `createAgentEvaluationLiveRunner` calls `chatStream`
+or `chatStreamWithMcp` and collects `text`, `tool_call` and `tool_result` events.
+Its result contains an answer, trace and aggregate token/latency usage. Its
+`smoke-agent-trainer-packages.ts` only verifies installed package imports and
+versions; it cannot execute an isolated real learning episode.
+
+A real binding must provide the observable `reset` state, authorized `actions`
+before each choice, and an awaited `step` yielding the actual post-tool state,
+pinned transition reward and terminal flag. The learned policy must choose the
+executed action at that same decision boundary. Record both policies on the same
+reserved tasks and immutable snapshot, using the same reward/quality evaluator.
+Do not infer per-tool USD cost from aggregate tokens or split total latency
+between tool events. The existing stream collector has no pre-choice state,
+reward or learned-action hook; turning its trace into these fields would invent
+evidence. This recorder prepares the capture boundary, but does not supply or
+claim that real binding. No authorization route or persistent deployment is
+changed by this PR.
+
 ## Import and privacy
 
 Use `importIgnitionRagTrajectories(raw, { pseudonymSalt, actionNames,
@@ -82,6 +117,9 @@ the current comparator; repetitions need an explicit aggregation protocol first.
 
 The comparison reports paired quality deltas, tool deltas, measured cost/latency
 deltas, exclusions and uncertainty. Missing cost/latency is `null`, not zero.
+The protocol must explicitly classify every observed action through
+`actionKinds: { toolName: "tool", finalAnswer: "control" }`. Missing classifications
+are rejected. Tool counts use this pinned registry, never naming conventions.
 The paired normal interval is approximate, needs at least 30 independent tasks
 and is not valid evidence for correlated or cherry-picked cases. Small samples
 retain their raw observations but cannot pass a positive-gain gate.
@@ -99,12 +137,18 @@ source and still requires provenance review. No live policy is activated.
 ```bash
 bun examples/react-policy-optimization/src/trajectory-evidence.ts /tmp/trajectory-evidence
 bun test packages/rl/src/trajectory-import.test.ts
+bun examples/react-policy-optimization/src/record-trajectories.ts /tmp/recorded-trajectories
+bun test packages/rl/src/trajectory-recorder.test.ts
 ```
 
 The example imports 60 explicitly synthetic episodes (30 actual fixture pairs),
 redacts private fields, reports a quality delta and keeps missing usage unavailable.
 Its decision is deliberately `do-not-adopt`: it proves the import/comparison
 mechanics and does not establish improvement in IgnitionRAG.
+The recording example executes two written policies against the synthetic order
+environment, exports their actual transitions, measures step latency, leaves
+cost unavailable and imports the result. It establishes the recorder/import
+boundary and declares `evidenceMode: "synthetic"`; it supplies no real gain proof.
 
 ## Required real-data proof
 
