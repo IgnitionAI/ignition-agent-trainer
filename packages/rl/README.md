@@ -1,5 +1,25 @@
 # @ignitionai/agent-trainer-rl
 
+## Lightweight offline policy optimization
+
+`optimizePolicyOffline({ candidates, trainingRecords, evaluationRecords })`
+compares policies with `evaluatePolicyOffline`, feeds observed training rewards
+to a fixed-strategy bandit, and returns a deterministic selection report with
+training and evaluation breakdowns. Each candidate has an `id` and `policy`.
+Use deterministic, stateless policies for reproducible replay. Every selected
+action must have an observed reward in its record; missing rewards fail.
+
+Both splits must be nonempty, have unique ids, and share no record ids. Selection
+uses training mean reward only; evaluation can reveal that the selected policy
+generalizes poorly without changing the selection. Equal means use policy id.
+Keep the underlying tasks independent too: distinct ids alone cannot prevent
+semantic duplication. Do not provide ground-truth rewards as policy inputs.
+
+This is lightweight policy optimization with full-information offline data,
+not PPO, model training or a counterfactual estimator. See
+[`react-policy-optimization`](../../examples/react-policy-optimization/README.md)
+for executable ReAct rollouts and held-out comparison.
+
 Experimental reinforcement-learning-inspired utilities for Ignition Agent Trainer.
 
 This package is prototype-only today. It does not train model weights, route live production traffic, implement PPO or implement full GRPO training.

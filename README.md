@@ -155,6 +155,16 @@ Run a deterministic RAG environment episode and trajectory report:
 bun run --filter './examples/rag-environment-episode' dev
 ```
 
+Run a deterministic ReAct agent, collect tool trajectories and select a policy
+from observed rewards with a held-out comparison:
+
+```bash
+bun run --filter './examples/react-policy-optimization' dev
+```
+
+See [ReAct policy optimization](./examples/react-policy-optimization/README.md)
+for the reinforcement loop, report exports and synthetic-data limits.
+
 Run that episode through the local CLI and write trajectory reports:
 
 ```bash

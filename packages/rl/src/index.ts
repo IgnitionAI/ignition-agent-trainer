@@ -4,6 +4,7 @@ export * from "./episode-trajectory";
 export * from "./group-relative-selection";
 export * from "./offline-policy-evaluation";
 export * from "./policy";
+export * from "./policy-optimization";
 export * from "./ppo";
 export * from "./strategy-bandit";
 export * from "./trajectory";
