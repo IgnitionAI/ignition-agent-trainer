@@ -1,5 +1,32 @@
 # ReAct policy optimization
 
+## Rich feature experiment
+
+```bash
+bun examples/react-policy-optimization/src/features.ts validation /tmp/react-features
+bun examples/react-policy-optimization/src/features.ts evaluation /tmp/react-features
+```
+
+The linear and tabular policies each train for 2000 episodes per seed (1–5),
+with gamma 1 and epsilon 0.3; alpha is 0.01 for linear and 0.3 for tabular.
+Calibration, validation and final context combinations are separate. Features
+describe observable stage, task type, remaining budget, observed tool quality,
+tool error and verification requirement. A `verify_total` tool checks the
+observed arithmetic when verification is required; an unverified answer earns
+zero task reward. Neither prices nor expected answers enter the feature vector.
+
+The encoder fits only calibration observations and has 24 features with missing
+and unknown indicators. Six actions use 144 weights regardless of price values
+or task count. Final cases include unseen `quote` contexts and missing quality.
+Reports export weights, normalization, protocol, reward curves and per-group
+results. The adoption gate requires at least tabular success in every group,
+100% success on this deterministic fixture, and unchanged parameters during
+evaluation. An equality between two failing policies cannot pass the gate.
+
+This demonstrates composition of observable features, not production routing,
+LLM training or guaranteed convergence. It does not remove the domain safety
+constraints documented by the robustness experiment.
+
 ## Generalization and robustness campaign
 
 ```bash

@@ -1,5 +1,30 @@
 # @ignitionai/agent-trainer-rl
 
+## Linear action values and versioned observation features
+
+`fitObservationFeatureEncoder(schema, trainingStates)` selects only named
+observation fields and returns a fixed encoder with an exportable descriptor.
+Fit once on calibration observations. Numeric features use their training mean
+and standard deviation (scale 1 when constant), clipped to [-3, 3]. Missing
+values encode 0 with a separate missing indicator. Categories use one-hot
+features and an unknown bucket. The dimension never grows with task ids, prices
+or newly encountered categories. Never select expected answers or future data.
+
+`LinearQLearningPolicy({ alpha, gamma, epsilon, seed, actionNames, encoder,
+bindAction })` shares feature weights across states and implements the existing
+learning-policy contract. Its update is
+`w[action] += alpha * (reward + gamma * maxAvailableNextQ - Q) * features`.
+Terminal transitions do not bootstrap. Invalid vectors/actions and non-finite
+updates fail explicitly. `snapshot()` exports fixed-size weights; `freeze()`
+uses detached weights, disables exploration and exposes no update. Custom
+encoders/binders must be pure and fixed during evaluation.
+
+Run `bun examples/react-policy-optimization/src/features.ts evaluation /tmp/react-features`
+for a comparison to tabular Q-learning on held-out context combinations across
+five seeds. This is experimental semi-gradient control; off-policy function
+approximation is not guaranteed to converge. Source:
+[Sutton and Barto, Reinforcement Learning](https://www.incompleteideas.net/book/bookdraft2018mar21.pdf).
+
 ## Tabular Q-learning of discrete tool actions
 
 `TabularQLearningPolicy` implements the environment `Policy` interface. Supply
