@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add a versioned, pseudonymized trajectory import and observed-policy evidence
+  comparison contract. Real IgnitionRAG evidence remains unverified without an authorized export.
+
 - Add versioned observation feature fitting and experimental linear Q-learning
   with fixed feature dimensions and frozen evaluation, without changing existing APIs.
 
