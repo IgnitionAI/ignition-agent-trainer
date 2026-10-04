@@ -3278,3 +3278,14 @@ Return to this repository only to fix concrete issues discovered by real dogfood
 - #55: implemented and verified in draft PR #61; issue closed; merge pending.
 - #56: importer/evidence contract current on `feat/ignitionrag-trajectory-evidence`; actual real-export/gain criteria blocked by unavailable data access. Issue stays open.
 - Next: #55 rich observable features; #56 real IgnitionRAG trajectories; #57 policy artifacts/rollback; #58 algorithm decision.
+
+## Policy artifact lifecycle — issue #57
+
+Implemented in a draft branch pending review and merge:
+- strict versioned tabular/linear artifacts and compatibility-bound greedy loading;
+- immutable local versions and gate reports, pinned baseline thresholds;
+- explicit promotion, exclusive writer locking and atomic one-step rollback;
+- synthetic held-out ReAct lifecycle report and process termination coverage.
+
+Real IgnitionRAG gain/adoption is still not proven (#56); this local registry does
+not deploy policies or authenticate caller-supplied evaluation evidence.

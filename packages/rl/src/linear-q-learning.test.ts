@@ -84,7 +84,7 @@ test("linear policy rejects malformed vectors, unavailable actions and invalid p
   for (const actions of [[], [{ name: "unknown" }], [{ name: "a" }, { name: "a" }]]) {
     await expect(policy.chooseAction(state(0), actions)).rejects.toThrow();
   }
-  for (const features of [[1], [1, NaN]]) {
+  for (const features of [[1], [1, NaN], Array<number>(2)]) {
     const invalid = new LinearQLearningPolicy({
       ...options,
       encoder: { ...encoder, encode: () => features },

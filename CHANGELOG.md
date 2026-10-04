@@ -6,6 +6,9 @@
   evaluation and measured step latency. Observed comparisons now require an
   explicit tool/control action registry. Actual IgnitionRAG runtime evidence remains unproven.
 
+- Add strict tabular/linear policy artifacts, explicit baseline gates and a local
+  immutable registry with atomic promotion and rollback; synthetic lifecycle demo.
+
 - Add a versioned, pseudonymized trajectory import and observed-policy evidence
   comparison contract. Real IgnitionRAG evidence remains unverified without an authorized export.
 

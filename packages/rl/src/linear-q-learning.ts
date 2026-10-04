@@ -108,7 +108,10 @@ export class LinearQLearningPolicy implements LearningPolicy {
 
   private features(state: EnvironmentState): number[] {
     const features = this.options.encoder.encode(state);
-    if (features.length !== this.dimension || features.some((value) => !Number.isFinite(value)))
+    if (
+      features.length !== this.dimension ||
+      Array.from(features).some((value) => !Number.isFinite(value))
+    )
       throw new Error("Invalid linear feature vector.");
     return features;
   }
