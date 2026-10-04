@@ -1,5 +1,31 @@
 # ReAct policy optimization
 
+## Learning tool actions
+
+```bash
+bun src/learning.ts /tmp/react-learning
+```
+
+From the repository root:
+
+```bash
+bun examples/react-policy-optimization/src/learning.ts /tmp/react-learning
+```
+
+This second scenario trains tabular Q-learning on 400 episodes across six
+calibration tasks (seed 53, alpha 0.3, gamma 1, epsilon 0.3). Twenty-four held-out
+orders use both prices and multiple quantities absent from calibration. A
+separate single-item probe checks that calculation is skipped. The controller
+learns the next action from observable categories; the action binder formats
+answers only from tool results.
+
+The JSON report keeps task ids, hyperparameters, training rewards, truncations,
+Q-values and per-case evaluation trajectories. It compares an untrained policy,
+direct answers, handwritten ReAct and the frozen learned policy. The learned
+policy reaches 100% accuracy and mean reward 0.96 on the held-out orders, equal
+to handwritten ReAct. No production or LLM training claim follows from this
+synthetic fixture. Freezing detaches the table and disables exploration/updates.
+
 A local, deterministic ReAct controller uses `lookup_price` and `calculate_total`
 tools to answer order-total questions. It chooses the next action from the tool
 observation rather than following a fixed action list. The tools execute actual

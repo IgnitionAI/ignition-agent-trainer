@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Add tabular Q-learning of discrete environment actions, seeded exploration,
+  terminal-aware TD updates and detached frozen evaluation policies.
+- Add a learning episode runner with explicit truncation and an executable
+  synthetic ReAct learning example. Existing episode APIs are unchanged.
+
 ## 0.1.0-alpha.0
 
 Internal alpha readiness:
