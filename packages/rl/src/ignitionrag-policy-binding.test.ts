@@ -1,4 +1,5 @@
 import { describe, expect, test } from "vitest";
+import { fitObservationFeatureEncoder } from "./feature-encoder";
 import { createIgnitionRagPolicyBinding } from "./ignitionrag-policy-binding";
 import { createPolicyArtifact, type PolicyArtifactBody } from "./policy-artifact";
 
@@ -67,4 +68,43 @@ describe("IgnitionRAG artifact binding", () => {
     ])
       await expect(profile.chooseAction(input, ["lookup"])).rejects.toThrow();
   });
+});
+
+test("loads trained linear features without refitting on evaluation observations", async () => {
+  const featureEncoder = fitObservationFeatureEncoder(
+    { id: "ignitionrag-trained", version: 1, numeric: ["modelCalls"], categorical: {} },
+    [{ id: "training", observation }],
+  );
+  const input = artifact({
+    algorithm: "linear-q",
+    encoder: {
+      id: "ignitionrag-trained",
+      version: 1,
+      parameters: featureEncoder.descriptor as unknown as Record<string, unknown>,
+    },
+    parameters: { lookup: [0, 1, 0], __answer__: [1, 0, 0] },
+  });
+  const profile = createIgnitionRagPolicyBinding({
+    artifact: input,
+    actionNames: input.actions,
+    expectedProvenanceMode: "synthetic",
+    featureEncoder,
+  });
+  expect(await profile.chooseAction({ ...observation, modelCalls: 3 }, input.actions)).toBe(
+    "lookup",
+  );
+  expect(await profile.chooseAction(observation, input.actions)).toBe("__answer__");
+  expect(() => binding(input)).toThrow();
+  const incompatible = fitObservationFeatureEncoder(
+    { id: "ignitionrag-trained", version: 1, numeric: ["rawText"], categorical: {} },
+    [{ id: "training", observation: { rawText: 1 } }],
+  );
+  expect(() =>
+    createIgnitionRagPolicyBinding({
+      artifact: input,
+      actionNames: input.actions,
+      expectedProvenanceMode: "synthetic",
+      featureEncoder: incompatible,
+    }),
+  ).toThrow();
 });

@@ -167,7 +167,7 @@ they are implemented.
 
 ### Source-compatible live policy binding
 
-`createIgnitionRagPolicyBinding` in the RL package loads a frozen tabular artifact
+`createIgnitionRagPolicyBinding` in the RL package loads a frozen artifact
 for the live projection `ignitionrag.evaluation.observation` version 1. Its
 parameters must be `{ fields: ["modelCalls", "toolCalls", "lastToolFailed"] }`.
 The observation contains exactly those fields: nonnegative safe integer counters
@@ -186,5 +186,11 @@ artifact checksums do not establish authenticity or evidence of real gains.
 This API is available in source and draft artifacts. It is not part of the
 published alpha.2 packages; cross-repository verification must use an explicitly
 configured source checkout or reviewed build, without silently assuming a
-published release contains it. Linear artifacts require a separately specified
-feature projection and are rejected by this binding.
+published release contains it. Linear artifacts require an explicit trusted `featureEncoder` fitted on training
+observations only. Its schema may reference only the declared observation fields.
+The artifact encoder descriptor must exactly match `{ id: schema.id, version:
+schema.version, parameters: featureEncoder.descriptor }`, including normalization
+and feature order. The profile retains the live observation projection in
+`encoder` and exposes the trained descriptor separately in `artifactEncoder`.
+The factory never fits features on evaluation observations; the caller must
+preserve the trusted encoder callback as a pure, immutable function.
