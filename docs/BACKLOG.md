@@ -3160,7 +3160,7 @@ Next PR:
 
 Status:
 
-- current, local implementation; merge and remote checks pending
+- completed in PR #52 (offline policy selection; backlog item #51)
 
 Branch:
 
@@ -3221,11 +3221,11 @@ Definition of done:
 - no model training is introduced,
 - docs explicitly say this is lightweight policy optimization, not PPO.
 
-### Next PR - `feat: learn ReAct tool actions from episode rewards`
+### Issue #53 - `feat: learn ReAct tool actions from episode rewards`
 
 Status:
 
-- planned; follows review of the policy-selection loop
+- current on `feat/react-q-learning`; follows merged PR #52
 
 Goal:
 

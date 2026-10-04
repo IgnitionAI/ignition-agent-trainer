@@ -1,5 +1,34 @@
 # @ignitionai/agent-trainer-rl
 
+## Tabular Q-learning of discrete tool actions
+
+`TabularQLearningPolicy` implements the environment `Policy` interface. Supply
+`alpha` in (0, 1], `gamma` and `epsilon` in [0, 1], an integer `seed`, and an
+`encodeState` function based only on currently observable information. An
+optional `bindAction` constructs arguments from that observation after selection;
+it must preserve the action name. Action names must be distinct and nonempty.
+
+`runLearningEpisode(environment, policy, { maxSteps, seed, policyId })` executes
+and records transitions. Policies with `update` learn once per observed
+transition. The update is `Q += alpha * (reward + gamma * maxAvailableNextQ - Q)`;
+terminal transitions have zero bootstrap. Tool costs may be negative. Next-state
+actions are masked by the environment. `maxSteps` returns `truncated: true` and
+`done: false`, retaining partial rewards and traces; it does not create a success
+or terminal reward. A truncated nonterminal transition still bootstraps.
+
+`snapshot()` returns detached, sorted Q-values. `freeze()` returns a detached
+greedy policy with no update method or exploration. Freeze before evaluation;
+never use expected answers, future rewards or hidden tool data as encoder inputs.
+Unseen states start at zero; equal values use action-name ordering. The seeded
+PRNG uses the low 32 bits of the integer seed and is not cryptographic.
+
+Run `bun examples/react-policy-optimization/src/learning.ts /tmp/react-learning`
+to train for 400 episodes and export a report with rewards, splits, trajectories
+and Q-values. This learns discrete tool decisions, not LLM weights. Synthetic
+command tasks are intentionally small; neither convergence guarantees nor
+production improvement are claimed. Algorithm reference:
+[Watkins and Dayan, Q-learning (1992)](https://www.gatsby.ucl.ac.uk/~dayan/papers/wd92.html).
+
 ## Lightweight offline policy optimization
 
 `optimizePolicyOffline({ candidates, trainingRecords, evaluationRecords })`
