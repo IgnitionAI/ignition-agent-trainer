@@ -1,5 +1,30 @@
 # ReAct policy optimization
 
+## Generalization and robustness campaign
+
+```bash
+bun examples/react-policy-optimization/src/robustness.ts /tmp/react-robustness
+```
+
+The versioned corpus has eight categories with ten cases each, evaluated on
+seeds 1–5: interpolation, unseen values, missing prices, unknown products,
+transient/permanent tool failures, incomplete tool responses and missing
+quantities. Each seed trains on the unchanged calibration from the learning
+example. It compares the frozen learner against a failure-aware handwritten
+ReAct using identical tasks, rewards and budgets (four steps, two lookup tries).
+
+The gate requires no success regression per category, no unsupported numeric
+answers, no budget truncation and no increase in tool calls. Reports include
+every category, even when it fails. A negative-control policy deliberately
+answers incorrectly after successful tools and must fail the success gate.
+
+The tool contract masks answers without supporting observations and bounds
+retries. Clarification/abstention on unrecoverable failures is constrained by
+the available actions; this campaign does **not** claim the learner discovered
+that safety behavior. Normal states still offer competing actions. Results are
+synthetic and establish whether the richer-state experiment may proceed, not
+whether a policy should be deployed.
+
 ## Learning tool actions
 
 ```bash

@@ -3225,7 +3225,7 @@ Definition of done:
 
 Status:
 
-- current on `feat/react-q-learning`; follows merged PR #52
+- implemented and verified in draft PR #59; issue #53 closed; merge pending
 
 Goal:
 
@@ -3270,3 +3270,9 @@ Target product slices:
 - regression check for agent or workflow changes.
 
 Return to this repository only to fix concrete issues discovered by real dogfooding.
+
+## Sequential RL issues
+
+- #53: Q-learning implemented and verified in PR #59 (draft).
+- #54: robustness campaign current on `test/react-generalization`.
+- Next: #55 rich observable features; #56 real IgnitionRAG trajectories; #57 policy artifacts/rollback; #58 algorithm decision.
