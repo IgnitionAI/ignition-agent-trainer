@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add versioned observation feature fitting and experimental linear Q-learning
+  with fixed feature dimensions and frozen evaluation, without changing existing APIs.
+
 - Add tabular Q-learning of discrete environment actions, seeded exploration,
   terminal-aware TD updates and detached frozen evaluation policies.
 - Add a learning episode runner with explicit truncation and an executable

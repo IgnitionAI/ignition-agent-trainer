@@ -3274,5 +3274,6 @@ Return to this repository only to fix concrete issues discovered by real dogfood
 ## Sequential RL issues
 
 - #53: Q-learning implemented and verified in PR #59 (draft).
-- #54: robustness campaign current on `test/react-generalization`.
+- #54: implemented and verified in draft PR #60; issue closed; merge pending.
+- #55: rich observable feature learning current on `feat/linear-q-learning`.
 - Next: #55 rich observable features; #56 real IgnitionRAG trajectories; #57 policy artifacts/rollback; #58 algorithm decision.
