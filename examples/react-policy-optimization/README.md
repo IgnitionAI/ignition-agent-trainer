@@ -137,3 +137,13 @@ selection and invalid offline inputs:
 ```bash
 bun test examples/react-policy-optimization/src/example.test.ts packages/rl/src/policy-optimization.test.ts
 ```
+
+Local immutable artifacts, baseline gates and rollback are demonstrated with:
+
+```sh
+bun src/registry.ts /tmp/policy-lifecycle-new
+```
+
+Use a new directory. The synthetic report proves reload/promotion/rollback behavior;
+real IgnitionRAG adoption remains subject to the trajectory evidence protocol.
+See [the registry contract](../../docs/POLICY_REGISTRY.md).
