@@ -3,6 +3,7 @@ export * from "./contextual-bandit";
 export * from "./episode-trajectory";
 export * from "./feature-encoder";
 export * from "./group-relative-selection";
+export * from "./ignitionrag-policy-binding";
 export * from "./learning-episode";
 export * from "./linear-q-learning";
 export * from "./offline-policy-evaluation";

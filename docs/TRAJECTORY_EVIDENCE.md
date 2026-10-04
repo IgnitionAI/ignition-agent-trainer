@@ -164,3 +164,33 @@ The user-owned [#57](https://github.com/IgnitionAI/ignition-agent-trainer/issues
 policy-artifact work and [#58](https://github.com/IgnitionAI/ignition-agent-trainer/issues/58)
 algorithm decision follow the requested sequence. This document does not claim
 they are implemented.
+
+### Source-compatible live policy binding
+
+`createIgnitionRagPolicyBinding` in the RL package loads a frozen artifact
+for the live projection `ignitionrag.evaluation.observation` version 1. Its
+parameters must be `{ fields: ["modelCalls", "toolCalls", "lastToolFailed"] }`.
+The observation contains exactly those fields: nonnegative safe integer counters
+and a boolean recording the last observed tool failure. The Q-table state key
+is canonical JSON with sorted keys, for example
+`{"lastToolFailed":false,"modelCalls":1,"toolCalls":0}`.
+
+The factory requires the full tool action registry plus `__answer__`, the
+`ignitionrag.sparse-quality.v1` reward configuration and an explicitly expected
+provenance mode. It returns artifact metadata and a `chooseAction` callback that
+obeys the actual available action mask. Intermediate reward is zero; terminal
+quality must be measured independently by the caller. The runner also owns the
+execution budget and authenticated dataset access. Provenance declarations and
+artifact checksums do not establish authenticity or evidence of real gains.
+
+This API is available in source and draft artifacts. It is not part of the
+published alpha.2 packages; cross-repository verification must use an explicitly
+configured source checkout or reviewed build, without silently assuming a
+published release contains it. Linear artifacts require an explicit trusted `featureEncoder` fitted on training
+observations only. Its schema may reference only the declared observation fields.
+The artifact encoder descriptor must exactly match `{ id: schema.id, version:
+schema.version, parameters: featureEncoder.descriptor }`, including normalization
+and feature order. The profile retains the live observation projection in
+`encoder` and exposes the trained descriptor separately in `artifactEncoder`.
+The factory never fits features on evaluation observations; the caller must
+preserve the trusted encoder callback as a pure, immutable function.
