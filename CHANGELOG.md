@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add executed trajectory capture with allowlisted observations, explicit quality
+  evaluation and measured step latency. Observed comparisons now require an
+  explicit tool/control action registry. Actual IgnitionRAG runtime evidence remains unproven.
+
 - Add a versioned, pseudonymized trajectory import and observed-policy evidence
   comparison contract. Real IgnitionRAG evidence remains unverified without an authorized export.
 

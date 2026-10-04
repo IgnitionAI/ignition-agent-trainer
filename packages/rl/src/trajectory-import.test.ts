@@ -89,6 +89,7 @@ test("paired comparison never invents missing usage or counterfactual rewards an
     minimumPairs: 30,
     minimumQualityGain: 0.05,
     maximumToolIncrease: 0,
+    actionKinds: { lookup_price: "tool" as const, answer: "control" as const },
   };
   const comparison = compareObservedTrajectoryPolicies(imported, protocol);
   expect(comparison.paired).toHaveLength(30);
@@ -96,6 +97,32 @@ test("paired comparison never invents missing usage or counterfactual rewards an
   expect(comparison.cost).toBeNull();
   expect(comparison.latency).toBeNull();
   expect(comparison.alternativeActionsEstimated).toBe(false);
+  expect(comparison.tools.mean).toBe(0);
+  expect(() =>
+    compareObservedTrajectoryPolicies(imported, { ...protocol, actionKinds: {} }),
+  ).toThrow("classification");
+  const moreTools = {
+    ...imported,
+    episodes: imported.episodes.map((episode) => ({
+      ...episode,
+      transitions: episode.transitions.map((step) => ({
+        ...step,
+        action: {
+          ...step.action,
+          name:
+            step.action.name === "answer" && episode.policyId === protocol.learnedPolicyId
+              ? "finalize"
+              : step.action.name,
+        },
+      })),
+    })),
+  };
+  const classified = compareObservedTrajectoryPolicies(moreTools, {
+    ...protocol,
+    actionKinds: { ...protocol.actionKinds, finalize: "tool" },
+  });
+  expect(classified.tools.mean).toBe(1);
+  expect(classified.reasons).toContain("Tool use exceeds the protocol threshold.");
   expect(comparison.decision).toBe("do-not-adopt");
   expect(comparison.reasons).toContain(
     "Synthetic evidence cannot establish production improvement.",

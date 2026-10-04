@@ -70,6 +70,7 @@ export function runTrajectoryEvidenceExample() {
     minimumPairs: 30,
     minimumQualityGain: 0.05,
     maximumToolIncrease: 0,
+    actionKinds: { lookup_price: "tool" as const, answer: "control" as const },
   });
   return {
     imported,
