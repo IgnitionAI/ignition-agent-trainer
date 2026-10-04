@@ -1,5 +1,29 @@
 # @ignitionai/agent-trainer-rl
 
+## Observed IgnitionRAG trajectory evidence
+
+`importIgnitionRagTrajectories(unknownExport, options)` validates versioned
+episode/transition exports, pseudonymizes ids with a private stable salt and
+retains only explicitly authorized numeric, boolean or enumerated-string fields.
+It returns accepted episodes, rejected indexes/reasons and an input fingerprint.
+No raw ids, arbitrary tool text or private argument fields are retained by default.
+The source/evidence mode and authorization reference are declarations, not proof
+of provenance or an authentication bypass.
+
+`splitTrajectoryEvidence(episodes, cutoff)` splits chronologically and excludes
+later episodes sharing a task or workflow snapshot with training. Pin the cutoff
+before evaluating. `compareObservedTrajectoryPolicies(imported, protocol)` pairs
+actual baseline/learned runs by task and snapshot. Repeats or missing pairs are
+excluded and block adoption. Unobserved alternatives are never assigned rewards.
+Cost/latency totals are unavailable unless measured on every transition of every
+pair. Quality uncertainty uses an explicitly labeled paired normal approximation
+only with at least 30 tasks; correlated tasks require separate analysis.
+
+No-gain, uncertain, truncated, incomplete or synthetic evidence returns
+`do-not-adopt`. Positive observed evidence still requires provenance review;
+no policy is promoted automatically. See [trajectory evidence contract](../../docs/TRAJECTORY_EVIDENCE.md)
+for export requirements and the currently unproven real-data prerequisite.
+
 ## Linear action values and versioned observation features
 
 `fitObservationFeatureEncoder(schema, trainingStates)` selects only named

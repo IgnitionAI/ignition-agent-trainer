@@ -1,5 +1,17 @@
 # ReAct policy optimization
 
+## Observed trajectory import contract
+
+```bash
+bun examples/react-policy-optimization/src/trajectory-evidence.ts /tmp/trajectory-evidence
+```
+
+This explicitly synthetic fixture proves pseudonymized import, field redaction,
+chronological split and paired observed comparison. It reports `do-not-adopt`
+and `BLOCKED — NOT PROVEN` for real-data evidence. See the
+[export contract](../../docs/TRAJECTORY_EVIDENCE.md) before importing real records;
+no actual IgnitionRAG improvement is claimed by this example.
+
 ## Rich feature experiment
 
 ```bash
