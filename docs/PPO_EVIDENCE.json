@@ -140,5 +140,20 @@
         }
       ]
     }
+  },
+  "localLifecycle": {
+    "sourceCommit": "37f7f404d8761d940edb3e5e1b9ede114bf4b05d",
+    "evidenceMode": "synthetic",
+    "productionAdoption": "NOT PROVEN; local lifecycle only",
+    "reportSha256": "3fe5ace64cd946abbb97e432274731c0d6e33e48012f19189fcd3a5ecaa36735",
+    "reloadPreservesDecisions": true,
+    "promotionPassed": true,
+    "rollbackPreservesBaseline": true,
+    "registryTests": {
+      "passed": 4,
+      "failed": 0,
+      "assertions": 46,
+      "interruption": "precommit temporary file and real terminated writer preserve valid active version"
+    }
   }
 }

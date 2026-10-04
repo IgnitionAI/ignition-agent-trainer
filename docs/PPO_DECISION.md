@@ -16,6 +16,9 @@ regenerated synthetic reports. Reports were regenerated with Bun 1.4.2:
 bun examples/react-policy-optimization/src/learning.ts /tmp/issue58-evidence
 bun examples/react-policy-optimization/src/robustness.ts /tmp/issue58-evidence
 bun examples/react-policy-optimization/src/features.ts evaluation /tmp/issue58-evidence
+# Local lifecycle evidence at source 37f7f40:
+bun test packages/rl/src/policy-registry.test.ts
+bun examples/react-policy-optimization/src/registry.ts /tmp/issue58-lifecycle
 ```
 
 | Observation | Measurement | Meaning and boundary |
@@ -33,8 +36,12 @@ credit-assignment bottleneck. Real action-space size, horizon distribution,
 reward delay, coverage, variance and training costs remain unmeasured.
 [#56](https://github.com/IgnitionAI/ignition-agent-trainer/issues/56) lacks verified
 real paired trajectories. [#57](https://github.com/IgnitionAI/ignition-agent-trainer/issues/57)
-policy lifecycle evidence remains pending; no production baseline/rollback proof
-is inferred from local snapshots.
+local lifecycle is verified at source `37f7f40`: versioned artifacts reload
+without calibration, promotion gates reject regressions/missing required cost,
+rollback restores baseline choices, and interruption tests preserve a valid active
+version. These are isolated synthetic/local checks, not production deployment proof.
+The local gate deliberately allows two extra tools versus an untrained baseline;
+it does not establish superiority over handwritten ReAct or the stronger PPO gate.
 
 ## Simpler options before PPO
 
@@ -61,7 +68,7 @@ and [OpenAI Spinning Up algorithm documentation](https://spinningup.openai.com/e
 | Behavior-policy version and collection log probabilities | Missing in imported trajectory schema | `packages/rl/src/trajectory-import.ts`: ImportedTransition has no behavior log-probability |
 | Fresh authorized on-policy rollout collection | Not proven for IgnitionRAG | #56 and [trajectory contract](TRAJECTORY_EVIDENCE.md) |
 | Value estimate, advantage computation and terminal/truncation treatment | PPO components absent; Q values are not an implemented actor/critic advantage pipeline | `packages/rl/src/learning-episode.ts`, `q-learning.ts` |
-| Immutable policy identity, baseline comparison and rollback | Pending | #57; local freeze alone does not prove lifecycle operation |
+| Immutable policy identity, baseline comparison and rollback | Verified locally; production integration remains unproven | #57; artifact/registry tests and executable `registry.ts` |
 | Isolated environment and measured budgets | Real execution/usage unavailable | #56; synthetic execution is available only |
 
 No imported offline record is relabeled on-policy. Neither missing probabilities
@@ -70,7 +77,8 @@ nor alternative-action rewards may be reconstructed from answer-only traces.
 ## Conditional prototype contract
 
 The following proposed protocol is fixed in this record but **not activated**.
-Before a GO, verify #56/#57, freeze a real task/workflow split and reward definition,
+Before a GO, verify real #56 outcomes and the #57 lifecycle in the target runtime,
+freeze a real task/workflow split and reward definition,
 measure real horizons/coverage, and show persistent failure of the best simpler
 method under equal sampling budgets. A GO additionally requires funded measured
 usage, executable on-policy collection and a separate bounded implementation ticket.
@@ -94,6 +102,7 @@ usage, executable on-policy collection and a separate bounded implementation tic
   prove rollback through #57 before any activation.
 
 No prototype issue is created while the decision is blocked. Revisit this record
-using actual #56 outcomes and #57 lifecycle verification; keep #58 open until that
+using actual #56 outcomes and target-runtime #57 lifecycle verification; keep #58
+open until that
 review is complete. A future NO-GO should identify measured reasons to retain a
 simpler method; a future GO must link the separate prototype issue and its budget.
